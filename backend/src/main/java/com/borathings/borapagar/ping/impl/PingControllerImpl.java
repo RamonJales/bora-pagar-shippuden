@@ -13,17 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class PingControllerImpl implements PingController {
-    /**
-     * @return Uma response com código HTTP 200 e o body "pong"
-     */
+    @Override
     public ResponseEntity<String> ping() {
         return ResponseEntity.ok("Pong");
     }
 
-    /**
-     * @param quantity quantidade de "pongs" que serão retornados
-     * @return Uma response com código HTTP 200 e o body com uma lista de `quantity` pongs
-     */
+    @Override
     public ResponseEntity<List<String>> pings(@RequestParam int quantity) {
         List<String> response = Collections.nCopies(quantity, "pong");
         return ResponseEntity.ok().body(response);
