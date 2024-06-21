@@ -21,14 +21,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public interface PingController {
 
     /**
-     * HTTPHandler que ao receber um GET em "/ping", retornará a string "pong" com status OK (200)
-     *
-     * @see PingController
+     * @return Uma response com código HTTP 200 e o body "pong"
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/ping")
     public ResponseEntity<String> ping();
 
+    /**
+     * @param quantity quantidade de "pongs" que serão retornados
+     * @return Uma response com código HTTP 200 e o body com uma lista de `quantity` pongs
+     */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/pings")
     public ResponseEntity<List<String>> pings(
