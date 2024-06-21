@@ -1,7 +1,6 @@
 package com.borathings.borapagar.core;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
