@@ -12,12 +12,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(PingController.class)
 public class PingControllerTests {
-    
-    @Autowired
-    private MockMvc mockMvc;
+
+    @Autowired private MockMvc mockMvc;
 
     @Test
     public void shouldWork() throws Exception {
-        this.mockMvc.perform(get("/ping")).andExpect(status().isOk()).andExpect(content().string(containsString("Pong")));
+        this.mockMvc
+                .perform(get("/ping"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Pong")));
     }
 }
