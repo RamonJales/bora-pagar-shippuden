@@ -1,9 +1,6 @@
 name: Backend CI
 run-name: Running all verifications of backend
-on: 
-  push:
-    paths:
-      - 'backend/**'
+on: [push]
 
 defaults:
   run:
