@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -71,6 +71,16 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -110,6 +120,57 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+			 <groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version>
+				<configuration>
+					<formats>
+						<format>
+							<includes>
+								<include>.gitattributes</include>
+								<include>.gitignore</include>
+							</includes>
+							<trimTrailingWhitespace/>
+							<endWithNewline/>
+							<indent>
+								<tabs>true</tabs>
+								<spacesPerTab>4</spacesPerTab>
+							</indent>
+						</format>
+					</formats>
+					<java>
+						<formatAnnotations />
+						<googleJavaFormat>
+							<version>1.22.0</version>
+							<style>AOSP</style>
+							<reflowLongStrings>true</reflowLongStrings>
+							<formatJavadoc>true</formatJavadoc>
+						</googleJavaFormat>
+					</java>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+					<encoding>UTF-8</encoding>
+					<compilerArgs>
+						<arg>-XDcompilePolicy=simple</arg>
+						<arg>-Xplugin:ErrorProne</arg>
+					</compilerArgs>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>com.google.errorprone</groupId>
+							<artifactId>error_prone_core</artifactId>
+							<version>2.28.0</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
