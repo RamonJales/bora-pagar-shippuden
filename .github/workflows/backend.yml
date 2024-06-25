@@ -18,11 +18,7 @@ jobs:
           distribution: 'temurin'
           architecture: x64
           cache: 'maven'
-      - name: Compile Project with Maven
-        run: mvn clean compile
       - name: Check if code is formatted
         run: mvn spotless:check
-      - name: Run tests
-        run: mvn test
-      - name: Verify for errors and bugs
+      - name: Run verify suit
         run : mvn verify
