@@ -30,17 +30,17 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-					<activatedProperties>dev</activatedProperties>
+				<activatedProperties>dev</activatedProperties>
 			</properties>
 			<activation>
-					<activeByDefault>true</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		<profile>
-				<id>prod</id>
-				<properties>
-					<activatedProperties>prod</activatedProperties>
-				</properties>
+			<id>prod</id>
+			<properties>
+				<activatedProperties>prod</activatedProperties>
+			</properties>
 		</profile>
 	</profiles>
 	<properties>
