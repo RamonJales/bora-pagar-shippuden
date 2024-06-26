@@ -26,6 +26,23 @@
 		<tag/>
 		<url/>
 	</scm>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+					<activatedProperties>dev</activatedProperties>
+			</properties>
+			<activation>
+					<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+				<id>prod</id>
+				<properties>
+					<activatedProperties>prod</activatedProperties>
+				</properties>
+		</profile>
+	</profiles>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
