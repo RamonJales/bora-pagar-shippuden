@@ -1,18 +1,15 @@
 package com.borathings.borapagar.core.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import org.springframework.http.HttpStatus;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.http.HttpStatus;
 
 /**
- * ApiException
- * Esta classe serve como 'wrapper' das exceções lançadas pela aplicação.
- * Padronizando a resposta de erro da API.
+ * ApiException Esta classe serve como 'wrapper' das exceções lançadas pela aplicação. Padronizando
+ * a resposta de erro da API.
  */
 @Data
 @EqualsAndHashCode

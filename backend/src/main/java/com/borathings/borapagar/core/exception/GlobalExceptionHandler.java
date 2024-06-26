@@ -11,6 +11,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Constrói a resposta da exceção lançada
+     *
      * @param ex - ApiException - Exceção lançada
      * @return ResponseEntity<Object> - Exceção serializada
      */
@@ -19,8 +20,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Trata exceções lançadas pela aplicação que não foram pegas
-     * pelos outros handlers.
+     * Trata exceções lançadas pela aplicação que não foram pegas pelos outros handlers.
+     *
      * @param ex - Exception - Exceção lançada
      * @return ResponseEntity<Object> - Exceção serializada
      */
