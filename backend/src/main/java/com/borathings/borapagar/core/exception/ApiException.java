@@ -19,7 +19,6 @@ import lombok.EqualsAndHashCode;
 public class ApiException {
     private HttpStatus status;
     private String message;
-    private String debugMessage;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
@@ -44,7 +43,6 @@ public class ApiException {
         this();
         this.status = status;
         this.message = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
     /**
@@ -56,6 +54,5 @@ public class ApiException {
         this();
         this.status = status;
         this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
     }
 }
