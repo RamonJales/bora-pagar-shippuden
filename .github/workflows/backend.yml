@@ -21,4 +21,4 @@ jobs:
       - name: Check if code is formatted
         run: mvn spotless:check
       - name: Run verify suit
-        run : mvn verify
+        run : mvn verify -Dspring.flyway.enabled=false
