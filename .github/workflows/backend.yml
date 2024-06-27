@@ -22,3 +22,36 @@ jobs:
         run: mvn spotless:check
       - name: Run verify suit
         run : mvn verify -Dspring.flyway.enabled=false
+      - name: Archive development documentation
+        run: |
+          echo ::group::Archive artifact
+          tar \
+            --dereference --hard-dereference \
+            --directory "$INPUT_PATH" \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            --exclude=.git \
+            --exclude=.github \
+            .
+          echo ::endgroup::
+        env:
+          INPUT_PATH: target/generated-docs
+      - name: Upload archive to github pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}
+
+  deploy-dev-docs:
+    runs-on: ubuntu-latest
+    needs: check
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
+
+
