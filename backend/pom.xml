@@ -98,6 +98,14 @@
 			<artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -193,6 +201,16 @@
 							<version>1.18.32</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.15.0</version>
+				<configuration>
+					<user>postgres</user>
+					<password>password</password>
+					<url>jdbc:postgresql://localhost:5432/borapagar</url>
 				</configuration>
 			</plugin>
 		</plugins>
