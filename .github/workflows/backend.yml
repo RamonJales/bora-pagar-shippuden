@@ -36,7 +36,7 @@ jobs:
         env:
           INPUT_PATH: target/generated-docs
       - name: Upload archive to github pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}
 
