@@ -25,7 +25,7 @@ jobs:
       - name: Upload archive to github pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: target/generated-docs
+          path: backend/target/generated-docs
 
   deploy-dev-docs:
     runs-on: ubuntu-latest
