@@ -28,7 +28,7 @@ jobs:
           tar \
             --dereference --hard-dereference \
             --directory "$INPUT_PATH" \
-            -cvf "$RUNNER_TEMP/artifact.tar" \
+            -cvf "$RUNNER_TEMP/github-pages.tar" \
             --exclude=.git \
             --exclude=.github \
             .
@@ -36,7 +36,7 @@ jobs:
         env:
           INPUT_PATH: target/generated-docs
       - name: Upload archive to github pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ runner.temp }}
 
@@ -52,6 +52,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
 
 
