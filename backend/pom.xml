@@ -207,11 +207,6 @@
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>10.15.0</version>
-				<configuration>
-					<user>postgres</user>
-					<password>password</password>
-					<url>jdbc:postgresql://localhost:5432/borapagar</url>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
