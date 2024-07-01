@@ -13,7 +13,7 @@ import lombok.Setter;
 public class AbstractModel {
     @JsonView(Views.Admin.class)
     @Id
-    public String id;
+    public Long id;
 
     @JsonView(Views.Admin.class)
     @Column(nullable = false)
