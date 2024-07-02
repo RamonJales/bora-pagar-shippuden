@@ -7,5 +7,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface AbstractRepository<M extends AbstractModel> extends JpaRepository<M, Long> {
     List<M> findAllByDeletedFalse();
-    //Page<M> findAllByDeletedFalseByPage(Pageable pageable);
+    // Page<M> findAllByDeletedFalseByPage(Pageable pageable);
 }

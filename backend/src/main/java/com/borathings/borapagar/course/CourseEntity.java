@@ -16,14 +16,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CourseEntity extends AbstractModel{
-    @Column
-    private String name;
+public class CourseEntity extends AbstractModel {
+    @Column private String name;
 
     @Column
     @Enumerated(EnumType.STRING)
     private CourseLevel courseLevel;
 
-    @Column
-    private String coordinator;
+    @Column private String coordinator;
 }
