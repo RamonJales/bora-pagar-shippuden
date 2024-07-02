@@ -42,6 +42,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntityFromException(apiException);
     }
 
+    /**
+     * Trata exceções lançadas pela aplicação quando uma entidade não é encontrada.
+     * @param ex - EntityNotFoundException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
         ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, ex);
