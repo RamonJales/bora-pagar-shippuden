@@ -20,6 +20,7 @@ public interface CourseController {
 
     /**
      * Insere um novo curso no banco de dados
+     *
      * @param courseEntityDto - CourseDTO - Dados do curso
      * @return ResponseEntity<CourseEntity> - Curso criado
      */
@@ -28,6 +29,7 @@ public interface CourseController {
 
     /**
      * Retorna todos os cursos cadastrados
+     *
      * @return ResponseEntity<List<CourseEntity>> - Lista de cursos
      */
     @GetMapping()
@@ -35,6 +37,7 @@ public interface CourseController {
 
     /**
      * Retorna um curso específico
+     *
      * @param id - Long - ID do curso
      * @return ResponseEntity<CourseEntity> - Curso específico
      */
@@ -43,6 +46,7 @@ public interface CourseController {
 
     /**
      * Atualiza um curso específico
+     *
      * @param courseEntityDto - CourseDTO - Dados do curso
      * @param id - Long - ID do curso
      * @return ResponseEntity<CourseEntity> - Curso atualizado
@@ -52,8 +56,9 @@ public interface CourseController {
             @RequestBody @Valid CourseDTO courseEntityDto, @PathVariable Long id);
 
     /**
-     * Deleta um curso específico. Se o curso não existir, não faz nada.
-     * Independente do caso, retorna uma mensagem de sucesso.
+     * Deleta um curso específico. Se o curso não existir, não faz nada. Independente do caso,
+     * retorna uma mensagem de sucesso.
+     *
      * @param id - Long - ID do curso
      * @return ResponseEntity<String> - Mensagem de sucesso
      */
