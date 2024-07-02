@@ -1,10 +1,19 @@
 package com.borathings.borapagar.core.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,6 +37,28 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex) {
         ApiException apiException = new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
+        ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+        MethodArgumentNotValidException ex, 
+        HttpHeaders headers, 
+        HttpStatusCode status, 
+        WebRequest request
+    ) {
+        Map<String, String> fieldErrors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach((error) -> {
+            String errorMessage = error.getDefaultMessage();
+            fieldErrors.put(error.getField(), errorMessage);
+        });
+        ApiFieldException apiException = new ApiFieldException(HttpStatus.BAD_REQUEST, fieldErrors);
         return buildResponseEntityFromException(apiException);
     }
 }
