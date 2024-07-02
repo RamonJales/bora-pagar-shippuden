@@ -1,6 +1,8 @@
 package com.borathings.borapagar.core.exception;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
@@ -46,6 +48,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntityFromException(apiException);
     }
 
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex, 
@@ -53,10 +56,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatusCode status, 
         WebRequest request
     ) {
-        Map<String, String> fieldErrors = new HashMap<>();
+        Map<String, List<String>> fieldErrors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach((error) -> {
             String errorMessage = error.getDefaultMessage();
-            fieldErrors.put(error.getField(), errorMessage);
+            
+            if(fieldErrors.containsKey(error.getField())) {
+                fieldErrors.get(error.getField()).add(errorMessage);
+            } else {
+                fieldErrors.put(error.getField(), new ArrayList<>());
+            }
         });
         ApiFieldException apiException = new ApiFieldException(HttpStatus.BAD_REQUEST, fieldErrors);
         return buildResponseEntityFromException(apiException);
