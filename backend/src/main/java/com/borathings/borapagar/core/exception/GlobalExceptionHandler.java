@@ -66,10 +66,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                             String errorMessage = error.getDefaultMessage();
 
                             if (fieldErrors.containsKey(error.getField())) {
-                                fieldErrors.get(error.getField()).add(errorMessage);
-                            } else {
                                 fieldErrors.put(error.getField(), new ArrayList<>());
                             }
+                            fieldErrors.get(error.getField()).add(errorMessage);
                         });
         ApiFieldException apiException = new ApiFieldException(HttpStatus.BAD_REQUEST, fieldErrors);
         return buildResponseEntityFromException(apiException);
