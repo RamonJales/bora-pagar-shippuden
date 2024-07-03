@@ -19,9 +19,9 @@ jobs:
           architecture: x64
           cache: 'maven'
       - name: Run verify suit
-        run : mvn verify -Dspring.flyway.enabled=false
+        run : ./mvnw verify -Dspring.flyway.enabled=false
       - name: Check if code is formatted
-        run: mvn spotless:check
+        run: ./mvnw spotless:check
       - name: Upload archive to github pages
         uses: actions/upload-pages-artifact@v3
         with:
