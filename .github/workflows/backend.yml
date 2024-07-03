@@ -20,12 +20,30 @@ jobs:
           cache: 'maven'
       - name: Check if code is formatted
         run: mvn spotless:check
+      
       - name: Run verify suit
         run : mvn verify -Dspring.flyway.enabled=false
+      
       - name: Upload archive to github pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: backend/target/generated-docs
+        
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+
+      - name: Informs that PR has fail when coverage is less then 80%
+        if: ${{ steps.jacoco.outputs.coverage-overall < 80.0 }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Cobertura geral é menor que 80%!')    
 
   deploy-dev-docs:
     runs-on: ubuntu-latest
