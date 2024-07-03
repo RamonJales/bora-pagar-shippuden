@@ -18,10 +18,10 @@ jobs:
           distribution: 'temurin'
           architecture: x64
           cache: 'maven'
-      - name: Check if code is formatted
-        run: mvn spotless:check
       - name: Run verify suit
         run : mvn verify -Dspring.flyway.enabled=false
+      - name: Check if code is formatted
+        run: mvn spotless:check
       - name: Upload archive to github pages
         uses: actions/upload-pages-artifact@v3
         with:
