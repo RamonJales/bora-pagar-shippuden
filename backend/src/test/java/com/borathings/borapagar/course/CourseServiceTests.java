@@ -1,7 +1,5 @@
 package com.borathings.borapagar.course;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -94,7 +92,7 @@ public class CourseServiceTests {
         try {
             CourseEntity courseCopy = course;
             courseCopy.setId(null);
-            CourseEntity updatedCourse = courseService.updateCourse(2L, courseCopy);
+            courseService.updateCourse(2L, courseCopy);
         } catch (EntityNotFoundException e) {
             assert true;
             return;
