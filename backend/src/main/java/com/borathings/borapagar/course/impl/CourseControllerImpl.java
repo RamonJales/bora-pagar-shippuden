@@ -7,6 +7,7 @@ import com.borathings.borapagar.course.dto.CourseDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,8 @@ public class CourseControllerImpl implements CourseController {
     @Override
     public ResponseEntity<CourseEntity> createCourse(
             @Valid @RequestBody CourseDTO courseEntityDto) {
-        return ResponseEntity.ok(courseService.createCourse(courseEntityDto));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(courseService.createCourse(courseEntityDto));
     }
 
     @Override
