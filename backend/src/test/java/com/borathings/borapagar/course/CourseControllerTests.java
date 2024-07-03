@@ -11,7 +11,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -25,8 +28,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.borathings.borapagar.course.dto.CourseDTO;
 import com.borathings.borapagar.course.enumTypes.CourseLevel;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @WebMvcTest(CourseController.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -40,7 +44,6 @@ public class CourseControllerTests {
     private CourseService courseService;
 
     private CourseEntity course;
-    private CourseDTO courseDTO;
 
     @BeforeEach
     public void setUpService() {
@@ -51,17 +54,14 @@ public class CourseControllerTests {
         course.setId(1L);
         course.setDeleted(false);
 
-        courseDTO = new CourseDTO();
-        courseDTO.setName("TI");
-        courseDTO.setCourseLevel(CourseLevel.GRADUATION);
-        courseDTO.setCoordinator("Fulano");
-
-
         when(courseService.getAllCourses()).thenReturn(List.of(course));
-        when(courseService.getCourseById(1L)).thenReturn(course);
-        when(courseService.createCourse(courseDTO)).thenReturn(course);
-        when(courseService.updateCourse(1L, courseDTO)).thenReturn(course);
-        doNothing().when(courseService).deleteCourse(1L);;
+        when(courseService.getCourseById(eq(1L))).thenReturn(course);
+        when(courseService.getCourseById(eq(2L))).thenThrow(EntityNotFoundException.class);
+
+        when(courseService.createCourse(any())).thenReturn(course);
+        when(courseService.updateCourse(eq(1L), any())).thenReturn(course);
+        when(courseService.updateCourse(eq(2L), any())).thenThrow(EntityNotFoundException.class);
+        doNothing().when(courseService).deleteCourse(eq(1L));;
     }
 
     @Test
@@ -151,6 +151,25 @@ public class CourseControllerTests {
         this.mockMvc
                 .perform(delete("/course/1"))
                 .andExpect(status().isOk())
+                ;
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenGetNonExistentCourse() throws Exception {
+        this.mockMvc
+                .perform(get("/course/2"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").isNotEmpty())
+                ;
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenUpdatingNonExistentCourse() throws Exception {
+        this.mockMvc
+                .perform(put("/course/2").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\": \"TI\", \"courseLevel\": \"GRADUATION\", \"coordinator\": \"Fulano\"}"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").isNotEmpty())
                 ;
     }
 }
