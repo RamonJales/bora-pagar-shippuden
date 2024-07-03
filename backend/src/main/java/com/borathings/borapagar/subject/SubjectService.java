@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
-
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -19,8 +17,8 @@ public class SubjectService {
      * @param subjectDto - Dados da disciplina
      * @return Disciplina salva
      */
-    public SubjectEntity create(SubjectDTO subjectDto) {
-        return subjectRepository.save(subjectDto.toEntity());
+    public SubjectEntity create(SubjectEntity subjectEntity) {
+        return subjectRepository.save(subjectEntity);
     }
 
     /**
@@ -52,11 +50,10 @@ public class SubjectService {
      * @throws EntityNotFoundException se a disciplina não existir
      * @return Disciplina atualizada
      */
-    public SubjectEntity update(Long id, SubjectDTO subjectDto) {
-        SubjectEntity subject = findById(id);
-        subject = subjectDto.toEntity();
-        subject.setId(id);
-        return subjectRepository.save(subject);
+    public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
+        findById(id);
+        subjectEntity.setId(id);
+        return subjectRepository.save(subjectEntity);
     }
 
     /**
