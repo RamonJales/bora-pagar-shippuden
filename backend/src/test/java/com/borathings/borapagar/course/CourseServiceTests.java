@@ -3,9 +3,10 @@ package com.borathings.borapagar.course;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import com.borathings.borapagar.course.enumTypes.CourseLevel;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -13,18 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.borathings.borapagar.course.enumTypes.CourseLevel;
-
-import jakarta.persistence.EntityNotFoundException;
-
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CourseServiceTests {
-    @MockBean
-    private CourseRepository courseRepository;
+    @MockBean private CourseRepository courseRepository;
 
-    @Autowired
-    private CourseService courseService;
+    @Autowired private CourseService courseService;
 
     private CourseEntity course;
 
@@ -36,7 +31,6 @@ public class CourseServiceTests {
         course.setCoordinator("Fulano");
         course.setId(1L);
         course.setDeleted(false);
-
 
         when(courseRepository.findAll()).thenReturn(List.of(course));
         when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
@@ -58,12 +52,14 @@ public class CourseServiceTests {
         assert courses.get(0).equals(course);
     }
 
-    @Test void shouldGetCourseById() {
+    @Test
+    void shouldGetCourseById() {
         CourseEntity course = courseService.getCourseById(1L);
         assert course.equals(this.course);
     }
 
-    @Test void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentCourse() {
+    @Test
+    void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentCourse() {
         try {
             courseService.getCourseById(2L);
         } catch (EntityNotFoundException e) {
@@ -74,7 +70,8 @@ public class CourseServiceTests {
         assert false;
     }
 
-    @Test void  shouldUpdateCourse() {
+    @Test
+    void shouldUpdateCourse() {
         CourseEntity courseCopy = course;
         courseCopy.setId(null);
         CourseEntity updatedCourse = courseService.updateCourse(1L, courseCopy);
@@ -83,12 +80,14 @@ public class CourseServiceTests {
         assert updatedCourse.getName().equals(courseCopy.getName());
     }
 
-    @Test void shouldDeleteCourse() {
+    @Test
+    void shouldDeleteCourse() {
         courseService.deleteCourse(1L);
         assert true;
     }
 
-    @Test void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentCourse() {
+    @Test
+    void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentCourse() {
         try {
             CourseEntity courseCopy = course;
             courseCopy.setId(null);

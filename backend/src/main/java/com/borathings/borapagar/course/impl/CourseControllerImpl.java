@@ -34,8 +34,7 @@ public class CourseControllerImpl implements CourseController {
     }
 
     @Override
-    public ResponseEntity<CourseEntity> updateCourse(
-            CourseDTO courseEntityDto, Long id) {
+    public ResponseEntity<CourseEntity> updateCourse(CourseDTO courseEntityDto, Long id) {
         return ResponseEntity.ok(courseService.updateCourse(id, courseEntityDto.toEntity()));
     }
 
