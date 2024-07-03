@@ -15,11 +15,11 @@ public class CourseService {
         return courseRepository.save(courseEntityDto.toEntity());
     }
 
-    public List<CourseEntity> findAllCourses() {
+    public List<CourseEntity> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    public CourseEntity findCourseById(Long id) {
+    public CourseEntity getCourseById(Long id) {
         CourseEntity courseEntity = courseRepository.findById(id).orElse(null);
         if (courseEntity == null) {
             throw new EntityNotFoundException("Course of id " + id + " not found");
@@ -28,7 +28,7 @@ public class CourseService {
     }
 
     public CourseEntity updateCourse(Long id, CourseDTO courseEntityDto) {
-        CourseEntity courseEntity = findCourseById(id);
+        CourseEntity courseEntity = getCourseById(id);
         courseEntity = courseEntityDto.toEntity();
         courseEntity.setId(id);
         return courseRepository.save(courseEntity);

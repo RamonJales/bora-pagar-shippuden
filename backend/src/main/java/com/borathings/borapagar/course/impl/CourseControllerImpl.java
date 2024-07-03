@@ -8,9 +8,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,23 +22,23 @@ public class CourseControllerImpl implements CourseController {
     }
 
     @Override
-    public ResponseEntity<List<CourseEntity>> findAllCourses() {
-        return ResponseEntity.ok(courseService.findAllCourses());
+    public ResponseEntity<List<CourseEntity>> getAllCourses() {
+        return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @Override
-    public ResponseEntity<CourseEntity> findCourseById(@RequestParam Long id) {
-        return ResponseEntity.ok(courseService.findCourseById(id));
+    public ResponseEntity<CourseEntity> getCourseById(Long id) {
+        return ResponseEntity.ok(courseService.getCourseById(id));
     }
 
     @Override
     public ResponseEntity<CourseEntity> updateCourse(
-            @RequestBody @Valid CourseDTO courseEntityDto, @PathVariable Long id) {
+            CourseDTO courseEntityDto, Long id) {
         return ResponseEntity.ok(courseService.updateCourse(id, courseEntityDto));
     }
 
     @Override
-    public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCourse(Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.ok("Course deleted successfully");
     }
