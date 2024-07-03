@@ -48,7 +48,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
-        ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, "entity with the requested id does not exist", ex);
+        ApiException apiException =
+                new ApiException(
+                        HttpStatus.NOT_FOUND, "entity with the requested id does not exist", ex);
         return buildResponseEntityFromException(apiException);
     }
 
