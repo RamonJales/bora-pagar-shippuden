@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -33,7 +32,7 @@ public interface CourseController {
      * @return ResponseEntity<List<CourseEntity>> - Lista de cursos
      */
     @GetMapping()
-    public ResponseEntity<List<CourseEntity>> findAllCourses();
+    public ResponseEntity<List<CourseEntity>> getAllCourses();
 
     /**
      * Retorna um curso específico
@@ -42,7 +41,7 @@ public interface CourseController {
      * @return ResponseEntity<CourseEntity> - Curso específico
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CourseEntity> findCourseById(@RequestParam Long id);
+    public ResponseEntity<CourseEntity> getCourseById(@PathVariable Long id);
 
     /**
      * Atualiza um curso específico
