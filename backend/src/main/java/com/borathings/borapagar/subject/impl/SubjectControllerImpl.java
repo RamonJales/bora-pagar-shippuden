@@ -3,6 +3,7 @@ package com.borathings.borapagar.subject.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class SubjectControllerImpl implements SubjectController{
 
     @Override
     public ResponseEntity<SubjectEntity> createSubject(SubjectDTO subjectDto) {
-       return ResponseEntity.ok(subjectService.create(subjectDto.toEntity()));
+       return ResponseEntity.status(HttpStatus.CREATED).body(subjectService.create(subjectDto.toEntity()));
     }
 
     @Override
