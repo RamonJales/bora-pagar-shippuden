@@ -65,7 +65,6 @@ public class CourseControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(course.getId()))
                 .andExpect(jsonPath("$[0].name").value(course.getName()))
-                .andExpect(jsonPath("$[0].courseLevel").value("GRADUATION"))
                 .andExpect(jsonPath("$[0].coordinator").value(course.getCoordinator()));
     }
 
@@ -77,7 +76,6 @@ public class CourseControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
                 .andExpect(jsonPath("$.name").value(course.getName()))
-                .andExpect(jsonPath("$.courseLevel").value("GRADUATION"))
                 .andExpect(jsonPath("$.coordinator").value(course.getCoordinator()));
     }
 
@@ -94,7 +92,6 @@ public class CourseControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
                 .andExpect(jsonPath("$.name").value(course.getName()))
-                .andExpect(jsonPath("$.courseLevel").value("GRADUATION"))
                 .andExpect(jsonPath("$.coordinator").value(course.getCoordinator()));
     }
 
@@ -104,8 +101,7 @@ public class CourseControllerTests {
                 .perform(post("/course").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.name").value(hasSize(1)))
-                .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)))
-                .andExpect(jsonPath("$.fieldErrors.courseLevel").value(hasSize(1)));
+                .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)));
     }
 
     @Test
@@ -121,7 +117,6 @@ public class CourseControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
                 .andExpect(jsonPath("$.name").value(course.getName()))
-                .andExpect(jsonPath("$.courseLevel").value("GRADUATION"))
                 .andExpect(jsonPath("$.coordinator").value(course.getCoordinator()));
     }
 
@@ -131,8 +126,7 @@ public class CourseControllerTests {
                 .perform(put("/course/1").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.name").value(hasSize(1)))
-                .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)))
-                .andExpect(jsonPath("$.fieldErrors.courseLevel").value(hasSize(1)));
+                .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)));
     }
 
     @Test
