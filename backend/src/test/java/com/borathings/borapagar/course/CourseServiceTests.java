@@ -3,7 +3,6 @@ package com.borathings.borapagar.course;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-import com.borathings.borapagar.course.enumTypes.CourseLevel;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +26,6 @@ public class CourseServiceTests {
     public void setUp() {
         course = new CourseEntity();
         course.setName("TI");
-        course.setCourseLevel(CourseLevel.GRADUATION);
         course.setCoordinator("Fulano");
         course.setId(1L);
         course.setDeleted(false);

@@ -13,7 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.borathings.borapagar.course.enumTypes.CourseLevel;
+import com.borathings.borapagar.course.dto.CourseDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureWebMvc
 public class CourseControllerTests {
     @Autowired private MockMvc mockMvc;
+    @Autowired private ObjectMapper objectMapper;
 
     @MockBean private CourseService courseService;
 
@@ -40,7 +42,6 @@ public class CourseControllerTests {
     public void setUpService() {
         course = new CourseEntity();
         course.setName("TI");
-        course.setCourseLevel(CourseLevel.GRADUATION);
         course.setCoordinator("Fulano");
         course.setId(1L);
         course.setDeleted(false);
@@ -87,8 +88,8 @@ public class CourseControllerTests {
                         post("/course")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"name\": \"TI\", \"courseLevel\": \"GRADUATION\","
-                                                + " \"coordinator\": \"Fulano\"}"))
+                                        objectMapper.writeValueAsString(
+                                                new CourseDTO("TI", "Fulano"))))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -114,8 +115,8 @@ public class CourseControllerTests {
                         put("/course/1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"name\": \"TI\", \"courseLevel\": \"GRADUATION\","
-                                                + " \"coordinator\": \"Fulano\"}"))
+                                        objectMapper.writeValueAsString(
+                                                new CourseDTO("TI", "Fulano"))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -154,8 +155,8 @@ public class CourseControllerTests {
                         put("/course/2")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"name\": \"TI\", \"courseLevel\": \"GRADUATION\","
-                                                + " \"coordinator\": \"Fulano\"}"))
+                                        objectMapper.writeValueAsString(
+                                                new CourseDTO("TI", "Fulano"))))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
