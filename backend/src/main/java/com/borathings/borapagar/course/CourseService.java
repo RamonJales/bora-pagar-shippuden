@@ -20,17 +20,14 @@ public class CourseService {
         return courseRepository.save(courseEntity);
     }
 
-
     /**
      * Retorna todos os cursos
      *
      * @return Lista de cursos
      */
-
     public List<CourseEntity> getAllCourses() {
         return courseRepository.findAll();
     }
-
 
     /**
      * Retorna um curso pelo id
@@ -47,7 +44,6 @@ public class CourseService {
         return courseEntity;
     }
 
-
     /**
      * Atualiza um curso
      *
@@ -61,7 +57,6 @@ public class CourseService {
         courseEntity.setId(id);
         return courseRepository.save(courseEntity);
     }
-
 
     /**
      * Deleta um curso. Se o curso não existe, não faz nada
