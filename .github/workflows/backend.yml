@@ -26,6 +26,7 @@ jobs:
       postgres:
         image: postgres:16
         env:
+          POSTGRES_DB: borapagar
           POSTGRES_PASSWORD: password
         options: >-
           --health-cmd pg_isready
@@ -44,7 +45,7 @@ jobs:
           architecture: x64
           cache: 'maven'
       - name: Run verify suit
-        run : ./mvnw verify -Dspring.flyway.enabled=false
+        run : ./mvnw verify
       - name: Check if code is formatted
         run: ./mvnw spotless:check
       - name: Upload archive to github pages
