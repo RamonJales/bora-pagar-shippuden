@@ -1,6 +1,5 @@
 package com.borathings.borapagar.course;
 
-import com.borathings.borapagar.course.dto.CourseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,8 @@ public class CourseService {
 
     @Autowired private CourseRepository courseRepository;
 
-    public CourseEntity createCourse(CourseDTO courseEntityDto) {
-        return courseRepository.save(courseEntityDto.toEntity());
+    public CourseEntity createCourse(CourseEntity courseEntity) {
+        return courseRepository.save(courseEntity);
     }
 
     public List<CourseEntity> getAllCourses() {
@@ -27,9 +26,8 @@ public class CourseService {
         return courseEntity;
     }
 
-    public CourseEntity updateCourse(Long id, CourseDTO courseEntityDto) {
-        CourseEntity courseEntity = getCourseById(id);
-        courseEntity = courseEntityDto.toEntity();
+    public CourseEntity updateCourse(Long id, CourseEntity courseEntity) {
+        getCourseById(id);
         courseEntity.setId(id);
         return courseRepository.save(courseEntity);
     }

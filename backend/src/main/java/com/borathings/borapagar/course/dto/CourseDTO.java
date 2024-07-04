@@ -1,17 +1,14 @@
 package com.borathings.borapagar.course.dto;
 
 import com.borathings.borapagar.course.CourseEntity;
-import com.borathings.borapagar.course.enumTypes.CourseLevel;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CourseDTO {
     @NotBlank private String name;
-
-    // TODO: Implementar validação de enums
-    private CourseLevel courseLevel;
-
     @NotBlank private String coordinator;
 
     /**
@@ -20,7 +17,6 @@ public class CourseDTO {
     public CourseEntity toEntity() {
         CourseEntity courseEntity = new CourseEntity();
         courseEntity.setName(name);
-        courseEntity.setCourseLevel(courseLevel);
         courseEntity.setCoordinator(coordinator);
         return courseEntity;
     }
