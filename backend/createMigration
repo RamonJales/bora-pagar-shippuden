@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Get the current timestamp
+timestamp=$(date +"%Y%m%d%H%M%S")
+root_dir=$(git rev-parse --show-toplevel)
+
+if [ -z "$1" ]; then
+  echo "Error: Name argument is required."
+  exit 1
+fi
+
+name=$1
+
+# Create the file name
+file_name="V${timestamp}__${name}.sql"
+
+# Create the file
+touch "${root_dir}/backend/src/main/resources/db/migration/${file_name}"
+
+# Print a success message
+echo "Created file: $file_name"
