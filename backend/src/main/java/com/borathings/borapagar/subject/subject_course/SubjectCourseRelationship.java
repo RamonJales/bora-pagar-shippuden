@@ -3,7 +3,6 @@ package com.borathings.borapagar.subject.subject_course;
 import com.borathings.borapagar.course.CourseEntity;
 import com.borathings.borapagar.subject.SubjectEntity;
 import com.borathings.borapagar.subject.subject_course.enumTypes.SubjectCourseType;
-
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -19,8 +18,7 @@ import lombok.Data;
 @Data
 @Table(name = "subject_course")
 public class SubjectCourseRelationship {
-    @EmbeddedId
-    private SubjectCourseKey keyId;
+    @EmbeddedId private SubjectCourseKey keyId;
 
     @ManyToOne
     @MapsId("subjectId")
@@ -32,8 +30,7 @@ public class SubjectCourseRelationship {
     @JoinColumn(name = "course_id")
     private CourseEntity course;
 
-    @Nullable
-    private Integer level;
+    @Nullable private Integer level;
 
     @Enumerated(EnumType.STRING)
     private SubjectCourseType subjectCourseType;

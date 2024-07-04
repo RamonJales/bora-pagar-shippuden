@@ -1,19 +1,17 @@
 package com.borathings.borapagar.subject;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class SubjectService {
-    @Autowired
-    private SubjectRepository subjectRepository;
+    @Autowired private SubjectRepository subjectRepository;
 
     /**
      * Salva uma nova disciplina no banco de dados
+     *
      * @param subjectDto - Dados da disciplina
      * @return Disciplina salva
      */
@@ -23,6 +21,7 @@ public class SubjectService {
 
     /**
      * Retorna todas as disciplinas cadastradas
+     *
      * @return Lista de disciplinas
      */
     public List<SubjectEntity> findAll() {
@@ -31,13 +30,14 @@ public class SubjectService {
 
     /**
      * Busca uma disciplina pelo id.
+     *
      * @throws EntityNotFoundException se a disciplina não existir
      * @param id
      * @return Disciplina encontrada
      */
     public SubjectEntity findById(Long id) {
         SubjectEntity subject = subjectRepository.findById(id).orElse(null);
-        if(subject == null) {
+        if (subject == null) {
             throw new EntityNotFoundException("Subject with id " + id + " not found");
         }
         return subject;
@@ -45,6 +45,7 @@ public class SubjectService {
 
     /**
      * Atualiza os dados de uma disciplina
+     *
      * @param id - Id da disciplina
      * @param subjectDto - Novos dados da disciplina
      * @throws EntityNotFoundException se a disciplina não existir
@@ -58,6 +59,7 @@ public class SubjectService {
 
     /**
      * Deleta uma disciplina pelo id
+     *
      * @param id - Id da disciplina
      */
     public void delete(Long id) {

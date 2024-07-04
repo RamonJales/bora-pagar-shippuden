@@ -1,7 +1,8 @@
 package com.borathings.borapagar.subject;
 
+import com.borathings.borapagar.subject.dto.SubjectDTO;
+import jakarta.validation.Valid;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
-import jakarta.validation.Valid;
-
 @RestControllerAdvice
 @RequestMapping("/subject")
 public interface SubjectController {
-    
+
     /**
      * Cria uma nova disciplina
+     *
      * @param subjectDto - Dados da disciplina
      * @return Disciplina criada
      */
@@ -29,6 +28,7 @@ public interface SubjectController {
 
     /**
      * Retorna todas as disciplinas cadastradas
+     *
      * @return Lista de disciplinas
      */
     @GetMapping
@@ -36,6 +36,7 @@ public interface SubjectController {
 
     /**
      * Retorna uma disciplina pelo id
+     *
      * @param id - Id da disciplina
      * @return Disciplina recuperada
      */
@@ -44,16 +45,18 @@ public interface SubjectController {
 
     /**
      * Atualiza os dados de uma disciplina
+     *
      * @param id - Id da disciplina
      * @param subjectDto - Novos dados da disciplina
      * @return Disciplina atualizada
      */
     @PutMapping("/{id}")
-    public ResponseEntity<SubjectEntity> updateSubject(@PathVariable Long id, @RequestBody @Valid SubjectDTO subjectDto);
-
+    public ResponseEntity<SubjectEntity> updateSubject(
+            @PathVariable Long id, @RequestBody @Valid SubjectDTO subjectDto);
 
     /**
      * Deleta uma disciplina pelo id. Se a disciplina não existe, não faz nada.
+     *
      * @param id - Id da disciplina
      * @return Mensagem de sucesso
      */
