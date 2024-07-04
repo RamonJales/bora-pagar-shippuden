@@ -12,6 +12,7 @@ public class CourseService {
 
     /**
      * Cria um novo curso
+     *
      * @param courseEntity - Entidade do curso
      * @return Curso criado
      */
@@ -21,6 +22,7 @@ public class CourseService {
 
     /**
      * Retorna todos os cursos
+     *
      * @return Lista de cursos
      */
     public List<CourseEntity> getAllCourses() {
@@ -29,6 +31,7 @@ public class CourseService {
 
     /**
      * Retorna um curso pelo id
+     *
      * @param id - Id do curso
      * @return Curso recuperado
      * @throws EntityNotFoundException - Caso o curso não seja encontrado
@@ -43,6 +46,7 @@ public class CourseService {
 
     /**
      * Atualiza um curso
+     *
      * @param id - Id do curso
      * @param courseEntity - Entidade atualizada do curso
      * @return Curso atualizado
@@ -56,6 +60,7 @@ public class CourseService {
 
     /**
      * Deleta um curso. Se o curso não existe, não faz nada
+     *
      * @param id - Id do curso
      */
     public void deleteCourse(Long id) {
