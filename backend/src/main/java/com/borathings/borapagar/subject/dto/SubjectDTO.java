@@ -14,7 +14,7 @@ public class SubjectDTO {
 
     @NotBlank private String code;
 
-    @NotBlank private String program;
+    @NotBlank private String syllabus;
 
     @Min(0)
     @NotNull
@@ -24,7 +24,7 @@ public class SubjectDTO {
         SubjectEntity entity = new SubjectEntity();
         entity.setName(name);
         entity.setCode(code);
-        entity.setProgram(program);
+        entity.setSyllabus(syllabus);
         entity.setHours(hours);
         return entity;
     }

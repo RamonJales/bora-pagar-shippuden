@@ -60,7 +60,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$[0].id").value(subject.getId()))
                 .andExpect(jsonPath("$[0].name").value(subject.getName()))
                 .andExpect(jsonPath("$[0].code").value(subject.getCode()))
-                .andExpect(jsonPath("$[0].program").value(subject.getProgram()))
+                .andExpect(jsonPath("$[0].syllabus").value(subject.getSyllabus()))
                 .andExpect(jsonPath("$[0].hours").value(subject.getHours()));
     }
 
@@ -73,7 +73,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$.id").value(subject.getId()))
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
-                .andExpect(jsonPath("$.program").value(subject.getProgram()))
+                .andExpect(jsonPath("$.syllabus").value(subject.getSyllabus()))
                 .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 
@@ -103,7 +103,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$.id").value(subject.getId()))
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
-                .andExpect(jsonPath("$.program").value(subject.getProgram()))
+                .andExpect(jsonPath("$.syllabus").value(subject.getSyllabus()))
                 .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 
@@ -135,13 +135,13 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO("ME", "IMD0001", "program", 100))))
+                                                new SubjectDTO("ME", "IMD0001", "syllabus", 100))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
-                .andExpect(jsonPath("$.program").value(subject.getProgram()))
+                .andExpect(jsonPath("$.syllabus").value(subject.getSyllabus()))
                 .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 

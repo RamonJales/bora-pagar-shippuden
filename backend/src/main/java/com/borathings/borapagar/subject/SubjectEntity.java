@@ -21,6 +21,6 @@ import lombok.Setter;
 public class SubjectEntity extends AbstractModel {
     @Column private String name;
     @Column private String code;
-    @Column @Nullable private String program;
+    @Column @Nullable private String syllabus;
     @Column private Integer hours;
 }
