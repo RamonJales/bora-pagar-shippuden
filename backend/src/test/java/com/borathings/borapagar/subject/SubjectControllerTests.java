@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.borathings.borapagar.subject.dto.SubjectDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,11 +40,7 @@ public class SubjectControllerTests {
     public void setUp() {
         subject =
                 new SubjectEntity(
-                        "Matemática elementar",
-                        "IMD0001",
-                        "math and stuff",
-                        Integer.valueOf(60),
-                        new ArrayList<>());
+                        "Matemática elementar", "IMD0001", "math and stuff", Integer.valueOf(60));
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
         when(subjectService.findById(1L)).thenReturn(subject);
@@ -66,8 +61,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$[0].name").value(subject.getName()))
                 .andExpect(jsonPath("$[0].code").value(subject.getCode()))
                 .andExpect(jsonPath("$[0].program").value(subject.getProgram()))
-                .andExpect(jsonPath("$[0].hours").value(subject.getHours()))
-                .andExpect(jsonPath("$[0].courses").value(subject.getCourses()));
+                .andExpect(jsonPath("$[0].hours").value(subject.getHours()));
     }
 
     @Test
@@ -80,8 +74,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
                 .andExpect(jsonPath("$.program").value(subject.getProgram()))
-                .andExpect(jsonPath("$.hours").value(subject.getHours()))
-                .andExpect(jsonPath("$.courses").value(subject.getCourses()));
+                .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 
     @Test
@@ -111,8 +104,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
                 .andExpect(jsonPath("$.program").value(subject.getProgram()))
-                .andExpect(jsonPath("$.hours").value(subject.getHours()))
-                .andExpect(jsonPath("$.courses").value(subject.getCourses()));
+                .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 
     @Test
@@ -150,8 +142,7 @@ public class SubjectControllerTests {
                 .andExpect(jsonPath("$.name").value(subject.getName()))
                 .andExpect(jsonPath("$.code").value(subject.getCode()))
                 .andExpect(jsonPath("$.program").value(subject.getProgram()))
-                .andExpect(jsonPath("$.hours").value(subject.getHours()))
-                .andExpect(jsonPath("$.courses").value(subject.getCourses()));
+                .andExpect(jsonPath("$.hours").value(subject.getHours()));
     }
 
     @Test

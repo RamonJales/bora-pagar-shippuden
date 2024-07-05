@@ -6,13 +6,3 @@ CREATE TABLE subject (
     deleted BOOLEAN DEFAULT FALSE,
     hours INT NOT NULL
 );
-
-CREATE TABLE subject_course (
-    subject_id BIGINT,
-    course_id BIGINT,
-    level INT,
-    subject_course_type VARCHAR(255),
-    PRIMARY KEY (subject_id, course_id),
-    FOREIGN KEY (subject_id) REFERENCES subject(id),
-    FOREIGN KEY (course_id) REFERENCES course(id)
-);
