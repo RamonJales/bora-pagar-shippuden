@@ -36,10 +36,13 @@ public class SubjectService {
      * @return Disciplina encontrada
      */
     public SubjectEntity findById(Long id) {
-        SubjectEntity subject = subjectRepository.findById(id).orElse(null);
-        if (subject == null) {
-            throw new EntityNotFoundException("Subject with id " + id + " not found");
-        }
+        SubjectEntity subject =
+                subjectRepository
+                        .findById(id)
+                        .orElseThrow(
+                                () ->
+                                        new EntityNotFoundException(
+                                                "Subject with id + " + id + " not found"));
         return subject;
     }
 
