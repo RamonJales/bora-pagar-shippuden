@@ -4,6 +4,7 @@ import com.borathings.borapagar.core.AbstractModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class CourseEntity extends AbstractModel {
-    @Column private String name;
-    @Column private String coordinator;
+    @Column @NotNull private String name;
+
+    @Column @NotNull private String coordinator;
 }
