@@ -42,7 +42,7 @@ public class SubjectService {
                         .orElseThrow(
                                 () ->
                                         new EntityNotFoundException(
-                                                "Subject with id + " + id + " not found"));
+                                                "Disciplina com id " + id + " não encontrada"));
         return subject;
     }
 

@@ -15,7 +15,9 @@ import org.springframework.http.HttpStatus;
 public class ApiFieldException extends ApiException {
     public ApiFieldException(HttpStatus status, Map<String, List<String>> fieldErrors) {
         super(status);
-        this.setMessage("One or more fields are invalid, check fieldErrors for more information");
+        this.setMessage(
+                "Um ou mais campos falharam na validação. Verifique o atributo fieldErrors para"
+                        + " mais detalhes.");
         this.fieldErrors = fieldErrors;
     }
 
