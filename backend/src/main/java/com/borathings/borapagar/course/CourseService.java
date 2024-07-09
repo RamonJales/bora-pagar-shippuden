@@ -39,7 +39,7 @@ public class CourseService {
     public CourseEntity getCourseById(Long id) {
         CourseEntity courseEntity = courseRepository.findById(id).orElse(null);
         if (courseEntity == null) {
-            throw new EntityNotFoundException("Course of id " + id + " not found");
+            throw new EntityNotFoundException("Curso com id " + id + " não encontrado");
         }
         return courseEntity;
     }

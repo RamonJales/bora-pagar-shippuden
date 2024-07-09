@@ -36,7 +36,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex) {
-        ApiException apiException = new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, ex);
+        ApiException apiException =
+                new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro inesperado", ex);
         return buildResponseEntityFromException(apiException);
     }
 
@@ -48,9 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
-        ApiException apiException =
-                new ApiException(
-                        HttpStatus.NOT_FOUND, "entity with the requested id does not exist", ex);
+        ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, ex);
         return buildResponseEntityFromException(apiException);
     }
 
