@@ -12,7 +12,7 @@ public class SubjectService {
     /**
      * Salva uma nova disciplina no banco de dados
      *
-     * @param subjectDto - Dados da disciplina
+     * @param subjectEntity - Dados da disciplina
      * @return Disciplina salva
      */
     public SubjectEntity create(SubjectEntity subjectEntity) {
@@ -29,13 +29,13 @@ public class SubjectService {
     }
 
     /**
-     * Busca uma disciplina pelo id.
+     * Busca uma disciplina pelo id. Lança uma exceção caso a disciplina não seja encontrada
      *
      * @throws EntityNotFoundException se a disciplina não existir
      * @param id
      * @return Disciplina encontrada
      */
-    public SubjectEntity findById(Long id) {
+    public SubjectEntity findByIdOrError(Long id) {
         SubjectEntity subject =
                 subjectRepository
                         .findById(id)
@@ -50,12 +50,12 @@ public class SubjectService {
      * Atualiza os dados de uma disciplina
      *
      * @param id - Id da disciplina
-     * @param subjectDto - Novos dados da disciplina
+     * @param subjectEntity - Novos dados da disciplina
      * @throws EntityNotFoundException se a disciplina não existir
      * @return Disciplina atualizada
      */
     public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
-        findById(id);
+        findByIdOrError(id);
         subjectEntity.setId(id);
         return subjectRepository.save(subjectEntity);
     }

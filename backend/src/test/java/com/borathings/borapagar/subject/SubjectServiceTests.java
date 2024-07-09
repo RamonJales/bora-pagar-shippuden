@@ -51,14 +51,14 @@ public class SubjectServiceTests {
 
     @Test
     void shouldGetSubjectById() {
-        SubjectEntity subject = subjectService.findById(1L);
+        SubjectEntity subject = subjectService.findByIdOrError(1L);
         assert subject.equals(this.subject);
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentSubject() {
         try {
-            subjectService.findById(2L);
+            subjectService.findByIdOrError(2L);
         } catch (EntityNotFoundException e) {
             assert true;
             return;

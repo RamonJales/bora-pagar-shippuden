@@ -16,7 +16,7 @@ public class CourseService {
      * @param courseEntity - Entidade do curso
      * @return Curso criado
      */
-    public CourseEntity createCourse(CourseEntity courseEntity) {
+    public CourseEntity create(CourseEntity courseEntity) {
         return courseRepository.save(courseEntity);
     }
 
@@ -25,22 +25,25 @@ public class CourseService {
      *
      * @return Lista de cursos
      */
-    public List<CourseEntity> getAllCourses() {
+    public List<CourseEntity> findAll() {
         return courseRepository.findAll();
     }
 
     /**
-     * Retorna um curso pelo id
+     * Retorna um curso pelo id. Lança uma exceção caso o curso não seja encontrado
      *
      * @param id - Id do curso
      * @return Curso recuperado
      * @throws EntityNotFoundException - Caso o curso não seja encontrado
      */
-    public CourseEntity getCourseById(Long id) {
-        CourseEntity courseEntity = courseRepository.findById(id).orElse(null);
-        if (courseEntity == null) {
-            throw new EntityNotFoundException("Curso com id " + id + " não encontrado");
-        }
+    public CourseEntity findByIdOrError(Long id) {
+        CourseEntity courseEntity =
+                courseRepository
+                        .findById(id)
+                        .orElseThrow(
+                                () ->
+                                        new EntityNotFoundException(
+                                                "Curso com id " + id + " não encontrado"));
         return courseEntity;
     }
 
@@ -52,8 +55,8 @@ public class CourseService {
      * @return Curso atualizado
      * @throws EntityNotFoundException - Caso o curso não seja encontrado
      */
-    public CourseEntity updateCourse(Long id, CourseEntity courseEntity) {
-        getCourseById(id);
+    public CourseEntity update(Long id, CourseEntity courseEntity) {
+        findByIdOrError(id);
         courseEntity.setId(id);
         return courseRepository.save(courseEntity);
     }
@@ -63,7 +66,7 @@ public class CourseService {
      *
      * @param id - Id do curso
      */
-    public void deleteCourse(Long id) {
+    public void delete(Long id) {
         courseRepository.deleteById(id);
     }
 }
