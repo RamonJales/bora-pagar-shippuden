@@ -60,7 +60,7 @@ public class CourseControllerTests {
     @Test
     public void shouldReturnCourses() throws Exception {
         this.mockMvc
-                .perform(get("/course"))
+                .perform(get("/api/course"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(course.getId()))
@@ -71,7 +71,7 @@ public class CourseControllerTests {
     @Test
     public void shouldReturnCourseById() throws Exception {
         this.mockMvc
-                .perform(get("/course/1"))
+                .perform(get("/api/course/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -83,7 +83,7 @@ public class CourseControllerTests {
     public void shouldCreateCourse() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/course")
+                        post("/api/course")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -98,7 +98,7 @@ public class CourseControllerTests {
     @Test
     public void shouldValidateFieldsOnCreate() throws Exception {
         this.mockMvc
-                .perform(post("/course").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .perform(post("/api/course").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.name").value(hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)));
@@ -108,7 +108,7 @@ public class CourseControllerTests {
     public void shouldUpdateCourse() throws Exception {
         this.mockMvc
                 .perform(
-                        put("/course/1")
+                        put("/api/course/1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -123,7 +123,7 @@ public class CourseControllerTests {
     @Test
     public void shouldValidateFieldsOnUpdate() throws Exception {
         this.mockMvc
-                .perform(put("/course/1").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .perform(put("/api/course/1").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.name").value(hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors.coordinator").value(hasSize(1)));
@@ -131,13 +131,13 @@ public class CourseControllerTests {
 
     @Test
     public void shouldDeleteCourse() throws Exception {
-        this.mockMvc.perform(delete("/course/1")).andExpect(status().isOk());
+        this.mockMvc.perform(delete("/api/course/1")).andExpect(status().isOk());
     }
 
     @Test
     public void shouldReturnNotFoundWhenGetNonExistentCourse() throws Exception {
         this.mockMvc
-                .perform(get("/course/2"))
+                .perform(get("/api/course/2"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
@@ -146,7 +146,7 @@ public class CourseControllerTests {
     public void shouldReturnNotFoundWhenUpdatingNonExistentCourse() throws Exception {
         this.mockMvc
                 .perform(
-                        put("/course/2")
+                        put("/api/course/2")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
