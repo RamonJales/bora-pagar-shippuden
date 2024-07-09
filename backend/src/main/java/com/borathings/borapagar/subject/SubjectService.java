@@ -29,13 +29,13 @@ public class SubjectService {
     }
 
     /**
-     * Busca uma disciplina pelo id.
+     * Busca uma disciplina pelo id. Lança uma exceção caso a disciplina não seja encontrada
      *
      * @throws EntityNotFoundException se a disciplina não existir
      * @param id
      * @return Disciplina encontrada
      */
-    public SubjectEntity findById(Long id) {
+    public SubjectEntity findByIdOrError(Long id) {
         SubjectEntity subject =
                 subjectRepository
                         .findById(id)
@@ -55,7 +55,7 @@ public class SubjectService {
      * @return Disciplina atualizada
      */
     public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
-        findById(id);
+        findByIdOrError(id);
         subjectEntity.setId(id);
         return subjectRepository.save(subjectEntity);
     }

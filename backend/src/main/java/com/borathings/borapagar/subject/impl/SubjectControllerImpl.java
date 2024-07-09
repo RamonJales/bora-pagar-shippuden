@@ -28,7 +28,7 @@ public class SubjectControllerImpl implements SubjectController {
 
     @Override
     public ResponseEntity<SubjectEntity> getSubjectById(Long id) {
-        return ResponseEntity.ok(subjectService.findById(id));
+        return ResponseEntity.ok(subjectService.findByIdOrError(id));
     }
 
     @Override
@@ -39,6 +39,6 @@ public class SubjectControllerImpl implements SubjectController {
     @Override
     public ResponseEntity<String> deleteSubject(Long id) {
         subjectService.delete(id);
-        return ResponseEntity.ok("Subject deleted successfully");
+        return ResponseEntity.ok("Disciplina excluída com sucesso");
     }
 }
