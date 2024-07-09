@@ -44,10 +44,12 @@ public class SubjectControllerTests {
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
         when(subjectService.findById(1L)).thenReturn(subject);
-        when(subjectService.findById(2L)).thenThrow(EntityNotFoundException.class);
+        when(subjectService.findById(2L))
+                .thenThrow(new EntityNotFoundException("Disciplina não encontrada"));
         when(subjectService.create(any())).thenReturn(subject);
         when(subjectService.update(eq(1L), any())).thenReturn(subject);
-        when(subjectService.update(eq(2L), any())).thenThrow(EntityNotFoundException.class);
+        when(subjectService.update(eq(2L), any()))
+                .thenThrow(new EntityNotFoundException("Disciplina não encontrada"));
         doNothing().when(subjectService).delete(1L);
     }
 

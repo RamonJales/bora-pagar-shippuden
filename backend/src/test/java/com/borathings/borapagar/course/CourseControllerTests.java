@@ -48,11 +48,13 @@ public class CourseControllerTests {
 
         when(courseService.getAllCourses()).thenReturn(List.of(course));
         when(courseService.getCourseById(eq(1L))).thenReturn(course);
-        when(courseService.getCourseById(eq(2L))).thenThrow(EntityNotFoundException.class);
+        when(courseService.getCourseById(eq(2L)))
+                .thenThrow(new EntityNotFoundException("Curso não encontrado"));
 
         when(courseService.createCourse(any())).thenReturn(course);
         when(courseService.updateCourse(eq(1L), any())).thenReturn(course);
-        when(courseService.updateCourse(eq(2L), any())).thenThrow(EntityNotFoundException.class);
+        when(courseService.updateCourse(eq(2L), any()))
+                .thenThrow(new EntityNotFoundException("Curso não encontrado"));
         doNothing().when(courseService).deleteCourse(eq(1L));
         ;
     }

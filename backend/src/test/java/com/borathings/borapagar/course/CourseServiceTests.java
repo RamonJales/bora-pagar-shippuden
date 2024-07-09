@@ -32,7 +32,8 @@ public class CourseServiceTests {
 
         when(courseRepository.findAll()).thenReturn(List.of(course));
         when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-        when(courseRepository.findById(2L)).thenThrow(EntityNotFoundException.class);
+        when(courseRepository.findById(2L))
+                .thenThrow(new EntityNotFoundException("Curso não encontrado"));
         when(courseRepository.save(course)).thenReturn(course);
         doNothing().when(courseRepository).deleteById(1L);
     }
