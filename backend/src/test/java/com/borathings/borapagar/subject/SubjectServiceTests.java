@@ -1,5 +1,8 @@
 package com.borathings.borapagar.subject;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -39,32 +42,25 @@ public class SubjectServiceTests {
     @Test
     public void shouldCreateSubject() {
         SubjectEntity createdSubject = subjectService.create(subject);
-        assert createdSubject.equals(subject);
+        assertEquals(subject, createdSubject);
     }
 
     @Test
     public void shouldGetAllSubjects() {
         List<SubjectEntity> subjects = subjectService.findAll();
-        assert subjects.size() == 1;
-        assert subjects.get(0).equals(subject);
+        assertEquals(1, subjects.size());
+        assertEquals(subject, subjects.get(0));
     }
 
     @Test
     void shouldGetSubjectById() {
         SubjectEntity subject = subjectService.findByIdOrError(1L);
-        assert subject.equals(this.subject);
+        assertEquals(this.subject, subject);
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentSubject() {
-        try {
-            subjectService.findByIdOrError(2L);
-        } catch (EntityNotFoundException e) {
-            assert true;
-            return;
-        }
-
-        assert false;
+        assertThrows(EntityNotFoundException.class, () -> subjectService.findByIdOrError(2L));
     }
 
     @Test
@@ -73,27 +69,19 @@ public class SubjectServiceTests {
         subjectCopy.setId(null);
         SubjectEntity updatedSubject = subjectService.update(1L, subjectCopy);
 
-        assert updatedSubject.getId().equals(1L);
-        assert updatedSubject.getName().equals(subjectCopy.getName());
+        assertEquals(1L, updatedSubject.getId());
+        assertEquals(subjectCopy.getName(), updatedSubject.getName());
     }
 
     @Test
     void shouldDeleteSubject() {
-        subjectService.delete(1L);
-        assert true;
+        assertDoesNotThrow(() -> subjectService.delete(1L));
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentSubject() {
-        try {
-            SubjectEntity subjectCopy = subject;
-            subjectCopy.setId(null);
-            subjectService.update(2L, subjectCopy);
-        } catch (EntityNotFoundException e) {
-            assert true;
-            return;
-        }
-
-        assert false;
+        SubjectEntity subjectCopy = subject;
+        subjectCopy.setId(null);
+        assertThrows(EntityNotFoundException.class, () -> subjectService.update(2L, subjectCopy));
     }
 }
