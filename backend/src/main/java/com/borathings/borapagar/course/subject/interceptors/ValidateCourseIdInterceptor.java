@@ -28,11 +28,11 @@ public class ValidateCourseIdInterceptor implements HandlerInterceptor {
                         ? null
                         : Long.parseLong(pathParams.get("courseId"));
         if (courseId == null) {
-            throw new IllegalArgumentException("Course ID is required");
+            throw new IllegalArgumentException("Id do curso é obrigatório");
         }
 
         // Ensure that course exists
-        courseService.getCourseById(courseId);
+        courseService.findByIdOrError(courseId);
         return true;
     }
 }

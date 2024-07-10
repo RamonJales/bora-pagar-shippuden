@@ -21,13 +21,16 @@ public class SubjectCourseService {
         Long subjectId = subjectCourseEntity.getKeyId().getSubjectId();
 
         subjectCourseEntity.setKeyId(new SubjectCourseKey(subjectId, courseId));
-        subjectCourseEntity.setSubject(subjectService.findById(subjectId));
-        subjectCourseEntity.setCourse(courseService.getCourseById(courseId));
+        subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
+        subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
 
         Optional<SubjectCourseEntity> subjectCourse =
                 subjectCourseRepository.findByCourseIdAndSubjectId(courseId, subjectId);
         if (subjectCourse.isPresent()) {
-            throw new DuplicateKeyException("Subject already exists in course schedule");
+            throw new DuplicateKeyException(
+                    String.format(
+                            "Disciplina de id %d já cadastrada na grade do curso de id %d",
+                            subjectId, courseId));
         }
 
         return subjectCourseRepository.save(subjectCourseEntity);
@@ -38,7 +41,10 @@ public class SubjectCourseService {
                 subjectCourseRepository.findByCourseIdAndSubjectId(courseId, subjectId);
 
         if (subjectCourse.isEmpty()) {
-            throw new EntityNotFoundException("Subject not found in course schedule");
+            throw new EntityNotFoundException(
+                    String.format(
+                            "Disciplina de id %d não encontrada na grade do curso de id %d",
+                            subjectId, courseId));
         }
         return subjectCourse.get();
     }
@@ -49,8 +55,8 @@ public class SubjectCourseService {
 
     public SubjectCourseEntity updateSubjectInfoFromCourseSchedule(
             Long courseId, Long subjectId, SubjectCourseEntity subjectCourseEntity) {
-        subjectCourseEntity.setCourse(courseService.getCourseById(courseId));
-        subjectCourseEntity.setSubject(subjectService.findById(subjectId));
+        subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
+        subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
         getSubjectInfoFromCourseSchedule(courseId, subjectId);
         return subjectCourseRepository.save(subjectCourseEntity);
     }

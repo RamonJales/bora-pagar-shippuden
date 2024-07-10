@@ -32,34 +32,35 @@ public class CourseServiceTests {
 
         when(courseRepository.findAll()).thenReturn(List.of(course));
         when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-        when(courseRepository.findById(2L)).thenThrow(EntityNotFoundException.class);
+        when(courseRepository.findById(2L))
+                .thenThrow(new EntityNotFoundException("Curso não encontrado"));
         when(courseRepository.save(course)).thenReturn(course);
         doNothing().when(courseRepository).deleteById(1L);
     }
 
     @Test
     public void shouldCreateCourse() {
-        CourseEntity createdCourse = courseService.createCourse(course);
+        CourseEntity createdCourse = courseService.create(course);
         assert createdCourse.equals(course);
     }
 
     @Test
     public void shouldGetAllCourses() {
-        List<CourseEntity> courses = courseService.getAllCourses();
+        List<CourseEntity> courses = courseService.findAll();
         assert courses.size() == 1;
         assert courses.get(0).equals(course);
     }
 
     @Test
     void shouldGetCourseById() {
-        CourseEntity course = courseService.getCourseById(1L);
+        CourseEntity course = courseService.findByIdOrError(1L);
         assert course.equals(this.course);
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentCourse() {
         try {
-            courseService.getCourseById(2L);
+            courseService.findByIdOrError(2L);
         } catch (EntityNotFoundException e) {
             assert true;
             return;
@@ -72,7 +73,7 @@ public class CourseServiceTests {
     void shouldUpdateCourse() {
         CourseEntity courseCopy = course;
         courseCopy.setId(null);
-        CourseEntity updatedCourse = courseService.updateCourse(1L, courseCopy);
+        CourseEntity updatedCourse = courseService.update(1L, courseCopy);
 
         assert updatedCourse.getId().equals(1L);
         assert updatedCourse.getName().equals(courseCopy.getName());
@@ -80,7 +81,7 @@ public class CourseServiceTests {
 
     @Test
     void shouldDeleteCourse() {
-        courseService.deleteCourse(1L);
+        courseService.delete(1L);
         assert true;
     }
 
@@ -89,7 +90,7 @@ public class CourseServiceTests {
         try {
             CourseEntity courseCopy = course;
             courseCopy.setId(null);
-            courseService.updateCourse(2L, courseCopy);
+            courseService.update(2L, courseCopy);
         } catch (EntityNotFoundException e) {
             assert true;
             return;

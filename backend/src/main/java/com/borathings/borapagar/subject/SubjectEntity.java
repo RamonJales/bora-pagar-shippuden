@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,10 +23,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectEntity extends AbstractModel {
-    @Column private String name;
-    @Column private String code;
+    @Column @NotNull private String name;
+    @Column @NotNull private String code;
     @Column @Nullable private String syllabus;
-    @Column private Integer hours;
+    @Column @NotNull private Integer hours;
 
     @OneToMany(mappedBy = "subject")
     private List<SubjectCourseEntity> courses;

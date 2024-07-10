@@ -30,7 +30,8 @@ public class SubjectServiceTests {
 
         when(subjectRepository.findAll()).thenReturn(List.of(subject));
         when(subjectRepository.findById(1L)).thenReturn(Optional.of(subject));
-        when(subjectRepository.findById(2L)).thenThrow(EntityNotFoundException.class);
+        when(subjectRepository.findById(2L))
+                .thenThrow(new EntityNotFoundException("Disciplina não encontrada"));
         when(subjectRepository.save(subject)).thenReturn(subject);
         doNothing().when(subjectRepository).deleteById(1L);
     }
@@ -50,14 +51,14 @@ public class SubjectServiceTests {
 
     @Test
     void shouldGetSubjectById() {
-        SubjectEntity subject = subjectService.findById(1L);
+        SubjectEntity subject = subjectService.findByIdOrError(1L);
         assert subject.equals(this.subject);
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentSubject() {
         try {
-            subjectService.findById(2L);
+            subjectService.findByIdOrError(2L);
         } catch (EntityNotFoundException e) {
             assert true;
             return;

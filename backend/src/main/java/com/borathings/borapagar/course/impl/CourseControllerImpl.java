@@ -20,27 +20,27 @@ public class CourseControllerImpl implements CourseController {
     public ResponseEntity<CourseEntity> createCourse(
             @Valid @RequestBody CourseDTO courseEntityDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(courseService.createCourse(courseEntityDto.toEntity()));
+                .body(courseService.create(courseEntityDto.toEntity()));
     }
 
     @Override
     public ResponseEntity<List<CourseEntity>> getAllCourses() {
-        return ResponseEntity.ok(courseService.getAllCourses());
+        return ResponseEntity.ok(courseService.findAll());
     }
 
     @Override
     public ResponseEntity<CourseEntity> getCourseById(Long id) {
-        return ResponseEntity.ok(courseService.getCourseById(id));
+        return ResponseEntity.ok(courseService.findByIdOrError(id));
     }
 
     @Override
     public ResponseEntity<CourseEntity> updateCourse(CourseDTO courseEntityDto, Long id) {
-        return ResponseEntity.ok(courseService.updateCourse(id, courseEntityDto.toEntity()));
+        return ResponseEntity.ok(courseService.update(id, courseEntityDto.toEntity()));
     }
 
     @Override
     public ResponseEntity<String> deleteCourse(Long id) {
-        courseService.deleteCourse(id);
-        return ResponseEntity.ok("Course deleted successfully");
+        courseService.delete(id);
+        return ResponseEntity.ok("Curso deletado com sucesso");
     }
 }
