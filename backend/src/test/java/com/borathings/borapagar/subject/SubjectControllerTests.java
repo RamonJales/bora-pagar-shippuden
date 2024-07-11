@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -56,7 +57,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldListAllSubjects() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject"))
+                .perform(get("/api/subject").with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(subject.getId()))
@@ -69,7 +70,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldListSubject() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject/1"))
+                .perform(get("/api/subject/1").with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -82,7 +83,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldReturnNotFoundWhenGetNonExistentSubject() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject/2"))
+                .perform(get("/api/subject/2").with(jwt()))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
@@ -92,6 +93,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         post("/api/subject")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -112,7 +114,11 @@ public class SubjectControllerTests {
     @Test
     public void shouldValidateFieldsOnCreate() throws Exception {
         this.mockMvc
-                .perform(post("/api/subject").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .perform(
+                        post("/api/subject")
+                                .with(jwt())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
@@ -122,6 +128,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         post("/api/subject")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -134,6 +141,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/1")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -152,6 +160,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/2")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -164,7 +173,10 @@ public class SubjectControllerTests {
     public void shouldValidateFieldsOnUpdate() throws Exception {
         this.mockMvc
                 .perform(
-                        put("/api/subject/1").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                        put("/api/subject/1")
+                                .with(jwt())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
@@ -174,6 +186,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/1")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -183,6 +196,6 @@ public class SubjectControllerTests {
 
     @Test
     public void shouldDeleteSubject() throws Exception {
-        this.mockMvc.perform(delete("/api/subject/1")).andExpect(status().isOk());
+        this.mockMvc.perform(delete("/api/subject/1").with(jwt())).andExpect(status().isOk());
     }
 }
