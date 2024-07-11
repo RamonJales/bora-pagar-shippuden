@@ -53,6 +53,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntityFromException(apiException);
     }
 
+    /**
+     * Trata exceções lançadas pela aplicação quando uma entidade falha na validação. Este método
+     * constrói uma instância da classe <code>ApiFieldException</code> extende a classe <code>
+     * ApiException</code> com os erros de validação.
+     *
+     * <p>Os erros são representados pelo atributo fieldErrors, que é um mapa onde a chave é o nome
+     * do campo que falhou na validação e o valor é um vetor contendo as mensagens de todos os erros
+     * relacionados àquele campo.
+     *
+     * @param ex - MethodArgumentNotValidException - Exceção lançada
+     * @param headers - HttpHeaders - Cabeçalhos da requisição que falhou na validação
+     * @param status - HttpStatusCode - Status HTTP da resposta
+     * @param request - WebRequest - Requisição que falhou na validação
+     * @return ResponseEntity<ApiFieldException> - Instância de ApiFieldException serializada para
+     *     JSON
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
