@@ -1,5 +1,8 @@
 package com.borathings.borapagar.course;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -41,32 +44,25 @@ public class CourseServiceTests {
     @Test
     public void shouldCreateCourse() {
         CourseEntity createdCourse = courseService.create(course);
-        assert createdCourse.equals(course);
+        assertEquals(course, createdCourse);
     }
 
     @Test
     public void shouldGetAllCourses() {
         List<CourseEntity> courses = courseService.findAll();
-        assert courses.size() == 1;
-        assert courses.get(0).equals(course);
+        assertEquals(1, courses.size());
+        assertEquals(course, courses.get(0));
     }
 
     @Test
     void shouldGetCourseById() {
         CourseEntity course = courseService.findByIdOrError(1L);
-        assert course.equals(this.course);
+        assertEquals(this.course, course);
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenRequestNonExistentCourse() {
-        try {
-            courseService.findByIdOrError(2L);
-        } catch (EntityNotFoundException e) {
-            assert true;
-            return;
-        }
-
-        assert false;
+        assertThrows(EntityNotFoundException.class, () -> courseService.findByIdOrError(2L));
     }
 
     @Test
@@ -75,27 +71,19 @@ public class CourseServiceTests {
         courseCopy.setId(null);
         CourseEntity updatedCourse = courseService.update(1L, courseCopy);
 
-        assert updatedCourse.getId().equals(1L);
-        assert updatedCourse.getName().equals(courseCopy.getName());
+        assertEquals(1L, updatedCourse.getId());
+        assertEquals(courseCopy.getName(), updatedCourse.getName());
     }
 
     @Test
     void shouldDeleteCourse() {
-        courseService.delete(1L);
-        assert true;
+        assertDoesNotThrow(() -> courseService.delete(1L));
     }
 
     @Test
     void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentCourse() {
-        try {
-            CourseEntity courseCopy = course;
-            courseCopy.setId(null);
-            courseService.update(2L, courseCopy);
-        } catch (EntityNotFoundException e) {
-            assert true;
-            return;
-        }
-
-        assert false;
+        CourseEntity courseCopy = course;
+        courseCopy.setId(null);
+        assertThrows(EntityNotFoundException.class, () -> courseService.update(2L, courseCopy));
     }
 }

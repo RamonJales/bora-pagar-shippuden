@@ -59,7 +59,6 @@ public class CourseControllerTests {
         when(courseService.update(eq(2L), any()))
                 .thenThrow(new EntityNotFoundException("Curso não encontrado"));
         doNothing().when(courseService).delete(eq(1L));
-        ;
     }
 
     @Test
