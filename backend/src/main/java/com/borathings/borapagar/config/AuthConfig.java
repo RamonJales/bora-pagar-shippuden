@@ -55,7 +55,6 @@ public class AuthConfig {
                                 oauthLogin.userInfoEndpoint(
                                         userInfo ->
                                                 userInfo.oidcUserService(customOidcUserService)))
-                .oauth2Login(withDefaults())
                 .exceptionHandling(
                         ex ->
                                 ex.defaultAuthenticationEntryPointFor(
