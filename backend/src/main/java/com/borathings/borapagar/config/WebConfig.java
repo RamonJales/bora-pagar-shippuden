@@ -1,7 +1,7 @@
 package com.borathings.borapagar.config;
 
 import com.borathings.borapagar.course.subject.interceptors.ValidateCourseIdInterceptor;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerTypePredicate;
@@ -22,20 +22,17 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.addPathPrefix("api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
 
+    @Autowired ValidateCourseIdInterceptor validateCourseIdInterceptor;
+
     /**
      * Registra o middleware <code></code>ValidateCourseIdInterceptor</code> para interceptar todas
      * as rotas <code> /api/course/{courseId}/subject/** </code>
      *
      * @return
      */
-    @Bean
-    public ValidateCourseIdInterceptor validateCourseIdInterceptor() {
-        return new ValidateCourseIdInterceptor();
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(validateCourseIdInterceptor())
+        registry.addInterceptor(validateCourseIdInterceptor)
                 .addPathPatterns("/api/course/{courseId}/subject/**");
     }
 }
