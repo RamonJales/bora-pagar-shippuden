@@ -4,7 +4,7 @@ import com.borathings.borapagar.course.CourseService;
 import com.borathings.borapagar.subject.SubjectService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,15 @@ public class SubjectCourseService {
     @Autowired private CourseService courseService;
     @Autowired private SubjectService subjectService;
 
+    /**
+     * Adiciona uma nova disciplina na grade do curso. Lança <code>DuplicateKeyException</code> se a
+     * disciplina já foi cadastrada na grade.
+     *
+     * @param courseId - Id do curso
+     * @param subjectCourseEntity - Dados da disciplina
+     * @throws DuplicateKeyException - Caso a disciplina já tenha sido cadastrada no curso
+     * @return Disciplina adicionada
+     */
     public SubjectCourseEntity addSubjectToCourseSchedule(
             Long courseId, SubjectCourseEntity subjectCourseEntity) {
         Long subjectId = subjectCourseEntity.getKeyId().getSubjectId();
@@ -24,41 +33,70 @@ public class SubjectCourseService {
         subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
         subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
 
-        Optional<SubjectCourseEntity> subjectCourse =
-                subjectCourseRepository.findByCourseIdAndSubjectId(courseId, subjectId);
-        if (subjectCourse.isPresent()) {
-            throw new DuplicateKeyException(
-                    String.format(
-                            "Disciplina de id %d já cadastrada na grade do curso de id %d",
-                            subjectId, courseId));
-        }
+        subjectCourseRepository
+                .findByCourseIdAndSubjectId(courseId, subjectId)
+                .ifPresent(
+                        (value) -> {
+                            throw new DuplicateKeyException(
+                                    String.format(
+                                            "Disciplina de id %d já cadastrada na grade do curso de"
+                                                    + " id %d",
+                                            subjectId, courseId));
+                        });
 
         return subjectCourseRepository.save(subjectCourseEntity);
     }
 
-    public SubjectCourseEntity getSubjectInfoFromCourseSchedule(Long courseId, Long subjectId) {
-        Optional<SubjectCourseEntity> subjectCourse =
-                subjectCourseRepository.findByCourseIdAndSubjectId(courseId, subjectId);
-
-        if (subjectCourse.isEmpty()) {
-            throw new EntityNotFoundException(
-                    String.format(
-                            "Disciplina de id %d não encontrada na grade do curso de id %d",
-                            subjectId, courseId));
-        }
-        return subjectCourse.get();
+    /**
+     * Busca informações de uma disciplina em relação a grade do curso. Lança <code>EntityNotFound
+     * </code> se a disciplina não foi encontrada na grade.
+     *
+     * @param courseId - Id do curso
+     * @param subjectId - Id da disciplina
+     * @throws EntityNotFoundException - Caso a disciplina não seja encontrada na grade do curso
+     * @return Informações da disciplina na grade do curso (ex: nível, se é optativa ou obrigatória)
+     */
+    public SubjectCourseEntity getSubjectInfoFromCourseScheduleOrError(
+            Long courseId, Long subjectId) {
+        SubjectCourseEntity subjectCourse =
+                subjectCourseRepository
+                        .findByCourseIdAndSubjectId(courseId, subjectId)
+                        .orElseThrow(
+                                () -> {
+                                    throw new EntityNotFoundException(
+                                            String.format(
+                                                    "Disciplina de id %d não encontrada na grade do"
+                                                            + " curso de id %d",
+                                                    subjectId, courseId));
+                                });
+        return subjectCourse;
     }
 
+    /**
+     * Lista todas as disciplinas da grade de um curso.
+     *
+     * @param courseId - Id do curso
+     * @return Lista de disciplinas
+     */
     public List<SubjectCourseEntity> getAllSubjectsFromCourseSchedule(Long courseId) {
         return subjectCourseRepository.findByCourseId(courseId);
     }
 
+    /**
+     * Atualiza informações de uma disciplina em relação a grade do curso.
+     *
+     * @param courseId - Id do curso
+     * @param subjectId - Id da disciplina
+     * @param subjectCourseEntity - Novas informações da disciplina na grade
+     * @throws EntityNotFoundException - Caso a disciplina não seja encontrada na grade do curso
+     * @return Informações atualizadas
+     */
     public SubjectCourseEntity updateSubjectInfoFromCourseSchedule(
             Long courseId, Long subjectId, SubjectCourseEntity subjectCourseEntity) {
-        subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
-        subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
-        getSubjectInfoFromCourseSchedule(courseId, subjectId);
-        return subjectCourseRepository.save(subjectCourseEntity);
+        SubjectCourseEntity databaseEntity =
+                getSubjectInfoFromCourseScheduleOrError(courseId, subjectId);
+        BeanUtils.copyProperties(subjectCourseEntity, databaseEntity);
+        return subjectCourseRepository.save(databaseEntity);
     }
 
     public void deleteSubjectFromCourseSchedule(Long courseId, Long subjectId) {

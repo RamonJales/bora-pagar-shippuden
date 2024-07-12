@@ -1,8 +1,6 @@
 package com.borathings.borapagar.course.subject;
 
 import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseRequest;
-import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseResponse;
-import com.borathings.borapagar.course.subject.dto.GetSubjectCourseResponse;
 import com.borathings.borapagar.course.subject.dto.UpdateSubjectCourseRequest;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -27,7 +25,7 @@ public interface SubjectCourseController {
      * @return - Retorna as informações adicionadas
      */
     @PostMapping
-    public ResponseEntity<CreateSubjectCourseResponse> addSubjectToCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> addSubjectToCourseSchedule(
             @PathVariable Long courseId,
             @RequestBody @Valid CreateSubjectCourseRequest subjectCourseCreateDTO);
 
@@ -38,7 +36,7 @@ public interface SubjectCourseController {
      * @return - Retorna a lista de disciplinas
      */
     @GetMapping
-    public ResponseEntity<List<GetSubjectCourseResponse>> getAllSubjectsFromCourseSchedule(
+    public ResponseEntity<List<SubjectCourseEntity>> getAllSubjectsFromCourseSchedule(
             @PathVariable Long courseId);
 
     /**
@@ -49,7 +47,7 @@ public interface SubjectCourseController {
      * @return Informações da disciplina na grade do curso (ex: nível, tipo de disciplina)
      */
     @GetMapping("/{subjectId}")
-    public ResponseEntity<GetSubjectCourseResponse> getSubjectInfoFromCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> getSubjectInfoFromCourseSchedule(
             @PathVariable Long courseId, @PathVariable Long subjectId);
 
     /**
@@ -61,7 +59,7 @@ public interface SubjectCourseController {
      * @return - Retorna as informações atualizadas
      */
     @PutMapping("/{subjectId}")
-    public ResponseEntity<GetSubjectCourseResponse> updateSubjectInfoFromCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> updateSubjectInfoFromCourseSchedule(
             @PathVariable Long courseId,
             @PathVariable Long subjectId,
             @RequestBody @Valid UpdateSubjectCourseRequest subjectCourseCreateDTO);

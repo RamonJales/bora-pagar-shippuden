@@ -4,11 +4,8 @@ import com.borathings.borapagar.course.subject.SubjectCourseController;
 import com.borathings.borapagar.course.subject.SubjectCourseEntity;
 import com.borathings.borapagar.course.subject.SubjectCourseService;
 import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseRequest;
-import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseResponse;
-import com.borathings.borapagar.course.subject.dto.GetSubjectCourseResponse;
 import com.borathings.borapagar.course.subject.dto.UpdateSubjectCourseRequest;
 import jakarta.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,53 +18,42 @@ public class SubjectCourseControllerImpl implements SubjectCourseController {
     @Autowired private SubjectCourseService subjectCourseService;
 
     @Override
-    public ResponseEntity<CreateSubjectCourseResponse> addSubjectToCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> addSubjectToCourseSchedule(
             Long courseId, @Valid CreateSubjectCourseRequest subjectCourseCreateDTO) {
         SubjectCourseEntity subjectCourseEntity =
                 subjectCourseService.addSubjectToCourseSchedule(
                         courseId, subjectCourseCreateDTO.toEntity());
-        CreateSubjectCourseResponse subjectCourseResponseDTO =
-                CreateSubjectCourseResponse.fromEntity(subjectCourseEntity);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(subjectCourseResponseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(subjectCourseEntity);
     }
 
     @Override
-    public ResponseEntity<List<GetSubjectCourseResponse>> getAllSubjectsFromCourseSchedule(
+    public ResponseEntity<List<SubjectCourseEntity>> getAllSubjectsFromCourseSchedule(
             Long courseId) {
         List<SubjectCourseEntity> courseSchedule =
                 subjectCourseService.getAllSubjectsFromCourseSchedule(courseId);
-        List<GetSubjectCourseResponse> courseScheduleDTOList = new ArrayList<>();
-        for (SubjectCourseEntity subjectCourseEntity : courseSchedule) {
-            GetSubjectCourseResponse dto = GetSubjectCourseResponse.fromEntity(subjectCourseEntity);
-            courseScheduleDTOList.add(dto);
-        }
-        return ResponseEntity.ok().body(courseScheduleDTOList);
+        return ResponseEntity.ok().body(courseSchedule);
     }
 
     @Override
-    public ResponseEntity<GetSubjectCourseResponse> getSubjectInfoFromCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> getSubjectInfoFromCourseSchedule(
             Long courseId, Long subjectId) {
         SubjectCourseEntity subjectCourseEntity =
-                subjectCourseService.getSubjectInfoFromCourseSchedule(courseId, subjectId);
+                subjectCourseService.getSubjectInfoFromCourseScheduleOrError(courseId, subjectId);
 
-        GetSubjectCourseResponse responseBody =
-                GetSubjectCourseResponse.fromEntity(subjectCourseEntity);
-
-        return ResponseEntity.ok().body(responseBody);
+        return ResponseEntity.ok().body(subjectCourseEntity);
     }
 
     @Override
-    public ResponseEntity<GetSubjectCourseResponse> updateSubjectInfoFromCourseSchedule(
+    public ResponseEntity<SubjectCourseEntity> updateSubjectInfoFromCourseSchedule(
             Long courseId,
             Long subjectId,
             @Valid UpdateSubjectCourseRequest subjectCourseCreateDTO) {
         SubjectCourseEntity subjectCourseEntity =
                 subjectCourseService.updateSubjectInfoFromCourseSchedule(
                         courseId, subjectId, subjectCourseCreateDTO.toEntity());
-        GetSubjectCourseResponse subjectCourseResponseDTO =
-                GetSubjectCourseResponse.fromEntity(subjectCourseEntity);
-        return ResponseEntity.ok().body(subjectCourseResponseDTO);
+
+        return ResponseEntity.ok().body(subjectCourseEntity);
     }
 
     @Override
