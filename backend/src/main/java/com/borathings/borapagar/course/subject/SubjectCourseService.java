@@ -4,7 +4,6 @@ import com.borathings.borapagar.course.CourseService;
 import com.borathings.borapagar.subject.SubjectService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -95,7 +94,10 @@ public class SubjectCourseService {
             Long courseId, Long subjectId, SubjectCourseEntity subjectCourseEntity) {
         SubjectCourseEntity databaseEntity =
                 getSubjectInfoFromCourseScheduleOrError(courseId, subjectId);
-        BeanUtils.copyProperties(subjectCourseEntity, databaseEntity);
+
+        // TODO: Ver uma forma do BeanUtils funcionar aqui (ele também copia campos nulos)
+        databaseEntity.setExpectedSemester(subjectCourseEntity.getExpectedSemester());
+        databaseEntity.setSubjectCourseType(subjectCourseEntity.getSubjectCourseType());
         return subjectCourseRepository.save(databaseEntity);
     }
 
