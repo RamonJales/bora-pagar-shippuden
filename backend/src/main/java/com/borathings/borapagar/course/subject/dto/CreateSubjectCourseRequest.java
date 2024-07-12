@@ -5,9 +5,11 @@ import com.borathings.borapagar.course.subject.SubjectCourseKey;
 import com.borathings.borapagar.course.subject.enumTypes.SubjectCourseType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CreateSubjectCourseRequest {
     @NotNull private Long subjectId;
 
