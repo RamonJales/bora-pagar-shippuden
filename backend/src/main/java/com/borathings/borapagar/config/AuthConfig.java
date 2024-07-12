@@ -2,6 +2,8 @@ package com.borathings.borapagar.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import com.borathings.borapagar.auth.CustomOidcUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class AuthConfig {
+    @Autowired CustomOidcUserService customOidcUserService;
+
     @Bean
     /**
      * Pipeline usada pelo Spring Security, exige autenticação em todos os endpoints que tenham
@@ -46,6 +50,11 @@ public class AuthConfig {
                                         .anyRequest()
                                         .permitAll())
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(withDefaults()))
+                .oauth2Login(
+                        oauthLogin ->
+                                oauthLogin.userInfoEndpoint(
+                                        userInfo ->
+                                                userInfo.oidcUserService(customOidcUserService)))
                 .oauth2Login(withDefaults())
                 .exceptionHandling(
                         ex ->
