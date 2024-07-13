@@ -23,10 +23,4 @@ public class SwaggerConfig {
                         .contact(contact.email("boraPagar@gmail.com"))
                         .version("v1"));
     }
-
-    @Bean
-    GroupedOpenApi publicApi() {
-
-        return GroupedOpenApi.builder().group("controllers").pathsToMatch("v1/**").build();
-    }
 }
