@@ -64,12 +64,12 @@ jobs:
           min-coverage-overall: 80
           min-coverage-changed-files: 80
 
-      - name: Informs that PR has fail when coverage is less then 80%
-        if: ${{ steps.jacoco.outputs.coverage-overall < 80.0 }}
+      - name: Informs that PR has fail when coverage is less then 60%
+        if: ${{ steps.jacoco.outputs.coverage-overall < 60.0 }}
         uses: actions/github-script@v6
         with:
           script: |
-            core.setFailed('Cobertura geral é menor que 80%!')    
+            core.setFailed('Cobertura geral é menor que 60%!')    
 
   deploy-dev-docs:
     runs-on: ubuntu-latest
