@@ -101,6 +101,12 @@ public class SubjectCourseService {
         return subjectCourseRepository.save(databaseEntity);
     }
 
+    /**
+     * Remove uma disciplina da grade do curso. Se o registro não existe, não faça nada
+     *
+     * @param courseId - Id do curso
+     * @param subjectId - Id da disciplina
+     */
     public void deleteSubjectFromCourseSchedule(Long courseId, Long subjectId) {
         subjectCourseRepository.deleteByCourseIdAndSubjectId(courseId, subjectId);
     }
