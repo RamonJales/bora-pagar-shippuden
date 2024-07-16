@@ -48,6 +48,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
           min-coverage-changed-files: 60
+          title: '# Test coverage :test_tube:'
+          update-comment: true
+          pass-emoji: ':ok_hand:'
+          fail-emoji: ':skull_and_crossbones:'
 
       - name: Informs that PR has fail when coverage is less then 40%
         if: ${{ steps.jacoco.outputs.coverage-overall < 40.0 }}
