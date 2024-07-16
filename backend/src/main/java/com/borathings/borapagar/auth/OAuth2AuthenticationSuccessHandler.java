@@ -11,13 +11,18 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-/** OAuth2AuthenticationSuccessHandler */
+/**
+ * OAuth2AuthenticationSuccessHandler * Classe chamada quando a autentição OAuth2 foi sucedida
+ *
+ * <p>É utilizada para redicionar o usuário de volta para onde a requisição original foi feita
+ */
 @Component
 public class OAuth2AuthenticationSuccessHandler
         extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /** Redireciona de volta o usuário para onde a requisição original foi feita */
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request, HttpServletResponse response, Authentication authentication)
