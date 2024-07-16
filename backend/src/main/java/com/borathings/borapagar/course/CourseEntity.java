@@ -1,7 +1,7 @@
 package com.borathings.borapagar.course;
 
 import com.borathings.borapagar.core.AbstractModel;
-import com.borathings.borapagar.course.subject.SubjectCourseEntity;
+import com.borathings.borapagar.subject_course.SubjectCourseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;

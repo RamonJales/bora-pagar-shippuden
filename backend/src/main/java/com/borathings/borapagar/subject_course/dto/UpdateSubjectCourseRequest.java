@@ -1,7 +1,7 @@
-package com.borathings.borapagar.course.subject.dto;
+package com.borathings.borapagar.subject_course.dto;
 
-import com.borathings.borapagar.course.subject.SubjectCourseEntity;
-import com.borathings.borapagar.course.subject.enumTypes.SubjectCourseType;
+import com.borathings.borapagar.subject_course.SubjectCourseEntity;
+import com.borathings.borapagar.subject_course.enumTypes.SubjectCourseType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

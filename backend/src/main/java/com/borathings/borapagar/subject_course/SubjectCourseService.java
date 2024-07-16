@@ -1,4 +1,4 @@
-package com.borathings.borapagar.course.subject;
+package com.borathings.borapagar.subject_course;
 
 import com.borathings.borapagar.course.CourseService;
 import com.borathings.borapagar.subject.SubjectService;

@@ -1,6 +1,6 @@
 package com.borathings.borapagar.config;
 
-import com.borathings.borapagar.course.subject.interceptors.ValidateCourseIdInterceptor;
+import com.borathings.borapagar.subject_course.interceptors.ValidateCourseIdInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;

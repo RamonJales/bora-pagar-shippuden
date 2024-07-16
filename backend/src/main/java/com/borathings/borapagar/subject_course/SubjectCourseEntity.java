@@ -1,8 +1,8 @@
-package com.borathings.borapagar.course.subject;
+package com.borathings.borapagar.subject_course;
 
 import com.borathings.borapagar.course.CourseEntity;
-import com.borathings.borapagar.course.subject.enumTypes.SubjectCourseType;
 import com.borathings.borapagar.subject.SubjectEntity;
+import com.borathings.borapagar.subject_course.enumTypes.SubjectCourseType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EmbeddedId;

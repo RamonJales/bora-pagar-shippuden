@@ -1,7 +1,7 @@
 package com.borathings.borapagar.subject;
 
 import com.borathings.borapagar.core.AbstractModel;
-import com.borathings.borapagar.course.subject.SubjectCourseEntity;
+import com.borathings.borapagar.subject_course.SubjectCourseEntity;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

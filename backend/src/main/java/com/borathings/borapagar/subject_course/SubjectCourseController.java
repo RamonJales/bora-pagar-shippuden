@@ -1,7 +1,7 @@
-package com.borathings.borapagar.course.subject;
+package com.borathings.borapagar.subject_course;
 
-import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseRequest;
-import com.borathings.borapagar.course.subject.dto.UpdateSubjectCourseRequest;
+import com.borathings.borapagar.subject_course.dto.CreateSubjectCourseRequest;
+import com.borathings.borapagar.subject_course.dto.UpdateSubjectCourseRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;

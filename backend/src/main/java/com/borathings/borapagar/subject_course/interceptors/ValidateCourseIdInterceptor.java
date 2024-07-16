@@ -1,4 +1,4 @@
-package com.borathings.borapagar.course.subject.interceptors;
+package com.borathings.borapagar.subject_course.interceptors;
 
 import com.borathings.borapagar.course.CourseService;
 import jakarta.servlet.http.HttpServletRequest;

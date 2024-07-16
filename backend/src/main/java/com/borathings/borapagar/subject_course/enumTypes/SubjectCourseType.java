@@ -1,4 +1,4 @@
-package com.borathings.borapagar.course.subject.enumTypes;
+package com.borathings.borapagar.subject_course.enumTypes;
 
 public enum SubjectCourseType {
     MANDATORY,

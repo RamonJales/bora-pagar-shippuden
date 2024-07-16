@@ -1,4 +1,4 @@
-package com.borathings.borapagar.course.subject;
+package com.borathings.borapagar.subject_course;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

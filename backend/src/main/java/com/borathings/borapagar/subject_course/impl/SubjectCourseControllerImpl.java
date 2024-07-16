@@ -1,10 +1,10 @@
-package com.borathings.borapagar.course.subject.impl;
+package com.borathings.borapagar.subject_course.impl;
 
-import com.borathings.borapagar.course.subject.SubjectCourseController;
-import com.borathings.borapagar.course.subject.SubjectCourseEntity;
-import com.borathings.borapagar.course.subject.SubjectCourseService;
-import com.borathings.borapagar.course.subject.dto.CreateSubjectCourseRequest;
-import com.borathings.borapagar.course.subject.dto.UpdateSubjectCourseRequest;
+import com.borathings.borapagar.subject_course.SubjectCourseController;
+import com.borathings.borapagar.subject_course.SubjectCourseEntity;
+import com.borathings.borapagar.subject_course.SubjectCourseService;
+import com.borathings.borapagar.subject_course.dto.CreateSubjectCourseRequest;
+import com.borathings.borapagar.subject_course.dto.UpdateSubjectCourseRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
