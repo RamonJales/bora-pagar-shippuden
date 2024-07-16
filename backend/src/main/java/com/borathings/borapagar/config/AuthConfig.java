@@ -31,7 +31,6 @@ public class AuthConfig {
     @Value("${frontend.url}")
     String frontendUrl;
 
-
     @Bean
     /**
      * Pipeline usada pelo Spring Security, exige autenticação em todos os endpoints que tenham

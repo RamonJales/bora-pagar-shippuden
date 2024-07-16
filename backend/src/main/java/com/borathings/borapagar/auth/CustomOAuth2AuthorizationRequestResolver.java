@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  *
  * <p>Classe criada para customizar o processo de resolução da authorization OAuth2
  */
+/** CustomOAuth2AuthorizationRequestResolver */
 @Component
 public class CustomOAuth2AuthorizationRequestResolver
         implements OAuth2AuthorizationRequestResolver {

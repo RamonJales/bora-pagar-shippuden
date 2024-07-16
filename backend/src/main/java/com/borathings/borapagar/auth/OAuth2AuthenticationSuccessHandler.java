@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  *
  * <p>É utilizada para redicionar o usuário de volta para onde a requisição original foi feita
  */
+/** OAuth2AuthenticationSuccessHandler */
 @Component
 public class OAuth2AuthenticationSuccessHandler
         extends SavedRequestAwareAuthenticationSuccessHandler {
