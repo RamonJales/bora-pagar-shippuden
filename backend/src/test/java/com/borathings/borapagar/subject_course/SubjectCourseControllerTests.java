@@ -1,4 +1,4 @@
-package com.borathings.borapagar.course.subject;
+package com.borathings.borapagar.subject_course;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -14,9 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.borathings.borapagar.course.CourseEntity;
 import com.borathings.borapagar.course.CourseService;
 import com.borathings.borapagar.subject.SubjectEntity;
-import com.borathings.borapagar.subject_course.SubjectCourseEntity;
-import com.borathings.borapagar.subject_course.SubjectCourseKey;
-import com.borathings.borapagar.subject_course.SubjectCourseService;
 import com.borathings.borapagar.subject_course.dto.CreateSubjectCourseRequest;
 import com.borathings.borapagar.subject_course.dto.UpdateSubjectCourseRequest;
 import com.borathings.borapagar.subject_course.enumTypes.SubjectCourseType;
