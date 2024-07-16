@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -88,6 +89,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                             fieldErrors.get(error.getField()).add(errorMessage);
                         });
         ApiFieldException apiException = new ApiFieldException(HttpStatus.BAD_REQUEST, fieldErrors);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    /**
+     * Trata exceções lançadas pela aplicação quando o usuário tenta cadastrar uma entidade que já
+     * existe.
+     *
+     * @param ex - DuplicateKeyException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<Object> handleDuplicateKeyException(DuplicateKeyException ex) {
+        ApiException apiException = new ApiException(HttpStatus.CONFLICT, ex);
         return buildResponseEntityFromException(apiException);
     }
 }
