@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Serviço para manipulação de disciplinas na grade de um curso.
+ *
+ * <p>Este serviço assume que o curso do respectivo courseId já existe no banco de dados pois essa
+ * checagem deve ser feita por um middleware antes de chamar os métodos desse serviço.
+ */
 @Service
 public class SubjectCourseService {
     @Autowired private SubjectCourseRepository subjectCourseRepository;
