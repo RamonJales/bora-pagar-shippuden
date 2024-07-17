@@ -20,9 +20,11 @@ public class CustomOidcUserService extends OidcUserService {
     @Override
     public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
         OidcUser oidcUser = super.loadUser(userRequest);
-        logger.info("Buscando usuário do Google: {}", oidcUser);
+        logger.info(
+                "Usuário com googleId {} e email {} carregado com sucesso",
+                oidcUser.getSubject(),
+                oidcUser.getEmail());
         userService.upsertFromOidcUser(oidcUser);
-        logger.info("Usuário carregado com sucesso");
         return oidcUser;
     }
 }
