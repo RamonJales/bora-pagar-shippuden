@@ -14,30 +14,37 @@ public class UserService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void upsertFromOidcUser(OidcUser oidcUser) {
-        String oidcUserEmail = oidcUser.getEmail();
-        String oidcUserImageUrl = oidcUser.getPicture();
         String oidcUserGoogleId = oidcUser.getSubject();
-        Optional<UserEntity> user = userRepository.findByGoogleId(oidcUserEmail);
-        if (!user.isPresent()) {
-            logger.info(
-                    "Novo usuário logado, criando conta para o email {} com googleId {}",
-                    oidcUserEmail,
-                    oidcUserGoogleId);
-            UserEntity userEntity =
-                    new UserEntity(
-                            oidcUserEmail,
-                            oidcUser.getFullName(),
-                            oidcUserGoogleId,
-                            oidcUserImageUrl);
-            userRepository.save(userEntity);
-            return;
-        }
+        Optional<UserEntity> user = userRepository.findByGoogleId(oidcUserGoogleId);
+        user.ifPresentOrElse(
+                existingUser -> this.updateExistingOidcUser(existingUser, oidcUser),
+                () -> insertNewOidcUser(oidcUser));
+    }
+
+    private void insertNewOidcUser(OidcUser oidcUser) {
+        String oidcUserEmail = oidcUser.getEmail();
+        String oidcUserGoogleId = oidcUser.getSubject();
+
+        logger.info(
+                "Novo usuário logado, criando conta para o email {} com googleId {}",
+                oidcUserEmail,
+                oidcUserGoogleId);
+        UserEntity userEntity =
+                new UserEntity(
+                        oidcUserEmail,
+                        oidcUser.getFullName(),
+                        oidcUserGoogleId,
+                        oidcUser.getPicture());
+        userRepository.save(userEntity);
+    }
+
+    private void updateExistingOidcUser(UserEntity existingUser, OidcUser oidcUser) {
         logger.info(
                 "Usuário com googleId {} de email {} já existe no sistema, atualizando dados",
-                oidcUserGoogleId,
-                oidcUserEmail);
-        UserEntity existingUser = user.get();
-        existingUser.setImageUrl(oidcUserImageUrl);
+                existingUser.getId(),
+                existingUser.getEmail());
+
+        existingUser.setImageUrl(oidcUser.getPicture());
         userRepository.save(existingUser);
     }
 }
