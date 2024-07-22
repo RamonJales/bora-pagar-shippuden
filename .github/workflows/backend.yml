@@ -44,10 +44,14 @@ jobs:
           distribution: 'temurin'
           architecture: x64
           cache: 'maven'
+      
       - name: Run verify suit
         run : ./mvnw verify
+      
       - name: Check if code is formatted
         run: ./mvnw spotless:check
+      
+      
       - name: Upload archive to github pages
         uses: actions/upload-pages-artifact@v3
         with:
