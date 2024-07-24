@@ -27,13 +27,13 @@ public class SubjectCourseEntity {
 
     @ManyToOne
     @MapsId("subjectId")
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(insertable = false, updatable = false)
     @JsonIgnore
     private SubjectEntity subject;
 
     @ManyToOne
     @MapsId("courseId")
-    @JoinColumn(name = "course_id")
+    @JoinColumn(insertable = false, updatable = false)
     @JsonIgnore
     private CourseEntity course;
 
