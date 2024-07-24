@@ -33,10 +33,9 @@ public class SubjectCourseService {
     public SubjectCourseEntity addSubjectToCourseSchedule(
             Long courseId, SubjectCourseEntity subjectCourseEntity) {
         Long subjectId = subjectCourseEntity.getKeyId().getSubjectId();
-        subjectService.findByIdOrError(subjectId);
-
         subjectCourseEntity.setKeyId(new SubjectCourseKey(subjectId, courseId));
-
+        subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
+        subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
         subjectCourseRepository
                 .findByCourseIdAndSubjectId(courseId, subjectId)
                 .ifPresent(
