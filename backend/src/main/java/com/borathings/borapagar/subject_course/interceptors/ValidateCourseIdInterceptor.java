@@ -23,15 +23,7 @@ public class ValidateCourseIdInterceptor implements HandlerInterceptor {
                 (Map<String, String>)
                         request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 
-        Long courseId =
-                pathParams.get("courseId") == null
-                        ? null
-                        : Long.parseLong(pathParams.get("courseId"));
-        if (courseId == null) {
-            throw new IllegalArgumentException("Id do curso é obrigatório");
-        }
-
-        // Ensure that course exists
+        Long courseId = Long.parseLong(pathParams.get("courseId"));
         courseService.findByIdOrError(courseId);
         return true;
     }
