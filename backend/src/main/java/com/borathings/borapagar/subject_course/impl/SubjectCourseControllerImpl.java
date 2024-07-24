@@ -19,10 +19,10 @@ public class SubjectCourseControllerImpl implements SubjectCourseController {
 
     @Override
     public ResponseEntity<SubjectCourseEntity> addSubjectToCourseSchedule(
-            Long courseId, @Valid CreateSubjectCourseRequest subjectCourseCreateDTO) {
+            Long courseId, @Valid CreateSubjectCourseRequest createSubjectCourseRequest) {
         SubjectCourseEntity subjectCourseEntity =
                 subjectCourseService.addSubjectToCourseSchedule(
-                        courseId, subjectCourseCreateDTO.toEntity());
+                        courseId, createSubjectCourseRequest.toEntity());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(subjectCourseEntity);
     }
@@ -48,10 +48,10 @@ public class SubjectCourseControllerImpl implements SubjectCourseController {
     public ResponseEntity<SubjectCourseEntity> updateSubjectInfoFromCourseSchedule(
             Long courseId,
             Long subjectId,
-            @Valid UpdateSubjectCourseRequest subjectCourseCreateDTO) {
+            @Valid UpdateSubjectCourseRequest updateSubjectCourseRequest) {
         SubjectCourseEntity subjectCourseEntity =
                 subjectCourseService.updateSubjectInfoFromCourseSchedule(
-                        courseId, subjectId, subjectCourseCreateDTO.toEntity());
+                        courseId, subjectId, updateSubjectCourseRequest.toEntity());
 
         return ResponseEntity.ok().body(subjectCourseEntity);
     }

@@ -21,13 +21,13 @@ public interface SubjectCourseController {
      * Adiciona a matéria na grade do curso
      *
      * @param courseId - ID do curso
-     * @param subjectCourseCreateDTO - Dados da disciplina
+     * @param createSubjectCourseRequest - Dados da disciplina
      * @return - Retorna as informações adicionadas
      */
     @PostMapping
     public ResponseEntity<SubjectCourseEntity> addSubjectToCourseSchedule(
             @PathVariable Long courseId,
-            @RequestBody @Valid CreateSubjectCourseRequest subjectCourseCreateDTO);
+            @RequestBody @Valid CreateSubjectCourseRequest createSubjectCourseRequest);
 
     /**
      * Lista todas as disciplinas da grade de um curso
@@ -55,14 +55,14 @@ public interface SubjectCourseController {
      *
      * @param courseId - ID do curso
      * @param subjectId - ID da disciplina
-     * @param subjectCourseCreateDTO - Dados da disciplina na grade
+     * @param updateSubjectCourseRequest - Dados da disciplina na grade
      * @return - Retorna as informações atualizadas
      */
     @PutMapping("/{subjectId}")
     public ResponseEntity<SubjectCourseEntity> updateSubjectInfoFromCourseSchedule(
             @PathVariable Long courseId,
             @PathVariable Long subjectId,
-            @RequestBody @Valid UpdateSubjectCourseRequest subjectCourseCreateDTO);
+            @RequestBody @Valid UpdateSubjectCourseRequest updateSubjectCourseRequest);
 
     /**
      * Remove a disciplina da grade do curso. Se uma das entidades não existe, não faça nada.
