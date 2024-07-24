@@ -72,6 +72,6 @@ public interface SubjectCourseController {
      * @return - Retorna uma mensagem de sucesso
      */
     @DeleteMapping("/{subjectId}")
-    public ResponseEntity<String> removeSubjectFromCourseSchedule(
+    public ResponseEntity<Void> removeSubjectFromCourseSchedule(
             @PathVariable Long courseId, @PathVariable Long subjectId);
 }

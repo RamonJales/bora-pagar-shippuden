@@ -57,8 +57,8 @@ public class SubjectCourseControllerImpl implements SubjectCourseController {
     }
 
     @Override
-    public ResponseEntity<String> removeSubjectFromCourseSchedule(Long courseId, Long subjectId) {
+    public ResponseEntity<Void> removeSubjectFromCourseSchedule(Long courseId, Long subjectId) {
         subjectCourseService.deleteSubjectFromCourseSchedule(courseId, subjectId);
-        return ResponseEntity.ok().body("Disciplina removida da grade do curso com sucesso");
+        return ResponseEntity.ok().build();
     }
 }
