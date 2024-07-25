@@ -20,10 +20,11 @@ public class UpdateSubjectCourseRequest {
     @NotNull private SubjectCourseType subjectCourseType;
 
     public SubjectCourseEntity toEntity() {
-        SubjectCourseEntity subjectCourseEntity = new SubjectCourseEntity();
-
-        subjectCourseEntity.setExpectedSemester(this.expectedSemester);
-        subjectCourseEntity.setSubjectCourseType(this.subjectCourseType);
+        SubjectCourseEntity subjectCourseEntity =
+                SubjectCourseEntity.builder()
+                        .expectedSemester(expectedSemester)
+                        .subjectCourseType(subjectCourseType)
+                        .build();
         return subjectCourseEntity;
     }
 }

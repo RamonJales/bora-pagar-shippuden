@@ -34,7 +34,9 @@ public class SubjectCourseService {
     public SubjectCourseEntity addSubjectToCourseSchedule(
             Long courseId, SubjectCourseEntity subjectCourseEntity) {
         Long subjectId = subjectCourseEntity.getKeyId().getSubjectId();
-        subjectCourseEntity.setKeyId(new SubjectCourseKey(subjectId, courseId));
+        SubjectCourseKey subjectCourseKey =
+                SubjectCourseKey.builder().subjectId(subjectId).courseId(courseId).build();
+        subjectCourseEntity.setKeyId(subjectCourseKey);
         subjectCourseEntity.setCourse(courseService.findByIdOrError(courseId));
         subjectCourseEntity.setSubject(subjectService.findByIdOrError(subjectId));
         subjectCourseRepository

@@ -20,11 +20,13 @@ public class CreateSubjectCourseRequest {
     @NotNull private SubjectCourseType subjectCourseType;
 
     public SubjectCourseEntity toEntity() {
-        SubjectCourseEntity subjectCourseEntity = new SubjectCourseEntity();
-
-        subjectCourseEntity.setKeyId(new SubjectCourseKey(subjectId, null));
-        subjectCourseEntity.setExpectedSemester(this.expectedSemester);
-        subjectCourseEntity.setSubjectCourseType(this.subjectCourseType);
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(subjectId).build();
+        SubjectCourseEntity subjectCourseEntity =
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .expectedSemester(expectedSemester)
+                        .subjectCourseType(subjectCourseType)
+                        .build();
         return subjectCourseEntity;
     }
 }
