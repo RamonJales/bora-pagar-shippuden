@@ -4,6 +4,7 @@ import com.borathings.borapagar.course.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,8 +24,12 @@ public class ValidateCourseIdInterceptor implements HandlerInterceptor {
                 (Map<String, String>)
                         request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 
-        Long courseId = Long.parseLong(pathParams.get("courseId"));
-        courseService.findByIdOrError(courseId);
+        try {
+            Long courseId = Long.parseLong(pathParams.get("courseId"));
+            courseService.findByIdOrError(courseId);
+        } catch (NumberFormatException e) {
+            throw new BadRequestException("O id do curso deve ser um número inteiro");
+        }
         return true;
     }
 }
