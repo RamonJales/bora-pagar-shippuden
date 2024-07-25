@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS subject_course (
     expected_semester INTEGER,
     subject_course_type VARCHAR(255),
 
+    PRIMARY KEY (course_id, subject_id),
     CONSTRAINT fk_course
         FOREIGN KEY (course_id)
         REFERENCES course (id)
