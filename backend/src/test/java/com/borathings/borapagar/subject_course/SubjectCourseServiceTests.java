@@ -37,9 +37,17 @@ public class SubjectCourseServiceTests {
     private final CourseEntity course = new CourseEntity("TI", "Fulano", new ArrayList<>());
     private final SubjectEntity subject =
             new SubjectEntity("Nome", "IMD0001", "Descrição", 60, new ArrayList<>());
+
+    private final SubjectCourseKey subjectCourseKey =
+            SubjectCourseKey.builder().subjectId(2L).courseId(1L).build();
     private final SubjectCourseEntity subjectCourse =
-            new SubjectCourseEntity(
-                    new SubjectCourseKey(2L, 1L), subject, course, 1, SubjectCourseType.MANDATORY);
+            SubjectCourseEntity.builder()
+                    .subject(subject)
+                    .course(course)
+                    .expectedSemester(1)
+                    .subjectCourseType(SubjectCourseType.MANDATORY)
+                    .keyId(subjectCourseKey)
+                    .build();
 
     @BeforeEach
     public void setUp() {
@@ -60,35 +68,33 @@ public class SubjectCourseServiceTests {
 
     @Test
     public void shouldAddSubjectToCourseSchedule() throws Exception {
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(1L).build();
         SubjectCourseEntity subjectCourse =
-                new SubjectCourseEntity(
-                        new SubjectCourseKey(1L, null),
-                        subject,
-                        null,
-                        1,
-                        SubjectCourseType.MANDATORY);
-
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .subject(subject)
+                        .expectedSemester(1)
+                        .subjectCourseType(SubjectCourseType.MANDATORY)
+                        .build();
         SubjectCourseEntity createdSubjectCourse =
                 subjectCourseService.addSubjectToCourseSchedule(1L, subjectCourse);
 
         assertEquals(createdSubjectCourse.getKeyId().getCourseId(), 1L);
         assertEquals(createdSubjectCourse.getKeyId().getSubjectId(), 1L);
-        assertEquals(createdSubjectCourse.getSubject(), subject);
-        assertEquals(createdSubjectCourse.getCourse(), course);
         assertEquals(createdSubjectCourse.getExpectedSemester(), 1);
         assertEquals(createdSubjectCourse.getSubjectCourseType(), SubjectCourseType.MANDATORY);
     }
 
     @Test
     public void addSubjectShouldThrowWhenDuplicatesExist() {
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(2L).build();
         SubjectCourseEntity subjectCourse =
-                new SubjectCourseEntity(
-                        new SubjectCourseKey(2L, null),
-                        subject,
-                        null,
-                        1,
-                        SubjectCourseType.MANDATORY);
-
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .subject(subject)
+                        .expectedSemester(1)
+                        .subjectCourseType(SubjectCourseType.MANDATORY)
+                        .build();
         assertThrows(
                 DuplicateKeyException.class,
                 () -> {
@@ -98,13 +104,14 @@ public class SubjectCourseServiceTests {
 
     @Test
     public void addSubjectShouldThrowWhenSubjectDoesntExist() {
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(3L).build();
         SubjectCourseEntity subjectCourse =
-                new SubjectCourseEntity(
-                        new SubjectCourseKey(3L, null),
-                        subject,
-                        null,
-                        1,
-                        SubjectCourseType.MANDATORY);
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .subject(subject)
+                        .expectedSemester(1)
+                        .subjectCourseType(SubjectCourseType.MANDATORY)
+                        .build();
         assertThrows(
                 EntityNotFoundException.class,
                 () -> {
@@ -136,9 +143,13 @@ public class SubjectCourseServiceTests {
 
     @Test
     public void shouldUpdateSubjectInfoFromCourseSchedule() {
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(2L).build();
         SubjectCourseEntity newSubjectCourse =
-                new SubjectCourseEntity(
-                        new SubjectCourseKey(2L, null), null, null, 2, SubjectCourseType.OPTIONAL);
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .expectedSemester(2)
+                        .subjectCourseType(SubjectCourseType.OPTIONAL)
+                        .build();
 
         SubjectCourseEntity updatedSubjectCourse =
                 subjectCourseService.updateSubjectInfoFromCourseSchedule(1L, 2L, newSubjectCourse);
@@ -152,10 +163,13 @@ public class SubjectCourseServiceTests {
 
     @Test
     public void updateSubjectInfoShouldThrowIfSubjectInfoNotFound() {
+        SubjectCourseKey subjectCourseKey = SubjectCourseKey.builder().subjectId(1L).build();
         SubjectCourseEntity newSubjectCourse =
-                new SubjectCourseEntity(
-                        new SubjectCourseKey(1L, null), null, null, 2, SubjectCourseType.OPTIONAL);
-
+                SubjectCourseEntity.builder()
+                        .keyId(subjectCourseKey)
+                        .expectedSemester(2)
+                        .subjectCourseType(SubjectCourseType.OPTIONAL)
+                        .build();
         assertThrows(
                 EntityNotFoundException.class,
                 () ->

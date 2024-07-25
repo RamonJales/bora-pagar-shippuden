@@ -52,12 +52,25 @@ public class SubjectCourseControllerTests {
     private final CourseEntity course = new CourseEntity("TI", "Fulano", new ArrayList<>());
     private final SubjectEntity subject =
             new SubjectEntity("Nome", "IMD0001", "Descrição", 60, new ArrayList<>());
+
+    private final SubjectCourseKey subjectCourseKey =
+            SubjectCourseKey.builder().subjectId(1L).courseId(1L).build();
     private final SubjectCourseEntity subjectCourse =
-            new SubjectCourseEntity(
-                    new SubjectCourseKey(1L, 1L), subject, course, 1, SubjectCourseType.MANDATORY);
+            SubjectCourseEntity.builder()
+                    .subject(subject)
+                    .course(course)
+                    .expectedSemester(1)
+                    .subjectCourseType(SubjectCourseType.MANDATORY)
+                    .keyId(subjectCourseKey)
+                    .build();
     private final SubjectCourseEntity updatedSubjectCourse =
-            new SubjectCourseEntity(
-                    new SubjectCourseKey(1L, 1L), subject, course, 1, SubjectCourseType.OPTIONAL);
+            SubjectCourseEntity.builder()
+                    .subject(subject)
+                    .course(course)
+                    .expectedSemester(1)
+                    .subjectCourseType(SubjectCourseType.OPTIONAL)
+                    .keyId(subjectCourseKey)
+                    .build();
 
     @BeforeEach
     public void setUp() {
