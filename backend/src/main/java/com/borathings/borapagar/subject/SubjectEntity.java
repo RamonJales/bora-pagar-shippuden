@@ -1,9 +1,13 @@
 package com.borathings.borapagar.subject;
 
+import java.util.Set;
+
+import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.core.AbstractModel;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,4 +31,7 @@ public class SubjectEntity extends AbstractModel {
     @Column @Nullable private String syllabus;
 
     @Column @NotNull private Integer hours;
+
+    @OneToMany
+    private Set<ClassroomEntity> classrooms;
 }
