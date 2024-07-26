@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "oh-vue-icons": "^1.0.0-rc3",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
