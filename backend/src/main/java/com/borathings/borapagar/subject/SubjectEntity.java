@@ -32,6 +32,6 @@ public class SubjectEntity extends AbstractModel {
 
     @Column @NotNull private Integer hours;
 
-    @OneToMany
+    @OneToMany(mappedBy = "subject")
     private Set<ClassroomEntity> classrooms;
 }

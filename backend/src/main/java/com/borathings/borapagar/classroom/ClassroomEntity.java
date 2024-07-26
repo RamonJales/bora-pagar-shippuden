@@ -1,8 +1,8 @@
 package com.borathings.borapagar.classroom;
 
-import javax.security.auth.Subject;
 
 import com.borathings.borapagar.core.AbstractModel;
+import com.borathings.borapagar.subject.SubjectEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,14 +12,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity
+@Entity(name = "classroom")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder
 public class ClassroomEntity extends AbstractModel {
     
     @ManyToOne
-    @Column @NotNull private Subject subject;
+    @NotNull private SubjectEntity subject;
 
     @Column @NotNull private int places;
     
