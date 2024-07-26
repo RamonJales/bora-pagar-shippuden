@@ -8,12 +8,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "course")
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 public class CourseEntity extends AbstractModel {
     @Column @NotNull private String name;
 
