@@ -25,11 +25,13 @@ public class SubjectServiceTests {
 
     @BeforeEach
     public void setUp() {
-        subject = new SubjectEntity();
-        subject.setName("MATEMÁTICA ELEMENTAR");
-        subject.setCode("IMD0001");
-        subject.setId(1L);
-        subject.setDeleted(false);
+        subject =
+                SubjectEntity.builder()
+                        .name("MATEMÁTICA ELEMENTAR")
+                        .code("IMD0001")
+                        .id(1L)
+                        .deleted(false)
+                        .build();
 
         when(subjectRepository.findAll()).thenReturn(List.of(subject));
         when(subjectRepository.findById(1L)).thenReturn(Optional.of(subject));
