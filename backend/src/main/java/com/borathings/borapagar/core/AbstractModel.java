@@ -6,12 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
 @Getter
 @Setter
+@SuperBuilder
 public class AbstractModel {
     @JsonView(Views.Admin.class)
     @Id
@@ -20,5 +23,6 @@ public class AbstractModel {
 
     @JsonView(Views.Admin.class)
     @Column(nullable = false)
+    @Builder.Default
     private Boolean deleted = false;
 }
