@@ -12,9 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.subject.dto.SubjectDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.HashSet;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +43,7 @@ public class SubjectControllerTests {
     public void setUp() {
         subject =
                 new SubjectEntity(
-                        "Matemática elementar", "IMD0001", "math and stuff", Integer.valueOf(60));
+                        "Matemática elementar", "IMD0001", "math and stuff", Integer.valueOf(60), new HashSet<ClassroomEntity>());
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
         when(subjectService.findByIdOrError(1L)).thenReturn(subject);
