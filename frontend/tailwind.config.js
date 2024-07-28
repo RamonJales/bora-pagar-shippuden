@@ -30,7 +30,26 @@ export default {
           600: "#636363",
           700: "#505050",
           800: "#323232"
-        }
+        },
+        "bp_danger": "#DA1E28"
+      },
+      animation: {
+        openmenu:  'openmenu 300ms ease-out',
+        closemenu:  'closemenu 300ms ease-in',
+      },
+      keyframes: {
+          openmenu: {
+          // initial position
+              '0%': {left:  '-1000px'},
+          // final position
+              '100%': {left:  '0px'}
+          },
+          closemenu: {
+          // initial position
+              '0%': {left:  '0px'},
+          // final position
+              '100%': {left:  '-1000px'}
+          },
       }
     },
   },
