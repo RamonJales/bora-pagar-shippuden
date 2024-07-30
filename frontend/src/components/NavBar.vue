@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
+import BadgeTag from '@/components/BadgeTag.vue'
+
 const isMenuOpen = ref(false)
 
 function handleMenuClick() {
@@ -10,10 +12,10 @@ function handleMenuClick() {
 </script>
 
 <template>
-  <header class="w-screen flex gap-10 mb-10 border-b border-bp_neutral-800 p-6">
+  <header class="w-screen flex items-center gap-10 mb-10 border-b border-bp_neutral-800 p-6">
     <button
       type="button"
-      class="text-bp_neutral-400 p-1 border border-bp_neutral-700 rounded-md"
+      class="text-bp_neutral-400 w-11 h-11 border border-bp_neutral-700 rounded-md"
       @click="handleMenuClick"
     >
       <v-icon name="md-menu-round" scale="1.5" />
@@ -28,10 +30,10 @@ function handleMenuClick() {
     </div>
   </header>
   <nav
-    class="w-11/12 md:w-auto"
+    class="w-11/12 md:w-auto p-5 py-8 bg-neutral-950 absolute top-0 h-screen transition-all ease-in-out duration-300"
     :class="{
-      'left-[0px] top-0 animate-openmenu p-5 py-8 bg-neutral-950 absolute h-screen': isMenuOpen,
-      'animate-closemenu left-[-1000px] top-0 p-5 py-8 bg-neutral-950 absolute h-full': !isMenuOpen
+      '-left-full': !isMenuOpen,
+      'left-0': isMenuOpen
     }"
   >
     <div class="flex items-center justify-between">
@@ -48,13 +50,11 @@ function handleMenuClick() {
       </button>
     </div>
     <div class="flex items-center gap-6 text-sm mt-7">
-      <span class="text-center bg-bp_primary-300 font-bold p-1.5 rounded-xl"
-        >Tecnologia da Informação</span
-      >
-      <span class="text-center bg-bp_primary-300 font-bold p-1.5 rounded-xl">5º Período</span>
+      <BadgeTag> Tecnologia da Informação </BadgeTag>
+      <BadgeTag>5º Período</BadgeTag>
     </div>
 
-    <hr class="my-10" />
+    <hr class="my-6" />
 
     <ul class="flex flex-col gap-4">
       <RouterLink class="menu-item" to="/">
