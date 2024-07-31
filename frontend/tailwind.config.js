@@ -32,6 +32,7 @@ export default {
           800: "#323232"
         },
         "bp_danger": "#DA1E28"
+        }
       }
     },
   },
