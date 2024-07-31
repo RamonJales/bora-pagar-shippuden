@@ -2,7 +2,7 @@ CREATE TABLE classroom (
     id BIGSERIAL NOT NULL,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     subject_id BIGSERIAL NOT NULL,
-    places INTEGER NOT NULL,
+    vacancies INTEGER NOT NULL,
     location VARCHAR NOT NULL,
     year_period VARCHAR NOT NULL,
 
