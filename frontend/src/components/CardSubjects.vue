@@ -1,12 +1,12 @@
 <template>
-    <div class="text-bp_neutral-50 w-full p-4 rounded-lg bg-bp_neutral-800">
+    <div class="text-bp_neutral-50 w-full h-auto rounded-lg bg-bp_neutral-800">
            
         <div class="flex items-center space-x-4"> 
-            <div class="grid justify-items-center">
+            <div class="grid justify-items-center pl-4">
                 <h2 class="text-2xl font-semibold">IMD0126</h2>
                 <p class="text-xl">60h</p>
             </div>
-            <div class="w-0.5 h-20 bg-bp_neutral-700">
+            <div class="w-0.5 h-36 bg-bp_neutral-700">
             </div>
             <div>
                 <div class="flex items-center space-x-4">
