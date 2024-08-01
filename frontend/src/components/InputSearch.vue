@@ -9,5 +9,5 @@
           class="input-search">
           <v-icon name="md-search" scale="1.5" />
         </button>
-      </div>
+    </div>
 </template>
