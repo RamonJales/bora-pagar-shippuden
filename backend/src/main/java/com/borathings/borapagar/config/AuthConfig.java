@@ -7,6 +7,7 @@ import com.borathings.borapagar.auth.OAuth2AuthenticationSuccessHandler;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import com.borathings.borapagar.auth.CustomOidcUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class AuthConfig {
+    @Autowired CustomOidcUserService customOidcUserService;
     @Autowired CustomOAuth2AuthorizationRequestResolver customOAuth2AuthorizationRequestResolver;
     @Autowired OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Value("${frontend.url}")
     String frontendUrl;
+
 
     @Bean
     /**
