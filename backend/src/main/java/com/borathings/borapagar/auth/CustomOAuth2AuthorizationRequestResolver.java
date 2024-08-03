@@ -1,8 +1,6 @@
 package com.borathings.borapagar.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -70,10 +68,6 @@ public class CustomOAuth2AuthorizationRequestResolver
 
         logger.info("Autenticação vinda do cliente {} foi resolvida", referer);
 
-        Map<String, Object> additionalParaments =
-                Collections.singletonMap("original_referer", referer);
-        return OAuth2AuthorizationRequest.from(resolvedRequest)
-                .additionalParameters(additionalParaments)
-                .build();
+        return resolvedRequest;
     }
 }
