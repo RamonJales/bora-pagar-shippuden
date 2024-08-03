@@ -1,7 +1,6 @@
 package com.borathings.borapagar.ping;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +18,7 @@ public class PingControllerTests {
     @Test
     public void shouldReturnPong() throws Exception {
         this.mockMvc
-                .perform(get("/api/ping").with(jwt()))
+                .perform(get("/api/ping"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Pong")));
     }
@@ -27,7 +26,7 @@ public class PingControllerTests {
     @Test
     public void shouldReturnNPongs() throws Exception {
         this.mockMvc
-                .perform(get("/api/pings").with(jwt()).param("quantity", "3"))
+                .perform(get("/api/pings").param("quantity", "3"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("[\"pong\",\"pong\",\"pong\"]")));
     }
