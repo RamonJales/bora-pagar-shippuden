@@ -15,9 +15,8 @@ public class CourseDTO {
      * @return CourseEntity - Entidade de curso
      */
     public CourseEntity toEntity() {
-        CourseEntity courseEntity = new CourseEntity();
-        courseEntity.setName(name);
-        courseEntity.setCoordinator(coordinator);
+        CourseEntity courseEntity =
+                CourseEntity.builder().name(name).coordinator(coordinator).build();
         return courseEntity;
     }
 }

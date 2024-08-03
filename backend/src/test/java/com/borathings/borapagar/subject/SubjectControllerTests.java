@@ -40,8 +40,13 @@ public class SubjectControllerTests {
     @BeforeEach
     public void setUp() {
         subject =
-                new SubjectEntity(
-                        "Matemática elementar", "IMD0001", "math and stuff", Integer.valueOf(60));
+                SubjectEntity.builder()
+                        .name("Matemática elementar")
+                        .id(1L)
+                        .code("IMD0001")
+                        .hours(60)
+                        .syllabus("Math and stuff")
+                        .build();
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
         when(subjectService.findByIdOrError(1L)).thenReturn(subject);
