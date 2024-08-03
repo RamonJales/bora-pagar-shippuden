@@ -66,6 +66,10 @@ public class AuthConfig {
                 .oauth2Login(
                         oauthLogin ->
                                 oauthLogin
+                                        .userInfoEndpoint(
+                                                userInfo ->
+                                                        userInfo.oidcUserService(
+                                                                customOidcUserService))
                                         .authorizationEndpoint(
                                                 authorization ->
                                                         authorization.authorizationRequestResolver(
