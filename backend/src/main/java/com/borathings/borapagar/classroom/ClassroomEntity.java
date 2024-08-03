@@ -18,7 +18,7 @@ public class ClassroomEntity extends AbstractModel {
 
     @ManyToOne @NotNull private SubjectEntity subject;
 
-    @Column @NotNull private int vacancies;
+    @Column @NotNull private int seats;
 
     @Column @NotNull private String location;
 
