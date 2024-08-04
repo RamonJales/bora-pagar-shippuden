@@ -7,10 +7,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.NaturalId;
 
 /** UserEntity */
@@ -20,7 +20,7 @@ import org.hibernate.annotations.NaturalId;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder(toBuilder = true)
 public class UserEntity extends AbstractModel {
     @Column @NotNull private String email;
     @Column @NotNull private String name;

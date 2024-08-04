@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 public class SubjectEntity extends AbstractModel {
     @Column @NotNull private String name;
 
