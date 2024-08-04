@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.borathings.borapagar.subject.dto.SubjectDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,7 @@ public class SubjectControllerTests {
                         .code("IMD0001")
                         .hours(60)
                         .syllabus("Math and stuff")
+                        .classrooms(Collections.emptySet())
                         .build();
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
