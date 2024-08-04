@@ -239,6 +239,7 @@
 				<configuration>
 					<excludes>
                 		<exclude>src\main\java\com\borathings\borapagar\BoraPagarApplication.class</exclude>
+										<exclude>com/borathings/borapagar/core/**</exclude>
             		</excludes>
 				</configuration>
 				
