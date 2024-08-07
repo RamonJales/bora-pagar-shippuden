@@ -27,7 +27,7 @@ const props = defineProps([
 
 
 
-    <BadgeTag class="mr-8" type="true">8 minutos atrás</BadgeTag>
+    <BadgeTag class="mr-8" type="primary" size="large">8 minutos atrás</BadgeTag>
 
 
 
