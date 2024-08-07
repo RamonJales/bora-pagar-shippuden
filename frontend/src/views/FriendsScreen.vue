@@ -1,6 +1,49 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue'
 import ListItemFriend from '@/components/ListItemFriend.vue'
+import { ref, onMounted, reactive } from 'vue';
+
+const friends = ref([]);
+
+onMounted(() => {
+      friends.value = [
+    {
+      name: 'Danillo',
+      period: '5',
+      degree: 'CC'
+    },
+    {
+      name: 'Alisson',
+      period: '7',
+      degree: 'TI'
+    },
+    {
+      name: 'CR7 Jales',
+      period: '4',
+      degree: 'TI'
+    },
+    {
+      name: 'Iñaki Marlon Lourenço',
+      period: '7',
+      degree: 'Geografia'
+    },
+    {
+      name: 'Ían Gabriel',
+      period: '5',
+      degree: 'TI'
+    },
+    {
+      name: 'Parabéns',
+      period: '5',
+      degree: 'TI'
+    }
+
+  ];
+
+});
+
+
+
 </script>
 
 <template>
@@ -42,14 +85,8 @@ import ListItemFriend from '@/components/ListItemFriend.vue'
         <div class="grid grid-cols-1 gap-4 mt-4 lg:grid-cols-2">
 
 
-          <ListItemFriend nome="Danillo" curso="TI" periodo="3"/>
-          <ListItemFriend nome="Alisson" curso="TI" periodo="5"/>
-
-          <ListItemFriend/>
-          <ListItemFriend/>
-
-          <ListItemFriend/>
-          <ListItemFriend/>
+          <ListItemFriend v-for='friend in friends' :nome="friend.name" :curso="friend.degree" :periodo="friend.period"/>
+          
 
 
 
