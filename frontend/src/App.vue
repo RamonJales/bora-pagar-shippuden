@@ -1,10 +1,13 @@
 <script setup>
-import NavBar from '@/components/NavBar.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="h-screen w-screen bg-bp_neutral-900 text-bp_neutral-50">
-    <NavBar />
-    <h1 class="text-3xl text-blue-500">Bora Pagar</h1>
-  </div>
+   <!--  <h1 class="text-3xl text-blue-500">Bora Pagar</h1> -->
+  <nav>
+    <!-- <RouterLink to="/">Home</RouterLink> -->  
+    <!--  <RouterLink to="/friends-screen">FriendsScreen</RouterLink>  -->
+  </nav>
+
+   <RouterView />
 </template>
