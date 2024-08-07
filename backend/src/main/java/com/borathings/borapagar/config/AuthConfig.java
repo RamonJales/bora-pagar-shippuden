@@ -2,8 +2,12 @@ package com.borathings.borapagar.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import com.borathings.borapagar.auth.CustomOAuth2AuthorizationRequestResolver;
 import com.borathings.borapagar.auth.CustomOidcUserService;
+import com.borathings.borapagar.auth.OAuth2AuthenticationSuccessHandler;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -12,12 +16,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /** AuthConfig Class responsável por fazer configurações relacionadas ao spring-security */
 @Configuration
 @EnableWebSecurity
 public class AuthConfig {
     @Autowired CustomOidcUserService customOidcUserService;
+    @Autowired CustomOAuth2AuthorizationRequestResolver customOAuth2AuthorizationRequestResolver;
+    @Autowired OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    @Value("${frontend.url}")
+    String frontendUrl;
 
     @Bean
     /**
@@ -50,11 +62,19 @@ public class AuthConfig {
                                         .anyRequest()
                                         .permitAll())
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(withDefaults()))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .oauth2Login(
                         oauthLogin ->
-                                oauthLogin.userInfoEndpoint(
-                                        userInfo ->
-                                                userInfo.oidcUserService(customOidcUserService)))
+                                oauthLogin
+                                        .userInfoEndpoint(
+                                                userInfo ->
+                                                        userInfo.oidcUserService(
+                                                                customOidcUserService))
+                                        .authorizationEndpoint(
+                                                authorization ->
+                                                        authorization.authorizationRequestResolver(
+                                                                customOAuth2AuthorizationRequestResolver))
+                                        .successHandler(oAuth2AuthenticationSuccessHandler))
                 .exceptionHandling(
                         ex ->
                                 ex.defaultAuthenticationEntryPointFor(
@@ -62,5 +82,20 @@ public class AuthConfig {
                                         new AntPathRequestMatcher("/api/**")));
 
         return http.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of(frontendUrl));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedMethods(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource =
+                new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/api/**", config);
+        return urlBasedCorsConfigurationSource;
     }
 }
