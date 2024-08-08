@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -50,6 +51,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
         ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Object> handleBadRequestExcpetion(BadRequestException ex) {
+        ApiException apiException = new ApiException(HttpStatus.BAD_REQUEST, ex);
         return buildResponseEntityFromException(apiException);
     }
 
