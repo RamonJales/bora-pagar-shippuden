@@ -1,32 +1,38 @@
 <script setup lang="ts">
-import CardSubjects from './CardSubjects.vue';
-import InputSearch from './InputSearch.vue';
+import InputSearch from './InputSearch.vue'
+import CardSubjects from './CardSubjects.vue'
 </script>
 
 <template>
-    <header class="bg-bp_neutral-900 space-y-6">
-        <p class="text-bp_neutral-50 text-2xl font-bold">consultar-disciplinas</p>
-        <hr>
-        <div class="flex space-x-6">
-            <InputSearch/>
-            <div class="flex space-x-3">
-                <div>
-                    <button class="card-options">Departamento </button>
-                    <v-icon class="text-bp_primary-" name="ri-arrow-drop-down-fill" scale="1.5" />
-                </div>
-                <div>
-                    <button class="card-options">Dificuldade </button>
-                    <v-icon class="text-bp_primary-" name="ri-arrow-drop-down-fill" scale="1.5" />
-                </div>
-                <div>
-                    <button class="card-options">Horas </button>
-                    <v-icon class="text-bp_primary-300" name="ri-arrow-drop-down-fill" scale="1.5" />
-                </div>
-            </div>
+  <header class="h-full container mx-auto p-6 xl:max-w-7xl bg-bp_neutral-900 space-y-6">
+    <p class="text-bp_neutral-50 text-2xl font-bold">consultar-disciplinas</p>
+    <hr class="border-bp_neutral-700" />
+    <div class="flex flex-col lg:flex-row lg:space-x-6">
+      <InputSearch class="w-full lg:w-2/3 mb-4 lg:mb-0" />
+      <div class="flex flex-wrap justify-end lg:w-1/2 space-x-4">
+        <div class="flex items-center space-x-2">
+          <button class="card-options flex items-center">
+            <span>Departamento</span>
+            <v-icon name="md-arrowdropdown-outlined" scale="1.2" />
+          </button>
         </div>
-        <div class="space-y-4">
-            <CardSubjects/>
-            <CardSubjects/>
-        </div>       
-    </header>
+        <div class="flex items-center space-x-2">
+          <button class="card-options flex items-center">
+            <span>Dificuldade</span>
+            <v-icon name="md-arrowdropdown-outlined" scale="1.2" />
+          </button>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button class="card-options flex items-center">
+            <span>Horas</span>
+            <v-icon name="md-arrowdropdown-outlined" scale="1.2" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <CardSubjects />
+      <CardSubjects />
+    </div>
+  </header>
 </template>
