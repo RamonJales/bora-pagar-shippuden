@@ -6,13 +6,13 @@
   .menu-item {
     @apply flex items-center gap-4 hover:border-b border-bp_neutral-600;
   }
-  .input-base{
-    @apply  bg-bp_neutral-800 border border-bp_neutral-700 rounded-l-lg py-2 px-4 text-bp_neutral-50;
+  .input-base {
+    @apply bg-bp_neutral-800 border border-bp_neutral-700 rounded-l-lg py-2 px-4 text-bp_neutral-50;
   }
-  .input-search{
+  .input-search {
     @apply bg-bp_primary-300 text-bp_primary-50 rounded-r-lg py-2 px-4;
   }
-  .card-options{
-    @apply  bg-bp_neutral-800 text-bp_neutral-50  border border-bp_neutral-600 rounded-md p-2;
+  .card-options {
+    @apply bg-bp_neutral-800 text-bp_neutral-50  border border-bp_neutral-600 rounded-md p-2;
   }
 }
