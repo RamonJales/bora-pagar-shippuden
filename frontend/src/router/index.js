@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/friends-screen',
+      path: '/amigos',
       name: 'friends-screen',
       component: FriendsScreen
     }

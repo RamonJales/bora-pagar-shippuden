@@ -1,16 +1,16 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue'
 import ListItemFriend from '@/components/ListItemFriend.vue'
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted } from 'vue'
 
-const friends = ref([]);
+const friends = ref([])
 
 onMounted(() => {
-      friends.value = [
+  friends.value = [
     {
       name: 'Danillo',
       period: '5',
-      degree: 'CC'
+      degree: 'História'
     },
     {
       name: 'Alisson',
@@ -36,14 +36,29 @@ onMounted(() => {
       name: 'Parabéns',
       period: '5',
       degree: 'TI'
+    },
+    {
+      name: 'Mary Peace',
+      period: '4',
+      degree: 'TI'
+    },
+    {
+      name: 'Tiago',
+      period: '6',
+      degree: 'TI'
+    },
+    {
+      name: 'Natálya',
+      period: '4',
+      degree: 'TI'
+    },
+    {
+      name: 'Dudu',
+      period: '2',
+      degree: 'Ciência da Computação'
     }
-
-  ];
-
-});
-
-
-
+  ]
+})
 </script>
 
 <template>
@@ -67,29 +82,29 @@ onMounted(() => {
               <v-icon name="md-search-round" scale="1.5"></v-icon>
             </button>
             <button
-              class="h-[60px] w-[158px] py-[18px] px-[20px] bg-bp_neutral-800 text-white font-bold ml-4 px-4 rounded-[10px] flex justify-center items-center border-[1px] border-solid"
+              class="h-[60px] w-[158px] py-[18px] px-4 bg-bp_neutral-800 text-white font-bold ml-4 rounded-[10px] flex justify-center items-center border-[1px] border-solid"
             >
               Todos
               <v-icon name="md-arrowdropdown"></v-icon>
             </button>
           </div>
-          <!-- o padding quebra o Adicionar Amigos -->
+
           <button
-            class=" h-[60px] py-[18px] px-[20px] rounded-[10px] bg-bp_primary-400 text-white font-bold flex justify-center items-center"
+            class="h-[60px] py-[18px] px-[20px] rounded-[10px] bg-bp_primary-400 text-white font-bold flex justify-center items-center"
           >
             <v-icon class="mr-2" name="md-personaddalt1-outlined" scale="1.5"></v-icon>
             Adicionar Amigo
           </button>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 mt-4 lg:grid-cols-2">
-
-
-          <ListItemFriend v-for='friend in friends' :nome="friend.name" :curso="friend.degree" :periodo="friend.period"/>
-          
-
-
-
+        <div class="grid grid-cols-1 gap-4 mt-10 lg:grid-cols-2">
+          <ListItemFriend
+            v-for="(friend, index) in friends"
+            v-bind:key="index"
+            :nome="friend.name"
+            :curso="friend.degree"
+            :periodo="friend.period"
+          />
         </div>
       </div>
     </main>

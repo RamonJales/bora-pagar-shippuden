@@ -50,8 +50,8 @@ function handleMenuClick() {
       </button>
     </div>
     <div class="flex items-center gap-6 text-sm mt-7">
-      <BadgeTag> Tecnologia da Informação </BadgeTag>
-      <BadgeTag>5º Período</BadgeTag>
+      <BadgeTag size="large"> Tecnologia da Informação </BadgeTag>
+      <BadgeTag size="large">5º Período</BadgeTag>
     </div>
 
     <hr class="my-6" />
