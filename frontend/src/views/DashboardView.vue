@@ -2,9 +2,12 @@
 import PeriodCard from '@/components/PeriodCard.vue'
 import RadialProgress from '@/components/RadialProgress.vue';
 import SubjectCard from '@/components/SubjectCard.vue'
+import NavBar from '@/components/NavBar.vue'
 </script>
 
 <template>
+  <NavBar />
+  
   <main class="h-full container mx-auto p-6 xl:max-w-7xl">
     <header class="flex items-center justify-between border-b border-bp_neutral-800 pb-4">
       <h1 class="title-h1">período-atual · 5º</h1>
