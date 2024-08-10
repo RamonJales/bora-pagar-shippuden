@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ButtonDetails from './ButtonDetails.vue'
+const props = defineProps(['name', 'code', 'hour'])
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import ButtonDetails from './ButtonDetails.vue'
       <div class="hidden md:block w-0.5 h-24 bg-bp_neutral-700"></div>
       <div class="flex flex-col space-y-2 lg:space-y-4 py-4">
         <div class="flex items-center space-x-2 lg:space-x-4">
-          <p class="text-base sm:text-lg font-semibold">INTRODUÇÃO A IOT E SISTEMAS EMBARCADOS</p>
+          <p class="text-base sm:text-lg font-semibold">{{ props.name }}</p>
           <div class="bg-bp_sucess w-4 h-4 sm:w-5 sm:h-5 rounded-full"></div>
         </div>
         <div class="flex items-center space-x-2 lg:space-x-4">
@@ -21,7 +21,9 @@ import ButtonDetails from './ButtonDetails.vue'
           <p class="text-sm sm:text-base">TECNOLOGIA DA INFORMAÇÃO</p>
         </div>
       </div>
-      <ButtonDetails />
+      <button class="py-2 px-4 border border-bp_primary-400 rounded-lg text-bp_primary-400">
+        Detalhes
+      </button>
     </div>
   </div>
 </template>

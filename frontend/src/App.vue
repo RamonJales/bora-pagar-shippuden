@@ -1,13 +1,10 @@
 <script setup>
-import NavBar from '@/components/NavBar.vue'
-import ConsultSubjects from './components/ConsultSubjects.vue';
-
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="h-screen w-screen bg-bp_neutral-900 text-bp_neutral-50">
-    <NavBar />
-    <ConsultSubjects/>
-    <h1 class="text-3xl text-blue-500">Bora Pagar</h1>
+  <div class="min-h-screen bg-bp_neutral-900 text-bp_neutral-50">
+
+    <RouterView />
   </div>
 </template>
