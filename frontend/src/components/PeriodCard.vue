@@ -30,27 +30,27 @@
               Adicionar matéria
             </button>
             <ul class="flex flex-col gap-4 mt-2">
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
-              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-sm px-4 py-2">
+              <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
                 <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>
                 <v-icon name="md-infooutline" />
               </li>
