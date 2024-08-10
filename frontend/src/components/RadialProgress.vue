@@ -3,7 +3,6 @@ import { computed } from 'vue'
 
 const props = defineProps(['progress'])
 
-
 const content = computed(() => {
   return "'" + props.progress + "%'"
 })
@@ -17,7 +16,7 @@ const color = computed(() => {
 })
 
 const degree = computed(() => {
-    return `${90 + (3.6 * Number(props.progress))}deg`
+  return `${90 + 3.6 * Number(props.progress)}deg`
 })
 </script>
 
@@ -34,7 +33,7 @@ const degree = computed(() => {
   width: 10rem;
 
   background: linear-gradient(to v-bind(direction), v-bind(color) 50%, transparent 50%),
-    linear-gradient(v-bind(degree),  #BBDCFF 50%, #505050 50%);
+    linear-gradient(v-bind(degree), #bbdcff 50%, #505050 50%);
 }
 
 .c-circular-progress::before {

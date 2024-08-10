@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import PeriodCard from '@/components/PeriodCard.vue'
-import RadialProgress from '@/components/RadialProgress.vue';
+import RadialProgress from '@/components/RadialProgress.vue'
 import SubjectCard from '@/components/SubjectCard.vue'
 import NavBar from '@/components/NavBar.vue'
 </script>
 
 <template>
   <NavBar />
-  
+
   <main class="h-full container mx-auto p-6 xl:max-w-7xl">
     <header class="flex items-center justify-between border-b border-bp_neutral-800 pb-4">
       <h1 class="title-h1">período-atual · 5º</h1>
       <span class="title-h1 text-bp_primary-100">210h</span>
     </header>
-    
-    <section class="max-w-full my-6 grid grid-cols-1 place-items-center sm:place-items-start sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <section
+      class="max-w-full my-6 grid grid-cols-1 place-items-center sm:place-items-start sm:grid-cols-2 lg:grid-cols-4 gap-4"
+    >
       <SubjectCard />
       <SubjectCard />
       <SubjectCard />
@@ -48,7 +50,7 @@ import NavBar from '@/components/NavBar.vue'
               <span class="text-bp_primary-50 cursor-pointer">Mais</span>
             </div>
 
-            <RadialProgress progress="85"/>
+            <RadialProgress progress="85" />
 
             <p class="mt-6 w-full flex items-center justify-between">
               <span>C.H. obrigatória pendente</span>
