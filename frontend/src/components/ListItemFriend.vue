@@ -1,6 +1,6 @@
 <script setup>
 import BadgeTag from './BadgeTag.vue'
-const props = defineProps(['nome', 'curso', 'periodo'])
+defineProps(['nome', 'curso', 'periodo'])
 </script>
 
 <template>
@@ -11,16 +11,18 @@ const props = defineProps(['nome', 'curso', 'periodo'])
       <img
         class="ml-8 rounded-full w-[73px] h-[73px]"
         src="https://images.pexels.com/photos/21085439/pexels-photo-21085439/free-photo-of-preto-e-branco-p-b-olhando-vendo.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        alt=""
+        alt="foto do amigo"
       />
       <div class="user-data">
-        <div class="text-2xl font-bold">{{ nome }}</div>
+        <div class="text-xl font-bold">{{ nome }}</div>
         <div class="user-subject">
           <span class="inline-flex items-center gap-1">
-            <v-icon class="align-middle" name="md-school-outlined"></v-icon> {{ curso }}</span
+            <v-icon class="text-bp_primary-100" name="md-school-outlined"></v-icon>
+            {{ curso }}</span
           >
           <span class="ml-3 inline-flex items-center gap-1">
-            <v-icon name="md-calendartoday-outlined"></v-icon> Período {{ periodo }}°</span
+            <v-icon class="text-bp_primary-100" name="md-calendartoday-outlined"></v-icon> Período
+            {{ periodo }}°</span
           >
         </div>
       </div>

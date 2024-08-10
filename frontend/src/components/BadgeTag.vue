@@ -15,12 +15,13 @@ const props = defineProps({
 
 <template>
   <span
-    class="text-center text-bp_primary-400 border font-semibold rounded-3xl text-xs hover:border-2 cursor-default"
+    class="text-center font-semibold rounded-3xl text-xs hover:border-2 cursor-default"
     :class="{
-      'bg-bp_primary-400 bg-opacity-20 border-bp_primary-300': props.type === 'primary',
-      'bg-bp_neutral-700 text-white border border-bp_primary-50': props.type === 'secondary',
+      'bg-bp_primary-400 bg-opacity-20 border border-bp_primary-300 text-bp_primary-400':
+        props.type === 'primary',
+      'bg-bp_neutral-700 text-white leading-[15px]': props.type === 'secondary',
       'p-2': props.size === 'large',
-      'p-1': props.size === 'small'
+      'py-[2px] px-[7px]': props.size === 'small'
     }"
   >
     <slot />
