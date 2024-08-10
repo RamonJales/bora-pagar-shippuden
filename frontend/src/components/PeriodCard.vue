@@ -2,9 +2,12 @@
  import { ref } from 'vue'
 
  const isExpanded = ref(false)
+ const icon = ref("md-keyboardarrowright")
 
  function toggleExpansion() {
     isExpanded.value = !isExpanded.value
+
+    icon.value = isExpanded.value ? "md-keyboardarrowdown" : "md-keyboardarrowright"
  }
 </script>
 
@@ -17,7 +20,7 @@
                 <v-icon name="md-schedule" />
                 180h
               </span>
-              <v-icon name="md-keyboardarrowdown" scale="1.5" />
+              <v-icon :name="icon" scale="1.5" />
             </div>
           </div>
           
