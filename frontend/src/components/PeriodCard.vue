@@ -15,7 +15,7 @@ function toggleExpansion() {
       :class="{ 'border-b': isExpanded }" @click="toggleExpansion">
       <h3 class="font-bold text-2xl">1º</h3>
       <div class="flex items-center gap-4">
-        <span class="font-bold text-lg border border-bp_neutral-600 px-2 py-1 rounded-3xl">
+        <span class="font-bold border border-bp_neutral-600 px-2 py-1 rounded-3xl">
           <v-icon name="md-schedule" />
           180h
         </span>
