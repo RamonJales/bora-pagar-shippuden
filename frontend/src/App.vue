@@ -1,9 +1,5 @@
-<script setup>
-import { RouterView } from 'vue-router'
-</script>
-
 <template>
-  <nav></nav>
-
-  <RouterView />
+  <div class="min-h-screen h-full bg-bp_neutral-900 text-bp_neutral-50">
+    <RouterView />
+  </div>
 </template>
