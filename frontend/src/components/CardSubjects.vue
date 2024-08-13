@@ -1,29 +1,46 @@
 <script setup lang="ts">
-const props = defineProps(['name', 'code', 'hour'])
+import { computed } from 'vue'
+
+const props = defineProps(['id', 'ch', 'name', 'local', 'curso', 'dificuldade'])
+
+const difficultyClass = computed(() => {
+  switch (props.dificuldade) {
+    case 'ALTA':
+      return 'bg-bp_danger'
+    case 'MEDIA':
+      return 'bg-bp_yellow'
+    case 'BAIXA':
+      return 'bg-bp_sucess'
+    default:
+      return 'bg-bp_neutral-200'
+  }
+})
 </script>
 
 <template>
-  <div class="text-bp_neutral-50 w-full h-auto rounded-lg bg-bp_neutral-800">
+  <div class="text-bp_neutral-50 w-full lg:h-24 rounded-lg bg-bp_neutral-800">
     <div class="flex flex-col md:flex-row md:justify-start md:items-center space-x-6 pr-4">
-      <div class="flex flex-col items-center py-6 pl-8">
-        <h2 class="text-xl sm:text-2xl font-semibold">IMD0126</h2>
-        <p class="text-lg sm:text-xl">60h</p>
+      <div class="flex flex-col items-center pl-8">
+        <p class="text-2xl font-semibold">{{ id }}</p>
+        <p class="text-xl">{{ ch }}h</p>
       </div>
       <div class="hidden md:block w-0.5 h-24 bg-bp_neutral-700"></div>
-      <div class="flex flex-col space-y-2 lg:space-y-4 py-4">
-        <div class="flex items-center space-x-2 lg:space-x-4">
-          <p class="text-base sm:text-lg font-semibold">{{ props.name }}</p>
-          <div class="bg-bp_sucess w-4 h-4 sm:w-5 sm:h-5 rounded-full"></div>
+      <div class="flex justify-between items-center w-full gap-4">
+        <div class="">
+          <div class="flex items-center space-x-2 lg:space-x-4">
+            <p class="text-base sm:text-lg font-semibold">{{ props.name }}</p>
+            <div :class="difficultyClass" class="w-2 h-2 sm:w-5 sm:h-5 rounded-full"></div>
+          </div>
+          <div class="flex items-center space-x-2 lg:space-x-4">
+            <p class="text-2xl sm:text-base">{{ local }}</p>
+            <p>|</p>
+            <p class="text-base">{{ curso }}</p>
+          </div>
         </div>
-        <div class="flex items-center space-x-2 lg:space-x-4">
-          <p class="text-sm sm:text-base">INSTITUTO METROPOLE DIGITAL</p>
-          <p>|</p>
-          <p class="text-sm sm:text-base">TECNOLOGIA DA INFORMAÇÃO</p>
-        </div>
+        <button class="w-28 h-9 border border-bp_primary-400 rounded-lg text-bp_primary-400">
+          Detalhes
+        </button>
       </div>
-      <button class="py-2 px-4 border border-bp_primary-400 rounded-lg text-bp_primary-400">
-        Detalhes
-      </button>
     </div>
   </div>
 </template>
