@@ -14,7 +14,7 @@ import NavBar from '@/components/NavBar.vue'
       <div class="flex flex-wrap justify-end lg:w-1/2 space-x-4">
         <div class="flex items-center space-x-2">
           <select class="card-options text-lg">
-            <option value="">Departamento</option>
+            <option hidden value="">Departamento</option>
             <option value="imd">IMD</option>
             <option value="c&t">C&T</option>
             <option value="dimap">DIMAP</option>
@@ -22,7 +22,7 @@ import NavBar from '@/components/NavBar.vue'
         </div>
         <div class="flex items-center space-x-2">
           <select class="card-options text-lg">
-            <option value="">Dificuldade</option>
+            <option hidden value="">Dificuldade</option>
             <option value="imd">Baixa</option>
             <option value="c&t">Média</option>
             <option value="dimap">Alta</option>
@@ -30,7 +30,7 @@ import NavBar from '@/components/NavBar.vue'
         </div>
         <div class="flex items-center space-x-2">
           <select class="card-options text-lg">
-            <option value="">Horas</option>
+            <option hidden value="">Horas</option>
             <option value="imd">30h</option>
             <option value="c&t">60h</option>
             <option value="dimap">90h</option>
