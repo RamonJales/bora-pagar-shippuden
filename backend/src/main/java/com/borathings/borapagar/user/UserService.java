@@ -58,4 +58,21 @@ public class UserService {
         existingUser.setImageUrl(oidcUser.getPicture());
         userRepository.save(existingUser);
     }
+
+    /**
+     * Recupera um usuário do banco de dados pelo id da sua conta do google. Retorna <code>
+     * EntityNotFoundException</code> caso o usuário não seja encontrado
+     *
+     * @param googleId - String - ID da conta do google
+     * @return UserEntity - Usuário encontrado
+     * @throws EntityNotFoundException - Se o usuário não for encontrado
+     */
+    public UserEntity findByGoogleIdOrError(String googleId) {
+        return userRepository
+                .findByGoogleId(googleId)
+                .orElseThrow(
+                        () -> {
+                            return new EntityNotFoundException("Usuário não encontrado");
+                        });
+    }
 }
