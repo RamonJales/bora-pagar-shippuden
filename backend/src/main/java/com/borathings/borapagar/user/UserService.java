@@ -1,5 +1,6 @@
 package com.borathings.borapagar.user;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +41,12 @@ public class UserService {
                 oidcUserEmail,
                 oidcUserGoogleId);
         UserEntity userEntity =
-                new UserEntity(
-                        oidcUserEmail,
-                        oidcUser.getFullName(),
-                        oidcUserGoogleId,
-                        oidcUser.getPicture());
+                UserEntity.builder()
+                        .email(oidcUserEmail)
+                        .name(oidcUser.getFullName())
+                        .googleId(oidcUserGoogleId)
+                        .imageUrl(oidcUser.getPicture())
+                        .build();
         userRepository.save(userEntity);
     }
 

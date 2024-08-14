@@ -39,11 +39,12 @@ public class UserServiceTests {
         userService.upsertFromOidcUser(oidcUser);
 
         UserEntity createdUser =
-                new UserEntity(
-                        oidcUser.getEmail(),
-                        oidcUser.getFullName(),
-                        oidcUser.getSubject(),
-                        oidcUser.getPicture());
+                UserEntity.builder()
+                        .email(oidcUser.getEmail())
+                        .name(oidcUser.getFullName())
+                        .googleId(oidcUser.getSubject())
+                        .imageUrl(oidcUser.getPicture())
+                        .build();
 
         verify(userRepository, times(1)).save(eq(createdUser));
     }
@@ -56,7 +57,13 @@ public class UserServiceTests {
         when(oidcUser.getPicture()).thenReturn("updatedImg.jpeg");
         when(oidcUser.getSubject()).thenReturn("1234");
 
-        UserEntity existingUser = new UserEntity("carlos@email.com", "Carlos", "1234", "img.jpeg");
+        UserEntity existingUser =
+                UserEntity.builder()
+                        .email("carlos@email.com")
+                        .name("Carlos")
+                        .googleId("1234")
+                        .imageUrl("img.jpeg")
+                        .build();
 
         when(userRepository.findByGoogleId(eq("1234"))).thenReturn(Optional.of(existingUser));
 
