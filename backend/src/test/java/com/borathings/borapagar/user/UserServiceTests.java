@@ -1,12 +1,14 @@
 package com.borathings.borapagar.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,5 +76,20 @@ public class UserServiceTests {
         assertEquals("updatedImg.jpeg", existingUser.getImageUrl());
 
         verify(userRepository, times(1)).save(eq(existingUser));
+    }
+
+    @Test
+    public void shouldFindByGoogleId() {
+        UserEntity user = UserEntity.builder().googleId("1234").build();
+        when(userRepository.findByGoogleId(eq("1234"))).thenReturn(Optional.of(user));
+        UserEntity foundUser = userService.findByGoogleIdOrError("1234");
+        assertEquals(user, foundUser);
+    }
+
+    @Test
+    public void shouldThrowEntityNotFoundIfUserDoesNotExist() {
+        when(userRepository.findByGoogleId(eq("1234"))).thenReturn(Optional.empty());
+        assertThrows(
+                EntityNotFoundException.class, () -> userService.findByGoogleIdOrError("1234"));
     }
 }
