@@ -1,11 +1,16 @@
 package com.borathings.borapagar.user;
 
+import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.core.AbstractModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +31,13 @@ public class UserEntity extends AbstractModel {
     @Column @NotNull private String name;
     @Column @NotNull @NaturalId private String googleId;
     @Column private String imageUrl;
+
+    @ManyToMany
+    @JoinTable(
+            name = "enrollment",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "classroom_id"))
+    private Set<ClassroomEntity> enrolledClassrooms;
 
     @Override
     public boolean equals(Object o) {
