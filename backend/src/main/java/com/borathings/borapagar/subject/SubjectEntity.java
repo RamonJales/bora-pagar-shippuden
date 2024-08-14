@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
@@ -19,6 +20,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class SubjectEntity extends AbstractModel {
     @Column @NotNull private String name;
