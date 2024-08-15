@@ -28,7 +28,6 @@ public class EnrollmentService {
         if (user.getEnrolledClassrooms().contains(classroom)) {
             throw new DuplicateKeyException("Usuário já está matriculado nesta disciplina");
         }
-        ;
         user.getEnrolledClassrooms().add(classroom);
         userRepository.save(user);
     }
