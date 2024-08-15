@@ -13,8 +13,9 @@ public class EnrollmentControllerImpl implements EnrollmentController {
 
     @Override
     public ResponseEntity<String> enrollInClassroom(Long classroomId) {
-        enrollmentService.enrollUserInClassroom(
-                SecurityContextHolder.getContext().getAuthentication().getName(), classroomId);
+        String authenticatedGoogleId =
+                SecurityContextHolder.getContext().getAuthentication().getName();
+        enrollmentService.enrollUserInClassroom(authenticatedGoogleId, classroomId);
         return ResponseEntity.ok().body("Usuário matriculado com sucesso");
     }
 }
