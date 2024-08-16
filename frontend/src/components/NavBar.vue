@@ -12,7 +12,7 @@ function handleMenuClick() {
 </script>
 
 <template>
-  <header class="w-screen flex items-center gap-10 mb-10 border-b border-bp_neutral-800 p-6">
+  <header class="flex items-center gap-10 mb-10 border-b border-bp_neutral-800 p-6">
     <button
       type="button"
       class="text-bp_neutral-400 w-11 h-11 border border-bp_neutral-700 rounded-md"
@@ -50,8 +50,8 @@ function handleMenuClick() {
       </button>
     </div>
     <div class="flex items-center gap-6 text-sm mt-7">
-      <BadgeTag> Tecnologia da Informação </BadgeTag>
-      <BadgeTag>5º Período</BadgeTag>
+      <BadgeTag size="large" type="primary">Tecnologia da Informação</BadgeTag>
+      <BadgeTag size="large" type="primary">5º Período</BadgeTag>
     </div>
 
     <hr class="my-6" />

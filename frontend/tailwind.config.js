@@ -31,12 +31,16 @@ export default {
           700: "#505050",
           800: "#323232"
         },
-        "bp_danger": "#DA1E28",
+
+        "bp_danger": {
+          DEFAULT: "#DA1E28",
+          light: "#FFAAAA"
+        },
+
         "bp_sucess": "#6AE156",
         "bp_yellow": "#FFCC00"
       }
+      },
     },
-  },
   plugins: [],
 }
-
