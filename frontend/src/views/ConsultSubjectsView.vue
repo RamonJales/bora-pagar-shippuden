@@ -40,28 +40,28 @@ import NavBar from '@/components/NavBar.vue'
     </div>
     <div class="space-y-4">
       <CardSubjects
-        id="IMD0126"
-        ch="60"
+      code="IMD0126"
+        workload="60"
         name="Matemática Elementar"
-        dificuldade="MEDIA"
-        local="Intituto Metrópole Digital"
-        curso="Tecnologia da Informação"
+        dificulty="MEDIA"
+        departament="Intituto Metrópole Digital"
+        course="Tecnologia da Informação"
       />
       <CardSubjects
-        id="IMD0127"
-        ch="90"
+      code="IMD0127"
+        workload="90"
         name="Fundamentos da Matemática Computacional"
-        dificuldade="ALTA"
-        local="Intituto Metrópole Digital"
-        curso="Tecnologia da Informação"
+        dificulty="ALTA"
+        departament="Intituto Metrópole Digital"
+        course="Tecnologia da Informação"
       />
       <CardSubjects
-        id="IMD0128"
-        ch="60"
+      code="IMD0128"
+        workload="60"
         name="Pensamento Computacional"
-        dificuldade="BAIXA"
-        local="Intituto Metrópole Digital"
-        curso="Tecnologia da Informação"
+        dificulty="BAIXA"
+        departament="Intituto Metrópole Digital"
+        course="Tecnologia da Informação"
       />
     </div>
   </header>
