@@ -4,9 +4,9 @@ import { computed } from 'vue'
 const props = defineProps(['type', 'size'])
 
 const sizes = {
-  small: 'w-44 h-10',
-  medium: 'w-40 h-12',
-  large: 'w-44 h-16'
+  small: 'px-2 h-10',
+  medium: 'px-4 h-12',
+  large: 'px-4 h-16'
 }
 
 const types = {
