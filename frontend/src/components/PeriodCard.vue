@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import BpButton from './BpButton.vue';
 
 const isExpanded = ref(false)
 const icon = ref('md-keyboardarrowleft')
@@ -24,11 +25,10 @@ function toggleExpansion() {
     </div>
 
     <div class="flex flex-col gap-4 p-4" v-show="isExpanded">
-      <button type="button"
-        class="flex items-center justify-center gap-2 bg-transparent max-w-max h-10 px-4 rounded-lg font-semibold text-bp_primary-200 border border-bp_primary-200 text-sm self-end">
+      <BpButton type="outlined" size="small" class="max-w-max self-end">
         <v-icon name="md-add" scale="1.25" />
         Adicionar matéria
-      </button>
+      </BpButton>
       <ul class="flex flex-col gap-4 mt-2">
         <li class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2">
           <p class="font-bold">Matemática Elementar (60h) - IMD1001</p>

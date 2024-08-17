@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import BpButton from './BpButton.vue';
 
 const props = defineProps(['code', 'workload', 'name', 'departament', 'course', 'dificulty'])
 
@@ -37,9 +38,9 @@ const difficultyClass = computed(() => {
             <p class="text-base">{{ course }}</p>
           </div>
         </div>
-        <button class="w-28 h-9 border border-bp_primary-400 rounded-lg text-bp_primary-400">
+        <BpButton size="small" type="outlined"> 
           Detalhes
-        </button>
+        </BpButton>
       </div>
     </div>
   </div>
