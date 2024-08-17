@@ -3,7 +3,7 @@ import PeriodCard from '@/components/PeriodCard.vue'
 import RadialProgress from '@/components/RadialProgress.vue'
 import SubjectCard from '@/components/SubjectCard.vue'
 import NavBar from '@/components/NavBar.vue'
-import BpButton from '@/components/BpButton.vue';
+import BpButton from '@/components/BpButton.vue'
 </script>
 
 <template>

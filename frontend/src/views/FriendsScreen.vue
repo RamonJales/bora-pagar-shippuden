@@ -2,7 +2,7 @@
 import NavBar from '@/components/NavBar.vue'
 import ListItemFriend from '@/components/ListItemFriend.vue'
 import { ref, onMounted } from 'vue'
-import BpButton from '@/components/BpButton.vue';
+import BpButton from '@/components/BpButton.vue'
 
 const friends = ref([])
 
@@ -92,10 +92,10 @@ onMounted(() => {
             </select>
           </div>
 
-         <BpButton>
-          <v-icon class="mr-2" name="md-personaddalt1-outlined" scale="1.5"></v-icon>
+          <BpButton>
+            <v-icon class="mr-2" name="md-personaddalt1-outlined" scale="1.5"></v-icon>
             Adicionar Amigo
-         </BpButton>
+          </BpButton>
         </div>
 
         <div class="grid grid-cols-1 gap-4 mt-10 lg:grid-cols-2">

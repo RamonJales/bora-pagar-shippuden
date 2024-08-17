@@ -10,8 +10,10 @@ const sizes = {
 }
 
 const types = {
-  primary: 'disabled:bg-[#E2E2E2] bg-bp_primary-400 hover:bg-bp_primary-600 active:bg-bp_primary-700 disabled:cursor-default disabled:bg-[#E2E2E2] disabled:text-[#ABABAB]',
-  outlined: 'disabled:bg-[#E2E2E2] border border-bp_primary-400 text-bp_primary-400 hover:bg-bp_primary-400 hover:text-bp_neutral-50 active:bg-bp_primary-700 disabled:border-0',
+  primary:
+    'disabled:bg-[#E2E2E2] bg-bp_primary-400 hover:bg-bp_primary-600 active:bg-bp_primary-700 disabled:cursor-default disabled:bg-[#E2E2E2] disabled:text-[#ABABAB]',
+  outlined:
+    'disabled:bg-[#E2E2E2] border border-bp_primary-400 text-bp_primary-400 hover:bg-bp_primary-400 hover:text-bp_neutral-50 active:bg-bp_primary-700 disabled:border-0',
   text: 'bg-transparent text-bp_primary-400 hover:bg-bp_primary-400 hover:bg-opacity-25 active:bg-bp_primary-400 active:text-bp_neutral-50'
 }
 
