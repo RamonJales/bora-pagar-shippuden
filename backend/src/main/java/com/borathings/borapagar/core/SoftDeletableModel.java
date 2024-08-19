@@ -1,15 +1,15 @@
 package com.borathings.borapagar.core;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLRestriction;
 
 @MappedSuperclass
 @SuperBuilder(toBuilder = true)
@@ -17,9 +17,9 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AbstractModel {
+@SQLRestriction("deleted_at IS NOT NULL")
+public class SoftDeletableModel extends AbstractModel {
     @JsonView(Views.Admin.class)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    @Column
+    private LocalDateTime deletedAt;
 }

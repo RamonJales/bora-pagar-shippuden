@@ -1,6 +1,6 @@
 package com.borathings.borapagar.user;
 
-import com.borathings.borapagar.core.AbstractModel;
+import com.borathings.borapagar.core.SoftDeletableModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -21,7 +21,7 @@ import org.hibernate.annotations.NaturalId;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class UserEntity extends AbstractModel {
+public class UserEntity extends SoftDeletableModel {
     @Column @NotNull private String email;
     @Column @NotNull private String name;
     @Column @NotNull @NaturalId private String googleId;

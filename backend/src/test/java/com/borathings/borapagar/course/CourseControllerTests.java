@@ -44,13 +44,7 @@ public class CourseControllerTests {
 
     @BeforeEach
     public void setUpService() {
-        course =
-                CourseEntity.builder()
-                        .name("TI")
-                        .coordinator("Fulano")
-                        .id(1L)
-                        .deleted(false)
-                        .build();
+        course = CourseEntity.builder().name("TI").coordinator("Fulano").id(1L).build();
 
         when(courseService.findAll()).thenReturn(List.of(course));
         when(courseService.findByIdOrError(eq(1L))).thenReturn(course);
