@@ -1,7 +1,7 @@
 package com.borathings.borapagar.subject;
 
 import com.borathings.borapagar.classroom.ClassroomEntity;
-import com.borathings.borapagar.core.AbstractModel;
+import com.borathings.borapagar.core.SoftDeletableModel;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class SubjectEntity extends AbstractModel {
+public class SubjectEntity extends SoftDeletableModel {
     @Column @NotNull private String name;
 
     @Column @NotNull private String code;

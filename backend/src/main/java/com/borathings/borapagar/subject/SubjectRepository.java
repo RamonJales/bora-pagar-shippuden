@@ -1,7 +1,7 @@
 package com.borathings.borapagar.subject;
 
-import com.borathings.borapagar.core.AbstractRepository;
+import com.borathings.borapagar.core.SoftDeletableRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SubjectRepository extends AbstractRepository<SubjectEntity> {}
+public interface SubjectRepository extends SoftDeletableRepository<SubjectEntity> {}
