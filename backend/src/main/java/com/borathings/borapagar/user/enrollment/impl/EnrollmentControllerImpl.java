@@ -1,7 +1,7 @@
-package com.borathings.borapagar.enrollment.impl;
+package com.borathings.borapagar.user.enrollment.impl;
 
-import com.borathings.borapagar.enrollment.EnrollmentController;
-import com.borathings.borapagar.enrollment.EnrollmentService;
+import com.borathings.borapagar.user.enrollment.EnrollmentController;
+import com.borathings.borapagar.user.enrollment.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

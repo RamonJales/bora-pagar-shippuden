@@ -1,4 +1,4 @@
-package com.borathings.borapagar.enrollment;
+package com.borathings.borapagar.user.enrollment;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

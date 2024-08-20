@@ -1,4 +1,4 @@
-package com.borathings.borapagar.enrollment;
+package com.borathings.borapagar.user.enrollment;
 
 import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.classroom.ClassroomService;
