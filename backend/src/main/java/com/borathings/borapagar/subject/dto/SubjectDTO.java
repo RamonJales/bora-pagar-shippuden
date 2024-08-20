@@ -21,11 +21,13 @@ public class SubjectDTO {
     private Integer hours;
 
     public SubjectEntity toEntity() {
-        SubjectEntity entity = new SubjectEntity();
-        entity.setName(name);
-        entity.setCode(code);
-        entity.setSyllabus(syllabus);
-        entity.setHours(hours);
+        SubjectEntity entity =
+                SubjectEntity.builder()
+                        .name(name)
+                        .code(code)
+                        .syllabus(syllabus)
+                        .hours(hours)
+                        .build();
         return entity;
     }
 }

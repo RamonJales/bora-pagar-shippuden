@@ -1,7 +1,9 @@
 <script setup>
-
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <h1 class="text-3xl text-blue-500">Bora Pagar</h1>
+  <div class="min-h-screen h-full bg-bp_neutral-900 text-bp_neutral-50">
+    <RouterView />
+  </div>
 </template>

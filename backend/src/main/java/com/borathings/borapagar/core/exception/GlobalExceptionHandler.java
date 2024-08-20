@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.coyote.BadRequestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Constrói a resposta da exceção lançada
@@ -37,6 +41,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex) {
+        logger.error("Erro inesperado", ex);
         ApiException apiException =
                 new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro inesperado", ex);
         return buildResponseEntityFromException(apiException);

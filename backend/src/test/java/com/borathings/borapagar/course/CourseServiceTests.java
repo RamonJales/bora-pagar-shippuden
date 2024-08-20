@@ -27,11 +27,13 @@ public class CourseServiceTests {
 
     @BeforeEach
     public void setUp() {
-        course = new CourseEntity();
-        course.setName("TI");
-        course.setCoordinator("Fulano");
-        course.setId(1L);
-        course.setDeleted(false);
+        course =
+                CourseEntity.builder()
+                        .name("TI")
+                        .coordinator("Fulano")
+                        .id(1L)
+                        .deleted(false)
+                        .build();
 
         when(courseRepository.findAll()).thenReturn(List.of(course));
         when(courseRepository.findById(1L)).thenReturn(Optional.of(course));

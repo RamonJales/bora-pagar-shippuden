@@ -12,7 +12,7 @@ fi
 name=$1
 
 # Create the file name
-file_name="V${timestamp}__${name}.sql"
+file_name="V1.${timestamp}__${name}.sql"
 
 # Create the file
 touch "${root_dir}/backend/src/main/resources/db/migration/${file_name}"

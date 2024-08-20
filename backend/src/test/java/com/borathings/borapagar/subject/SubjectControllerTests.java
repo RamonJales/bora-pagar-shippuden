@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -13,8 +14,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.borathings.borapagar.subject.dto.SubjectDTO;
+import com.borathings.borapagar.utils.AuthenticatedMockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,10 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(SubjectController.class)
+@Import(AuthenticatedMockMvc.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureWebMvc
 public class SubjectControllerTests {
@@ -39,8 +44,14 @@ public class SubjectControllerTests {
     @BeforeEach
     public void setUp() {
         subject =
-                new SubjectEntity(
-                        "Matemática elementar", "IMD0001", "math and stuff", Integer.valueOf(60));
+                SubjectEntity.builder()
+                        .name("Matemática elementar")
+                        .id(1L)
+                        .code("IMD0001")
+                        .hours(60)
+                        .syllabus("Math and stuff")
+                        .classrooms(Collections.emptySet())
+                        .build();
 
         when(subjectService.findAll()).thenReturn(List.of(subject));
         when(subjectService.findByIdOrError(1L)).thenReturn(subject);
@@ -56,7 +67,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldListAllSubjects() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject"))
+                .perform(get("/api/subject").with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(subject.getId()))
@@ -69,7 +80,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldListSubject() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject/1"))
+                .perform(get("/api/subject/1").with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -82,7 +93,7 @@ public class SubjectControllerTests {
     @Test
     public void shouldReturnNotFoundWhenGetNonExistentSubject() throws Exception {
         this.mockMvc
-                .perform(get("/api/subject/2"))
+                .perform(get("/api/subject/2").with(jwt()))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
@@ -92,6 +103,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         post("/api/subject")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -112,7 +124,11 @@ public class SubjectControllerTests {
     @Test
     public void shouldValidateFieldsOnCreate() throws Exception {
         this.mockMvc
-                .perform(post("/api/subject").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .perform(
+                        post("/api/subject")
+                                .with(jwt())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
@@ -122,6 +138,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         post("/api/subject")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -134,6 +151,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/1")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -152,6 +170,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/2")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -164,7 +183,10 @@ public class SubjectControllerTests {
     public void shouldValidateFieldsOnUpdate() throws Exception {
         this.mockMvc
                 .perform(
-                        put("/api/subject/1").contentType(MediaType.APPLICATION_JSON).content("{}"))
+                        put("/api/subject/1")
+                                .with(jwt())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
@@ -174,6 +196,7 @@ public class SubjectControllerTests {
         this.mockMvc
                 .perform(
                         put("/api/subject/1")
+                                .with(jwt())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -183,6 +206,6 @@ public class SubjectControllerTests {
 
     @Test
     public void shouldDeleteSubject() throws Exception {
-        this.mockMvc.perform(delete("/api/subject/1")).andExpect(status().isOk());
+        this.mockMvc.perform(delete("/api/subject/1").with(jwt())).andExpect(status().isOk());
     }
 }
