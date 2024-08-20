@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.SQLRestriction;
 
 @MappedSuperclass
 @SuperBuilder(toBuilder = true)
@@ -18,7 +17,6 @@ import org.hibernate.annotations.SQLRestriction;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLRestriction("deleted_at IS NOT NULL")
 public class SoftDeletableModel extends AbstractModel {
     @JsonView(Views.Admin.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

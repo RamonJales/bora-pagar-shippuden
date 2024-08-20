@@ -1,6 +1,7 @@
 package com.borathings.borapagar.core;
 
 import jakarta.transaction.Transactional;
+import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -13,5 +14,11 @@ public interface SoftDeletableRepository<M extends SoftDeletableModel>
     @Modifying
     @Transactional
     @Query("UPDATE #{#entityName} e SET e.deletedAt = CURRENT_TIMESTAMP WHERE e.id = ?1")
-    public void softDelete(Long id);
+    public void softDeleteById(Long id);
+
+    @Query("SELECT e FROM #{#entityName} e WHERE e.deletedAt IS NOT NULL")
+    public List<M> findAll();
+
+    @Query("SELECT e FROM #{#entityName} e")
+    public List<M> findAllWithDeleted();
 }
