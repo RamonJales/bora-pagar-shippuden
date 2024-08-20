@@ -1,6 +1,8 @@
 CREATE TABLE department (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    link VARCHAR(255) NOT NULL,
+    code INT NOT NULL,
     deleted BOOLEAN DEFAULT FALSE
 );
 

@@ -22,6 +22,10 @@ import lombok.experimental.SuperBuilder;
 public class DepartmentEntity extends AbstractModel {
     @Column @NotNull private String name;
 
+    @Column @NotNull private String link;
+    
+    @Column @NotNull private int code;
+
     @OneToMany(mappedBy = "department")
     private Set<SubjectEntity> subjects;
 }
