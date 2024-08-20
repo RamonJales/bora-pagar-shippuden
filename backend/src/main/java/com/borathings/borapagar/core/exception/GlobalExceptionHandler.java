@@ -55,7 +55,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Object> handleBadRequestExcpetion(BadRequestException ex) {
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
         ApiException apiException = new ApiException(HttpStatus.BAD_REQUEST, ex);
         return buildResponseEntityFromException(apiException);
     }
