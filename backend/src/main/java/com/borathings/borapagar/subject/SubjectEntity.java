@@ -6,7 +6,6 @@ import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -16,8 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(name = "subject")
+@Entity(name = "subject")
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
