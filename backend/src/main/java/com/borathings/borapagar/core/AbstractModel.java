@@ -35,6 +35,7 @@ public class AbstractModel {
 
     @JsonView(Views.Admin.class)
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @JsonView(Views.Admin.class)
