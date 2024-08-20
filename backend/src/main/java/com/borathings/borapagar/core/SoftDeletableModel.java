@@ -1,5 +1,6 @@
 package com.borathings.borapagar.core;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.SQLRestriction;
 @SQLRestriction("deleted_at IS NOT NULL")
 public class SoftDeletableModel extends AbstractModel {
     @JsonView(Views.Admin.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column
     private LocalDateTime deletedAt;
 }
