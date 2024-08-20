@@ -26,6 +26,7 @@ public class UserEntity extends AbstractModel {
     @Column @NotNull private String name;
     @Column @NotNull @NaturalId private String googleId;
     @Column private String imageUrl;
+    @Column @NotNull private boolean profileComplete;
 
     @Override
     public boolean equals(Object o) {
