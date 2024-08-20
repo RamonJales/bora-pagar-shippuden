@@ -60,10 +60,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Trata exceções lançadas pela aplicação quando o servidor não pode ou não irá processar
-     * a requisição do usuário pois a requisição se encontra mal formatada (faltando algum campo
-     * ou com tipo de dado incorreto).
-     * 
+     * Trata exceções lançadas pela aplicação quando o servidor não pode ou não irá processar a
+     * requisição do usuário pois a requisição se encontra mal formatada (faltando algum campo ou
+     * com tipo de dado incorreto).
+     *
      * @param ex - BadRequestException - Exceção lançada
      * @return ResponseEntity<Object> - Exceção serializada
      */
