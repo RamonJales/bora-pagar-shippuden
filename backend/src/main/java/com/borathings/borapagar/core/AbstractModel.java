@@ -2,6 +2,7 @@ package com.borathings.borapagar.core;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,11 +27,6 @@ public class AbstractModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-
-    @JsonView(Views.Admin.class)
-    @Column(nullable = false)
-    @Builder.Default
-    private Boolean deleted = false;
 
     @JsonView(Views.Admin.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
