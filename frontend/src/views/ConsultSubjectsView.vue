@@ -40,7 +40,7 @@ import NavBar from '@/components/NavBar.vue'
     </div>
     <div class="space-y-4">
       <CardSubjects
-      code="IMD0126"
+        code="IMD0126"
         workload="60"
         name="Matemática Elementar"
         dificulty="MEDIA"
@@ -48,7 +48,7 @@ import NavBar from '@/components/NavBar.vue'
         course="Tecnologia da Informação"
       />
       <CardSubjects
-      code="IMD0127"
+        code="IMD0127"
         workload="90"
         name="Fundamentos da Matemática Computacional"
         dificulty="ALTA"
@@ -56,7 +56,7 @@ import NavBar from '@/components/NavBar.vue'
         course="Tecnologia da Informação"
       />
       <CardSubjects
-      code="IMD0128"
+        code="IMD0128"
         workload="60"
         name="Pensamento Computacional"
         dificulty="BAIXA"
