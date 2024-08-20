@@ -1,5 +1,6 @@
 package com.borathings.borapagar.core;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -34,11 +35,13 @@ public class AbstractModel {
     private Boolean deleted = false;
 
     @JsonView(Views.Admin.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @JsonView(Views.Admin.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
