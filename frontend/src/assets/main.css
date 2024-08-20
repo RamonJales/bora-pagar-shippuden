@@ -16,10 +16,10 @@
   }
 
   .hover-border-2:hover {
-    @apply border-[2px]
+    @apply border-[2px];
   }
 
   .hover-border-1:hover {
-    @apply border-[1px]
+    @apply border-[1px];
   }
 }
