@@ -46,6 +46,7 @@ public class UserService {
                         .name(oidcUser.getFullName())
                         .googleId(oidcUserGoogleId)
                         .imageUrl(oidcUser.getPicture())
+                        .profileComplete(false)
                         .build();
         userRepository.save(userEntity);
     }

@@ -1,6 +1,6 @@
 package com.borathings.borapagar.classroom;
 
-import com.borathings.borapagar.core.AbstractModel;
+import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.subject.SubjectEntity;
 import com.borathings.borapagar.user.UserEntity;
 import jakarta.persistence.Column;
@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
-public class ClassroomEntity extends AbstractModel {
+public class ClassroomEntity extends SoftDeletableModel {
 
     @ManyToOne @NotNull private SubjectEntity subject;
 

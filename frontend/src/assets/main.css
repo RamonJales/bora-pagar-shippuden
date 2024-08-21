@@ -7,15 +7,19 @@
     @apply flex items-center gap-4 hover:border-b border-bp_neutral-600;
   }
 
+  .card-options {
+    @apply bg-bp_neutral-800 text-bp_neutral-50  border border-bp_neutral-600 rounded-md p-2;
+  }
+
   .title-h1 {
     @apply text-2xl md:text-3xl font-bold;
   }
 
   .hover-border-2:hover {
-    @apply border-[2px]
+    @apply border-[2px];
   }
 
   .hover-border-1:hover {
-    @apply border-[1px]
+    @apply border-[1px];
   }
 }
