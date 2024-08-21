@@ -1,11 +1,10 @@
 package com.borathings.borapagar.user;
 
-import com.borathings.borapagar.core.AbstractRepository;
+import com.borathings.borapagar.core.SoftDeletableRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 /** UserRepository */
-@Repository
-public interface UserRepository extends AbstractRepository<UserEntity> {
+public interface UserRepository extends SoftDeletableRepository<UserEntity> {
     Optional<UserEntity> findByGoogleId(String googleId);
 }

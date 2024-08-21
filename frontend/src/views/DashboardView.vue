@@ -3,6 +3,7 @@ import PeriodCard from '@/components/PeriodCard.vue'
 import RadialProgress from '@/components/RadialProgress.vue'
 import SubjectCard from '@/components/SubjectCard.vue'
 import NavBar from '@/components/NavBar.vue'
+import BpButton from '@/components/BpButton.vue'
 </script>
 
 <template>
@@ -29,13 +30,10 @@ import NavBar from '@/components/NavBar.vue'
     <section class="mt-12 w-full">
       <header class="w-full md:w-3/5 flex items-center justify-between flex-wrap gap-4 :sm:gap-0">
         <h1 class="title-h1">período</h1>
-        <button
-          type="button"
-          class="flex items-center justify-center gap-2 bg-bp_primary-400 h-10 px-4 rounded-lg font-semibold"
-        >
+        <BpButton>
           <v-icon name="md-add" scale="1.25" />
           Adicionar Semestre
-        </button>
+        </BpButton>
       </header>
 
       <div class="w-full flex flex-col md:flex-row items-start justify-between gap-6 mt-8">
