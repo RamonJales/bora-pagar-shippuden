@@ -2,9 +2,11 @@ package com.borathings.borapagar.subject;
 
 import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.core.SoftDeletableModel;
+import com.borathings.borapagar.department.DepartmentEntity;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import java.util.Set;
@@ -33,4 +35,6 @@ public class SubjectEntity extends SoftDeletableModel {
 
     @OneToMany(mappedBy = "subject")
     private Set<ClassroomEntity> classrooms;
+
+    @ManyToOne @NotNull private DepartmentEntity department;
 }

@@ -111,7 +111,8 @@ public class SubjectControllerTests {
                                                         "Matemática elementar",
                                                         "IMD0001",
                                                         "math and stuff",
-                                                        Integer.valueOf(60)))))
+                                                        Integer.valueOf(60),
+                                                        1L))))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -133,7 +134,8 @@ public class SubjectControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.code").isNotEmpty())
-                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
+                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty())
+                .andExpect(jsonPath("$.fieldErrors.departmentId").isNotEmpty());
 
         this.mockMvc
                 .perform(
@@ -142,7 +144,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60))))
+                                                new SubjectDTO(null, null, null, -60, null))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 
@@ -155,7 +157,8 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO("ME", "IMD0001", "syllabus", 100))))
+                                                new SubjectDTO(
+                                                        "ME", "IMD0001", "syllabus", 100, 1L))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -174,7 +177,8 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO("ME", "IMD0001", "program", 100))))
+                                                new SubjectDTO(
+                                                        "ME", "IMD0001", "program", 100, 1L))))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
@@ -191,7 +195,8 @@ public class SubjectControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.code").isNotEmpty())
-                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
+                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty())
+                .andExpect(jsonPath("$.fieldErrors.departmentId").isNotEmpty());
 
         this.mockMvc
                 .perform(
@@ -200,7 +205,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60))))
+                                                new SubjectDTO(null, null, null, -60, 1L))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 
