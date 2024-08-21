@@ -3,7 +3,9 @@ CREATE TABLE department (
     name VARCHAR(255) NOT NULL,
     link VARCHAR(255) NOT NULL,
     code INT NOT NULL,
-    deleted BOOLEAN DEFAULT FALSE
+    deleted_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 ALTER TABLE subject ADD COLUMN department_id BIGINT;
