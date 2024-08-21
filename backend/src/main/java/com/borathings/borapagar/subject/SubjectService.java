@@ -66,6 +66,6 @@ public class SubjectService {
      * @param id - Id da disciplina
      */
     public void delete(Long id) {
-        subjectRepository.deleteById(id);
+        subjectRepository.softDeleteById(id);
     }
 }

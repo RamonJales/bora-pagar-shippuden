@@ -26,12 +26,7 @@ public class SubjectServiceTests {
     @BeforeEach
     public void setUp() {
         subject =
-                SubjectEntity.builder()
-                        .name("MATEMÁTICA ELEMENTAR")
-                        .code("IMD0001")
-                        .id(1L)
-                        .deleted(false)
-                        .build();
+                SubjectEntity.builder().name("MATEMÁTICA ELEMENTAR").code("IMD0001").id(1L).build();
 
         when(subjectRepository.findAll()).thenReturn(List.of(subject));
         when(subjectRepository.findById(1L)).thenReturn(Optional.of(subject));
