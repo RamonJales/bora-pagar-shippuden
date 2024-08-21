@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +17,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @MappedSuperclass
+@SuperBuilder(toBuilder = true)
 @Getter
 @Setter
-@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class AbstractModel {
@@ -28,11 +27,6 @@ public class AbstractModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-
-    @JsonView(Views.Admin.class)
-    @Column(nullable = false)
-    @Builder.Default
-    private Boolean deleted = false;
 
     @JsonView(Views.Admin.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -67,6 +67,6 @@ public class CourseService {
      * @param id - Id do curso
      */
     public void delete(Long id) {
-        courseRepository.deleteById(id);
+        courseRepository.softDeleteById(id);
     }
 }
