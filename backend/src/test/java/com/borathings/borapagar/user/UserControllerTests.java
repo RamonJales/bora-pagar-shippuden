@@ -40,7 +40,6 @@ public class UserControllerTests {
                         .email("isaac.lourenco.704@ufrn.edu.br")
                         .imageUrl("https://lindao.com")
                         .googleId("googleId")
-                        .deleted(false)
                         .build();
 
         oidcUser = mock(OidcUser.class);
