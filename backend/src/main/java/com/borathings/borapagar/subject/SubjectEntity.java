@@ -1,8 +1,8 @@
 package com.borathings.borapagar.subject;
 
 import com.borathings.borapagar.classroom.ClassroomEntity;
-import com.borathings.borapagar.department.DepartmentEntity;
 import com.borathings.borapagar.core.SoftDeletableModel;
+import com.borathings.borapagar.department.DepartmentEntity;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

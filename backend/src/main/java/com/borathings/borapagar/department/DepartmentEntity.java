@@ -1,4 +1,5 @@
 package com.borathings.borapagar.department;
+
 import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.subject.SubjectEntity;
 import jakarta.persistence.Column;
