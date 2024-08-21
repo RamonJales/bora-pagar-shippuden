@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ConsultSubjectsView from '@/views/ConsultSubjectsView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import FriendsScreen from '@/views/FriendsScreen.vue'
+import CompletedProfileView from '@/views/CompletedProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/amigos',
       name: 'friends-screen',
       component: FriendsScreen
+    },
+    {
+      path: '/perfil',
+      name: 'completed-profile',
+      component: CompletedProfileView
     }
   ]
 })
