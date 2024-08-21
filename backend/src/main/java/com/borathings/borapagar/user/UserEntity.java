@@ -1,12 +1,12 @@
 package com.borathings.borapagar.user;
 
 import com.borathings.borapagar.classroom.ClassroomEntity;
+import com.borathings.borapagar.core.SoftDeletableModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import com.borathings.borapagar.core.SoftDeletableModel;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
