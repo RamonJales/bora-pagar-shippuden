@@ -19,10 +19,8 @@ class UserMapperTest {
                         .imageUrl("cr7.jpeg")
                         .build();
 
-        // Act
         UserDTO userDTO = UserMapper.toDTO(userEntity);
 
-        // Assert
         assertEquals(userEntity.getId(), userDTO.id());
         assertEquals(userEntity.getEmail(), userDTO.email());
         assertEquals(userEntity.getName(), userDTO.name());
