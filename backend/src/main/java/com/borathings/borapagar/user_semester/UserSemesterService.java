@@ -25,7 +25,7 @@ public class UserSemesterService {
         UserSemesterEntity databaseUserSemester = findByIdOrError(id);
         UserEntity authenticatedUser = userService.findByGoogleIdOrError(userGoogleId);
 
-        if (authenticatedUser.getId() != databaseUserSemester.getUser().getId()) {
+        if (!authenticatedUser.getId().equals(databaseUserSemester.getUser().getId())) {
             throw new AccessDeniedException("Você não tem permissão para atualizar o semestre.");
         }
     }
