@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,6 +45,34 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error("Erro inesperado", ex);
         ApiException apiException =
                 new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro inesperado", ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    /**
+     * Trata exceções lançadas pela aplicação quando há um conflito em uma entidade relacionado a
+     * duplicação de valores.
+     *
+     * @param ex - DuplicateKeyException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<Object> handleDuplicatedKeyException(DuplicateKeyException ex) {
+        logger.error("Erro de duplicação", ex);
+        ApiException apiException = new ApiException(HttpStatus.CONFLICT, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    /**
+     * Trata exceções lançadas pela aplicação quando um usuário tenta realizar alguma ação que não
+     * tem permissão para fazer
+     *
+     * @param ex - AccessDeniedException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
+        logger.error("Acesso negado", ex);
+        ApiException apiException = new ApiException(HttpStatus.FORBIDDEN, ex);
         return buildResponseEntityFromException(apiException);
     }
 
