@@ -1,5 +1,6 @@
 package com.borathings.borapagar.course;
 
+import com.borathings.borapagar.course.dto.CourseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ public class CourseService {
     /**
      * Cria um novo curso
      *
-     * @param courseEntity - Entidade do curso
+     * @param courseDto - Dados do curso
      * @return Curso criado
      */
-    public CourseEntity create(CourseEntity courseEntity) {
-        return courseRepository.save(courseEntity);
+    public CourseEntity create(CourseDTO courseDto) {
+        return courseRepository.save(courseDto.toEntity());
     }
 
     /**
@@ -51,12 +52,13 @@ public class CourseService {
      * Atualiza um curso
      *
      * @param id - Id do curso
-     * @param courseEntity - Entidade atualizada do curso
+     * @param courseDto - Novos dados do curso
      * @return Curso atualizado
      * @throws EntityNotFoundException - Caso o curso não seja encontrado
      */
-    public CourseEntity update(Long id, CourseEntity courseEntity) {
+    public CourseEntity update(Long id, CourseDTO courseDto) {
         findByIdOrError(id);
+        CourseEntity courseEntity = courseDto.toEntity();
         courseEntity.setId(id);
         return courseRepository.save(courseEntity);
     }
