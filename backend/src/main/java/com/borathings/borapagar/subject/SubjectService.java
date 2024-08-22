@@ -1,11 +1,10 @@
 package com.borathings.borapagar.subject;
 
+import com.borathings.borapagar.subject.dto.SubjectDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.borathings.borapagar.subject.dto.SubjectDTO;
 
 @Service
 public class SubjectService {

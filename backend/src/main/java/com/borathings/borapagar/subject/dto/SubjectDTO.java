@@ -39,13 +39,12 @@ public class SubjectDTO {
     }
 
     public static SubjectDTO fromEntity(SubjectEntity entity) {
-        return SubjectDTO
-            .builder()
-            .name(entity.getName())
-            .code(entity.getCode())
-            .syllabus(entity.getSyllabus())
-            .hours(entity.getHours())
-            .departmentId(entity.getDepartment().getId())
-            .build();
+        return SubjectDTO.builder()
+                .name(entity.getName())
+                .code(entity.getCode())
+                .syllabus(entity.getSyllabus())
+                .hours(entity.getHours())
+                .departmentId(entity.getDepartment().getId())
+                .build();
     }
 }

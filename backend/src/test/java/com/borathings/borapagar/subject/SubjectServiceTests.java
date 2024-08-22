@@ -7,6 +7,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import com.borathings.borapagar.department.DepartmentEntity;
+import com.borathings.borapagar.subject.dto.SubjectDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +18,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import com.borathings.borapagar.department.DepartmentEntity;
-import com.borathings.borapagar.subject.dto.SubjectDTO;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -31,13 +30,12 @@ public class SubjectServiceTests {
     public void setUp() {
         DepartmentEntity department = DepartmentEntity.builder().id(1L).build();
         subject =
-                SubjectEntity
-                .builder()
-                .name("MATEMÁTICA ELEMENTAR")
-                .code("IMD0001")
-                .id(1L)
-                .department(department)
-                .build();
+                SubjectEntity.builder()
+                        .name("MATEMÁTICA ELEMENTAR")
+                        .code("IMD0001")
+                        .id(1L)
+                        .department(department)
+                        .build();
 
         when(subjectRepository.findAll()).thenReturn(List.of(subject));
         when(subjectRepository.findById(1L)).thenReturn(Optional.of(subject));

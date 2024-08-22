@@ -17,8 +17,7 @@ public class SubjectControllerImpl implements SubjectController {
 
     @Override
     public ResponseEntity<SubjectEntity> createSubject(SubjectDTO subjectDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(subjectService.create(subjectDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(subjectService.create(subjectDto));
     }
 
     @Override
