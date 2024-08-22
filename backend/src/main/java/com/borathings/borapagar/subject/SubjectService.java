@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.borathings.borapagar.subject.dto.SubjectDTO;
+
 @Service
 public class SubjectService {
     @Autowired private SubjectRepository subjectRepository;
@@ -12,11 +14,11 @@ public class SubjectService {
     /**
      * Salva uma nova disciplina no banco de dados
      *
-     * @param subjectEntity - Dados da disciplina
+     * @param subjectDTO - Dados da disciplina
      * @return Disciplina salva
      */
-    public SubjectEntity create(SubjectEntity subjectEntity) {
-        return subjectRepository.save(subjectEntity);
+    public SubjectEntity create(SubjectDTO subjectDTO) {
+        return subjectRepository.save(subjectDTO.toEntity());
     }
 
     /**
@@ -50,12 +52,13 @@ public class SubjectService {
      * Atualiza os dados de uma disciplina
      *
      * @param id - Id da disciplina
-     * @param subjectEntity - Novos dados da disciplina
+     * @param subjectDTO - Novos dados da disciplina
      * @throws EntityNotFoundException se a disciplina não existir
      * @return Disciplina atualizada
      */
-    public SubjectEntity update(Long id, SubjectEntity subjectEntity) {
+    public SubjectEntity update(Long id, SubjectDTO subjectDTO) {
         findByIdOrError(id);
+        SubjectEntity subjectEntity = subjectDTO.toEntity();
         subjectEntity.setId(id);
         return subjectRepository.save(subjectEntity);
     }
