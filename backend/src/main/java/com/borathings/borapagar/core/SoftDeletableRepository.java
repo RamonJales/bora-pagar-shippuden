@@ -16,7 +16,7 @@ public interface SoftDeletableRepository<M extends SoftDeletableModel>
     @Query("UPDATE #{#entityName} e SET e.deletedAt = CURRENT_TIMESTAMP WHERE e.id = ?1")
     public void softDeleteById(Long id);
 
-    @Query("SELECT e FROM #{#entityName} e WHERE e.deletedAt IS NOT NULL")
+    @Query("SELECT e FROM #{#entityName} e WHERE e.deletedAt IS NULL")
     public List<M> findAll();
 
     @Query("SELECT e FROM #{#entityName} e")
