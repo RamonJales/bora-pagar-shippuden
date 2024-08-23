@@ -3,7 +3,6 @@ package com.borathings.borapagar.subject;
 import com.borathings.borapagar.classroom.ClassroomEntity;
 import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.department.DepartmentEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Column;
@@ -42,18 +41,12 @@ public class SubjectEntity extends SoftDeletableModel {
 
     @JsonManagedReference @ManyToOne @NotNull private DepartmentEntity department;
 
-    // Set<SubjectEntity> não funciona aqui por um motivo que desconheço (fica sempre vazio)
     @ManyToMany
     @JoinTable(
             name = "subject_prerequisite",
             joinColumns = @JoinColumn(name = "subject_id"),
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
-    @JsonManagedReference
     private Set<SubjectEntity> prerequisites;
-
-    @ManyToMany(mappedBy = "prerequisites")
-    @JsonBackReference
-    private Set<SubjectEntity> prerequisiteOf;
 
     @Override
     public boolean equals(Object o) {
