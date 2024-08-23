@@ -2,6 +2,8 @@ package com.borathings.borapagar.user_semester;
 
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
+import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +47,16 @@ public class UserSemesterService {
     /**
      * Salva um novo semestre do usuário autenticado no banco de dados
      *
-     * @param userSemesterEntity - UserSemesterEntity - Dados do semestre do usuário
+     * @param userSemesterDTO - UserSemesterDTO - Dados do semestre do usuário
      * @return Semestre salvo
      */
-    public UserSemesterEntity create(String googleId, UserSemesterEntity userSemesterEntity) {
+    public UserSemesterEntity create(String googleId, UserSemesterDTO userSemesterDTO) {
         UserEntity authenticatedUser = userService.findByGoogleIdOrError(googleId);
-        userSemesterEntity.setUser(authenticatedUser);
+        UserSemesterEntity userSemesterEntity = UserSemesterEntity.builder()
+                .year(userSemesterDTO.getYear())
+                .period(userSemesterDTO.getPeriod())
+                .user(authenticatedUser)
+                .build();
         return userSemesterRepository.save(userSemesterEntity);
     }
 
@@ -79,17 +85,19 @@ public class UserSemesterService {
      *
      * @param id - Id do semestre
      * @param userGoogleId - Google ID do usuário
-     * @param userSemesterEntity - Novos dado autenticados do semestre do usuário
+     * @param userSemesterDTO - Novos dados autenticados do semestre do usuário
      * @throws EntityNotFoundException se o semestre não existir
      * @throws DuplicateKeyException se o usuário está tentando atualizar o semestre para ano e
      *     período já existente
      * @return Semestre atualizado
      */
     public UserSemesterEntity update(
-            Long id, String userGoogleId, UserSemesterEntity userSemesterEntity) throws Exception {
+            Long id, String userGoogleId, UserSemesterDTO userSemesterDTO) throws Exception {
         this.checkUserPermission(id, userGoogleId);
+        UserSemesterEntity userSemesterEntity = findByIdOrError(id);
+        userSemesterEntity.setYear(userSemesterDTO.getYear());
+        userSemesterEntity.setPeriod(userSemesterDTO.getPeriod());
 
-        userSemesterEntity.setId(id);
         try {
             userSemesterRepository.save(userSemesterEntity);
         } catch (DuplicateKeyException exception) {
