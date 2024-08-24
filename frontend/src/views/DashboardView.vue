@@ -4,9 +4,12 @@ import RadialProgress from '@/components/RadialProgress.vue'
 import SubjectCard from '@/components/SubjectCard.vue'
 import NavBar from '@/components/NavBar.vue'
 import BpButton from '@/components/BpButton.vue'
+import SimboraChat from '@/components/chat/SimboraChat.vue'
 </script>
 
 <template>
+  <SimboraChat />
+
   <NavBar />
 
   <main class="h-full container mx-auto p-6 xl:max-w-7xl">
