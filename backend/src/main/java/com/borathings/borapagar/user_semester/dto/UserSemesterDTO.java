@@ -12,9 +12,9 @@ import lombok.Setter;
 public class UserSemesterDTO {
     @NotNull
     @Min(0)
-    Integer year;
+    private Integer year;
 
     @NotNull
     @Min(0)
-    Integer period;
+    private Integer period;
 }
