@@ -3,7 +3,6 @@ package com.borathings.borapagar.user_semester;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
-
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +51,12 @@ public class UserSemesterService {
      */
     public UserSemesterEntity create(String googleId, UserSemesterDTO userSemesterDTO) {
         UserEntity authenticatedUser = userService.findByGoogleIdOrError(googleId);
-        UserSemesterEntity userSemesterEntity = UserSemesterEntity.builder()
-                .year(userSemesterDTO.getYear())
-                .period(userSemesterDTO.getPeriod())
-                .user(authenticatedUser)
-                .build();
+        UserSemesterEntity userSemesterEntity =
+                UserSemesterEntity.builder()
+                        .year(userSemesterDTO.getYear())
+                        .period(userSemesterDTO.getPeriod())
+                        .user(authenticatedUser)
+                        .build();
         return userSemesterRepository.save(userSemesterEntity);
     }
 
@@ -91,8 +91,8 @@ public class UserSemesterService {
      *     período já existente
      * @return Semestre atualizado
      */
-    public UserSemesterEntity update(
-            Long id, String userGoogleId, UserSemesterDTO userSemesterDTO) throws Exception {
+    public UserSemesterEntity update(Long id, String userGoogleId, UserSemesterDTO userSemesterDTO)
+            throws Exception {
         this.checkUserPermission(id, userGoogleId);
         UserSemesterEntity userSemesterEntity = findByIdOrError(id);
         userSemesterEntity.setYear(userSemesterDTO.getYear());

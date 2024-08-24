@@ -7,19 +7,17 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
+import com.borathings.borapagar.user.UserEntity;
+import com.borathings.borapagar.user.UserService;
+import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.access.AccessDeniedException;
-
-import com.borathings.borapagar.user.UserEntity;
-import com.borathings.borapagar.user.UserService;
-import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @SpringBootTest
 public class UserSemesterServiceTests {
@@ -31,11 +29,9 @@ public class UserSemesterServiceTests {
     public void shouldCreateUserSemester() {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userSemesterRepository.save(any())).thenAnswer((invocation) -> invocation.getArgument(0));
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder()
-                .year(2024)
-                .period(1)
-                .build();
+        when(userSemesterRepository.save(any()))
+                .thenAnswer((invocation) -> invocation.getArgument(0));
+        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(2024).period(1).build();
         UserSemesterEntity userSemesterEntity = userSemesterService.create("123", userSemesterDTO);
         assertEquals(userSemesterEntity.getUser(), user);
         assertEquals(userSemesterEntity.getYear(), userSemesterDTO.getYear());
@@ -67,11 +63,13 @@ public class UserSemesterServiceTests {
     @Test
     public void shouldUpdateSemester() throws Exception {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
-        UserSemesterEntity databaseSemesterEntity = UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
+        UserSemesterEntity databaseSemesterEntity =
+                UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
         UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));
-        when(userSemesterRepository.save(any())).thenAnswer((invocation) -> invocation.getArgument(0));
+        when(userSemesterRepository.save(any()))
+                .thenAnswer((invocation) -> invocation.getArgument(0));
         UserSemesterEntity updatedSemester = userSemesterService.update(1L, "123", newSemesterData);
         assertEquals(updatedSemester.getYear(), newSemesterData.getYear());
         assertEquals(updatedSemester.getPeriod(), newSemesterData.getPeriod());
@@ -81,12 +79,15 @@ public class UserSemesterServiceTests {
     @Test
     public void shouldNotLetUpdateFromDifferentUser() {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
-        UserSemesterEntity databaseSemesterEntity = UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
+        UserSemesterEntity databaseSemesterEntity =
+                UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
         UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
         UserEntity differentUser = UserEntity.builder().id(2L).googleId("456").build();
         when(userService.findByGoogleIdOrError("456")).thenReturn(differentUser);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));
-        assertThrows(AccessDeniedException.class, () -> userSemesterService.update(1L, "456", newSemesterData));
+        assertThrows(
+                AccessDeniedException.class,
+                () -> userSemesterService.update(1L, "456", newSemesterData));
     }
 
     @Test
@@ -95,13 +96,16 @@ public class UserSemesterServiceTests {
         UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> userSemesterService.update(1L, "123", newSemesterData));
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> userSemesterService.update(1L, "123", newSemesterData));
     }
 
     @Test
     public void shouldDeleteSemester() {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
-        UserSemesterEntity databaseSemesterEntity = UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
+        UserSemesterEntity databaseSemesterEntity =
+                UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));
         doNothing().when(userSemesterRepository).softDeleteById(1L);
@@ -111,7 +115,8 @@ public class UserSemesterServiceTests {
     @Test
     public void shouldNotDeleteFromDifferentUser() {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
-        UserSemesterEntity databaseSemesterEntity = UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
+        UserSemesterEntity databaseSemesterEntity =
+                UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
         UserEntity differentUser = UserEntity.builder().id(2L).googleId("456").build();
         when(userService.findByGoogleIdOrError("456")).thenReturn(differentUser);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));

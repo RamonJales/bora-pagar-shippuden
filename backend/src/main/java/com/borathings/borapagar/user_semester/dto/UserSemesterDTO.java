@@ -1,6 +1,6 @@
 package com.borathings.borapagar.user_semester.dto;
-import com.borathings.borapagar.user_semester.UserSemesterEntity;
 
+import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
