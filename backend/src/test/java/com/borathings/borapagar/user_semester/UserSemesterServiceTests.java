@@ -49,15 +49,33 @@ public class UserSemesterServiceTests {
 
     @Test
     public void shouldFindById() {
-        UserSemesterEntity userSemester = UserSemesterEntity.builder().id(1L).build();
+        UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
+        UserSemesterEntity userSemester = UserSemesterEntity.builder().id(1L).user(user).build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(userSemester));
-        assertEquals(userSemesterService.findByIdOrError(1L), userSemester);
+        assertEquals(userSemesterService.findByIdAndValidatePermissions("123", 1L), userSemester);
     }
 
     @Test
     public void findByIdShouldThrowIfEntityDoesNotExist() {
+        UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> userSemesterService.findByIdOrError(1L));
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> userSemesterService.findByIdAndValidatePermissions("123", 1L));
+    }
+
+    @Test
+    public void findByIdShouldThrowIfDifferentUser() {
+        UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
+        UserEntity differentUser = UserEntity.builder().id(2L).googleId("456").build();
+        UserSemesterEntity userSemester = UserSemesterEntity.builder().id(1L).user(user).build();
+        when(userService.findByGoogleIdOrError("456")).thenReturn(differentUser);
+        when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(userSemester));
+        assertThrows(
+                AccessDeniedException.class,
+                () -> userSemesterService.findByIdAndValidatePermissions("456", 1L));
     }
 
     @Test

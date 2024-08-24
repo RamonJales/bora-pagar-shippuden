@@ -36,7 +36,8 @@ public class UserSemesterControllerImpl implements UserSemesterController {
 
     @Override
     public ResponseEntity<UserSemesterEntity> findById(Long id) {
-        UserSemesterEntity userSemester = userSemesterService.findByIdOrError(id);
+        UserSemesterEntity userSemester =
+                userSemesterService.findByIdAndValidatePermissions(getAuthenticatedGoogleId(), id);
         return ResponseEntity.ok(userSemester);
     }
 
