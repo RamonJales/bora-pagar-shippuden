@@ -16,19 +16,31 @@ public class UserSemesterService {
     @Autowired private UserService userService;
 
     /**
-     * Verifica se o usuário autenticado tem permissão para manipular um semestre de usuário.
+     * Busca um semestre pelo id e verifica se o usuário autenticado tem permissão para acessá-lo.
+     * Lança uma exceção quando o semestre não existe ou o usuário não tem permissão.
      *
-     * @param id - Long - Id do semestre
      * @param userGoogleId - String - Google ID do usuário
-     * @throws AccessDeniedException - Quando o usuário não tem permissão para alterar o semestre
+     * @param id - Long - Id do semestre
+     * @return UserSemesterEntity - Entidade do semestre
+     * @throws EntityNotFoundException - Quando o semestre não existe
+     * @throws AccessDeniedException - Quando o usuário não tem permissão para acessar o semestre
      */
-    private void checkUserPermission(Long id, String userGoogleId) {
-        UserSemesterEntity databaseUserSemester = findByIdOrError(id);
-        UserEntity authenticatedUser = userService.findByGoogleIdOrError(userGoogleId);
+    public UserSemesterEntity findByIdAndValidatePermissions(String userGoogleId, Long id) {
+        UserSemesterEntity userSemesterEntity =
+                userSemesterRepository
+                        .findById(id)
+                        .orElseThrow(
+                                () ->
+                                        new EntityNotFoundException(
+                                                "Semestre de usuário com id "
+                                                        + id
+                                                        + " não encontrada"));
 
-        if (!authenticatedUser.getId().equals(databaseUserSemester.getUser().getId())) {
-            throw new AccessDeniedException("Você não tem permissão para atualizar o semestre.");
+        UserEntity authenticatedUser = userService.findByGoogleIdOrError(userGoogleId);
+        if (!authenticatedUser.getId().equals(userSemesterEntity.getUser().getId())) {
+            throw new AccessDeniedException("Você não tem permissão para acessar este semestre.");
         }
+        return userSemesterEntity;
     }
 
     /**
@@ -61,26 +73,6 @@ public class UserSemesterService {
     }
 
     /**
-     * Busca um semestre pelo id. Lança uma exceção caso o semestre não seja encontrado
-     *
-     * @param id - Long - Id do semestre
-     * @throws EntityNotFoundException se a disciplina não existir
-     * @return Disciplina encontrada
-     */
-    public UserSemesterEntity findByIdOrError(Long id) {
-        UserSemesterEntity userSemesterEntity =
-                userSemesterRepository
-                        .findById(id)
-                        .orElseThrow(
-                                () ->
-                                        new EntityNotFoundException(
-                                                "Semestre de usuário com id "
-                                                        + id
-                                                        + " não encontrada"));
-        return userSemesterEntity;
-    }
-
-    /**
      * Atualiza os dados de um semestre do usuário autenticado
      *
      * @param id - Id do semestre
@@ -93,8 +85,7 @@ public class UserSemesterService {
      */
     public UserSemesterEntity update(Long id, String userGoogleId, UserSemesterDTO userSemesterDTO)
             throws Exception {
-        this.checkUserPermission(id, userGoogleId);
-        UserSemesterEntity userSemesterEntity = findByIdOrError(id);
+        UserSemesterEntity userSemesterEntity = findByIdAndValidatePermissions(userGoogleId, id);
         userSemesterEntity.setYear(userSemesterDTO.getYear());
         userSemesterEntity.setPeriod(userSemesterDTO.getPeriod());
 
@@ -116,8 +107,8 @@ public class UserSemesterService {
      * @param id - Id do semestre
      * @param userGoogleId - Google ID do usuário autenticado
      */
-    public void delete(Long id, String useGoogleId) {
-        this.checkUserPermission(id, useGoogleId);
+    public void delete(Long id, String userGoogleId) {
+        findByIdAndValidatePermissions(userGoogleId, id);
         userSemesterRepository.softDeleteById(id);
     }
 }
