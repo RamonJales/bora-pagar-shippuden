@@ -16,8 +16,8 @@ const isMessageFromSimbora = computed(() => props.author === 'simbora')
       <SimboraImg v-if="isMessageFromSimbora" />
 
       <img
-        src="https://github.com/tiago-rodrigues1.png"
-        alt="Simbora: o mascote do Bora Pagar"
+        src="https://images.pexels.com/photos/1526404/pexels-photo-1526404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="Avatar do usuário não logado"
         class="h-12 w-12 rounded-full"
         v-else
       />
