@@ -11,7 +11,7 @@ const messages = ref([])
 const currentUserMessage = ref('')
 const textarea = ref(null)
 const isAwaitingSimbora = ref(false)
-const messageId = 0
+let messageId = 0
 const { VITE_SIMBORA_API_URI } = import.meta.env
 const showSimboraHelpOffer = ref(false)
 const oneMinute = 60 * 1000
@@ -34,14 +34,14 @@ function chatToggler() {
 }
 
 function updateMessagesList(message, user) {
-  const d = new Date()
-  const currentTime = `${d.getHours()}:${d.getMinutes()}`
+  const d = new Date().toLocaleTimeString()
+  const [ hours, minutes, ] = d.split(':')
 
   const newMessage = {
-    id: messageId + 1,
+    id: messageId++,
     author: user,
     content: message,
-    sentAt: currentTime
+    sentAt: `${hours}:${minutes}`
   }
 
   messages.value.push(newMessage)
@@ -71,7 +71,7 @@ async function sendMessage() {
 
   setTimeout(() => {
     updateMessagesList('Digitando...', 'simbora')
-  }, 300)
+  }, 500)
 
   try {
     isAwaitingSimbora.value = true
@@ -92,7 +92,11 @@ async function sendMessage() {
       updateMessagesList('Infelizmente não consegui buscar esta informação', 'simbora')
     }
   } catch (error) {
-    updateMessagesList('Infelizmente não consegui buscar esta informação', 'simbora')
+    setTimeout(() => {
+      messages.value.pop()
+      updateMessagesList('Infelizmente não consegui buscar esta informação', 'simbora')
+    }, 1000)
+
     console.error(error)
   } finally {
     isAwaitingSimbora.value = false
@@ -105,7 +109,7 @@ async function sendMessage() {
     type="button"
     @click="chatToggler"
     v-if="!isChatOpened"
-    class="fixed bottom-10 right-10 flex items-center gap-4"
+    class="fixed z-40 bottom-10 right-10 flex items-center gap-4"
   >
     <div
       class="relative transition-all duration-400"
@@ -130,7 +134,7 @@ async function sendMessage() {
     <SimboraImg size="large" />
   </button>
   <article
-    class="fixed bottom-10 right-5 md:right-10 h-4/5 z-10 border border-bp_neutral-700 rounded-lg max-w-sm md:max-w-md w-full text-sm bg-bp_neutral-800"
+    class="fixed bottom-10 right-5 md:right-10 h-4/5 z-40 border border-bp_neutral-700 rounded-lg max-w-sm md:max-w-md w-full text-sm bg-bp_neutral-800"
     v-else
   >
     <div class="flex flex-col justify-between w-full h-full">
