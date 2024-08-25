@@ -48,6 +48,18 @@ function updateMessagesList(message, user) {
   currentUserMessage.value = ''
 }
 
+function handleKeyPress(event) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault()
+    sendMessage()
+  }
+
+  if (event.key === 'Enter' && event.shiftKey) {
+    event.preventDefault()
+    currentUserMessage.value = currentUserMessage.value.concat('\n')
+  }
+}
+
 async function sendMessage() {
   const query = textarea.value.value.trim()
 
@@ -158,10 +170,11 @@ async function sendMessage() {
             autocomplete="off"
             name="message"
             placeholder="Mensagem"
-            class="w-full border border-bp_neutral-600 rounded-full h-10 resize-none overflow-hidden bg-transparent py-2 px-3 text-start text-wrap placeholder:text-bp_neutral-600"
+            class="w-full border border-bp_neutral-600 rounded-full h-12 resize-none overflow-hidden bg-transparent py-2 px-3 text-start text-wrap placeholder:text-bp_neutral-600"
             v-model="currentUserMessage"
             :disabled="isAwaitingSimbora"
             ref="textarea"
+            @keypress="handleKeyPress"
           >
           </textarea>
           <BpButton
