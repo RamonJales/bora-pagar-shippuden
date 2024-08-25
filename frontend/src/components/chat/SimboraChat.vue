@@ -170,7 +170,7 @@ async function sendMessage() {
             autocomplete="off"
             name="message"
             placeholder="Mensagem"
-            class="w-full border border-bp_neutral-600 rounded-full h-12 resize-none overflow-hidden bg-transparent py-2 px-3 text-start text-wrap placeholder:text-bp_neutral-600"
+            class="w-full border border-bp_neutral-600 rounded-full resize-none overflow-hidden bg-transparent px-4 py-3 h-12 placeholder:text-bp_neutral-600"
             v-model="currentUserMessage"
             :disabled="isAwaitingSimbora"
             ref="textarea"
