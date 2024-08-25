@@ -13,13 +13,13 @@ import SimboraChat from '@/components/chat/SimboraChat.vue'
   <NavBar />
 
   <main class="h-full container mx-auto p-6 xl:max-w-7xl">
-    <header class="flex items-center justify-between border-b border-bp_neutral-800 pb-4">
+    <header class="flex items-center justify-between border-b border-bp_neutral-700 pb-4">
       <h1 class="title-h1">período-atual · 5º</h1>
       <span class="title-h1 text-bp_primary-100">210h</span>
     </header>
 
     <section
-      class="max-w-full my-6 grid grid-cols-1 place-items-center sm:place-items-start sm:grid-cols-2 lg:grid-cols-4 gap-4"
+      class="max-w-full my-6 grid grid-cols-1 place-items-center sm:place-items-start sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
     >
       <SubjectCard />
       <SubjectCard />
