@@ -12,8 +12,8 @@ import org.springframework.http.HttpStatus;
  * a resposta de erro da API.
  */
 @Data
-@EqualsAndHashCode
-public class ApiException {
+@EqualsAndHashCode(callSuper = true)
+public class ApiException extends Exception {
     private HttpStatus status;
     private String message;
 
