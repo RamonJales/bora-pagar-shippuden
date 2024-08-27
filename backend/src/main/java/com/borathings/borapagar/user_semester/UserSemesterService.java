@@ -6,6 +6,7 @@ import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,17 @@ public class UserSemesterService {
                         .period(userSemesterDTO.getPeriod())
                         .user(authenticatedUser)
                         .build();
-        return userSemesterRepository.save(userSemesterEntity);
+
+        try {
+            userSemesterRepository.save(userSemesterEntity);
+        } catch (DataIntegrityViolationException exception) {
+            String output =
+                    String.format(
+                            "Não foi possível criar pois o semestre %d.%d já existe.",
+                            userSemesterEntity.getYear(), userSemesterEntity.getPeriod());
+            throw new DuplicateKeyException(output);
+        }
+        return userSemesterEntity;
     }
 
     /**
@@ -91,7 +102,7 @@ public class UserSemesterService {
 
         try {
             userSemesterRepository.save(userSemesterEntity);
-        } catch (DuplicateKeyException exception) {
+        } catch (DataIntegrityViolationException exception) {
             String output =
                     String.format(
                             "Não foi possível atualizar pois o semestre %d.%d já existe.",
