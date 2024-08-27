@@ -17,8 +17,7 @@ public class SubjectControllerImpl implements SubjectController {
 
     @Override
     public ResponseEntity<SubjectEntity> createSubject(SubjectDTO subjectDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(subjectService.create(subjectDto.toEntity()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(subjectService.create(subjectDto));
     }
 
     @Override
@@ -33,7 +32,7 @@ public class SubjectControllerImpl implements SubjectController {
 
     @Override
     public ResponseEntity<SubjectEntity> updateSubject(Long id, SubjectDTO subjectDto) {
-        return ResponseEntity.ok(subjectService.update(id, subjectDto.toEntity()));
+        return ResponseEntity.ok(subjectService.update(id, subjectDto));
     }
 
     @Override

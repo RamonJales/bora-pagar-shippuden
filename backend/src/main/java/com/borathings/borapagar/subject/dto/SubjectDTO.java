@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class SubjectDTO {
     @NotBlank private String name;
 
@@ -34,5 +36,15 @@ public class SubjectDTO {
                         .department(department)
                         .build();
         return entity;
+    }
+
+    public static SubjectDTO fromEntity(SubjectEntity entity) {
+        return SubjectDTO.builder()
+                .name(entity.getName())
+                .code(entity.getCode())
+                .syllabus(entity.getSyllabus())
+                .hours(entity.getHours())
+                .departmentId(entity.getDepartment().getId())
+                .build();
     }
 }
