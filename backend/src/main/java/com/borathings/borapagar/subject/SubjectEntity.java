@@ -48,6 +48,13 @@ public class SubjectEntity extends SoftDeletableModel {
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
     private Set<SubjectEntity> prerequisites;
 
+    @ManyToMany
+    @JoinTable(
+            name = "subject_equivalent",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "equivalent_id"))
+    private Set<SubjectEntity> equivalences;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
