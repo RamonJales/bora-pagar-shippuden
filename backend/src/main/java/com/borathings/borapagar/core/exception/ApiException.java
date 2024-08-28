@@ -1,6 +1,7 @@
 package com.borathings.borapagar.core.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import lombok.Data;
@@ -13,7 +14,8 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ApiException extends Exception {
+@JsonIgnoreProperties({"cause", "stackTrace", "suppressed", "localizedMessage"})
+public class ApiException extends RuntimeException {
     private HttpStatus status;
     private String message;
 
