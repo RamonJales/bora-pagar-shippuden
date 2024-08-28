@@ -11,7 +11,7 @@
     @apply bg-bp_neutral-800 text-bp_neutral-50  border border-bp_neutral-600 rounded-md p-2;
   }
 
-   .card-profile {
+  .card-profile {
     @apply space-y-6 p-6 border border-bp_neutral-600 rounded-xl bg-bp_neutral-900 text-bp_neutral-50;
   }
 
