@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 public class Patcher<Entity> {
     /**
      * Atualiza a entidade alvo com base nos dados recebidos da fonte. Os campos nulos na fonte não
-     * serão sobrescritos no alvo. Este método modifica a entidade alvo.
+     * serão sobrescritos no alvo. Este método modifica a entidade alvo. Os campos privados são
+     * forçados para serem acessíveis.
      *
      * @param target - Entidade alvo da atualização
      * @param source - Fonte dos novos dados
@@ -22,7 +23,7 @@ public class Patcher<Entity> {
     public void patch(Entity target, Entity source) throws IllegalAccessException {
         Field[] sourceFields = source.getClass().getDeclaredFields();
         for (Field field : sourceFields) {
-            field.setAccessible(true); // Para acessar mesmo que seja private
+            field.setAccessible(true);
             Object value = field.get(source);
             if (value != null) {
                 field.set(target, value);
