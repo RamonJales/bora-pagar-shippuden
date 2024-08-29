@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class CreateUserInterestDTO {
-    @NotNull
-    private Long userSemesterId;
-};
+    @NotNull private Long userSemesterId;
+}
+;
