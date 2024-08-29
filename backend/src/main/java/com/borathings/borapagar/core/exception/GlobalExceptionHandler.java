@@ -61,6 +61,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * Handle genérico para exceções menos comuns mas que ainda é necessário um pouco de
+     * customização na serialização.
+     *
+     * @param ex - ApiException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Object> handleApiException(ApiException ex) {
+        return buildResponseEntityFromException(ex);
+    }
+
+    /**
      * Trata exceções lançadas pela aplicação quando o usuário não tem permissão para acessar uma
      * entidade.
      *
