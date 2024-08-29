@@ -10,13 +10,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity(name = "user_interest")
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@Getter
+@Setter
 public class UserInterestEntity extends SoftDeletableModel {
     @ManyToOne
     private UserEntity user;
