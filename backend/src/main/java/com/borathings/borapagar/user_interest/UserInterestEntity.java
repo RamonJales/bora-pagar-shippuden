@@ -4,7 +4,6 @@ import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.subject.SubjectEntity;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -22,16 +21,11 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 public class UserInterestEntity extends SoftDeletableModel {
-    @ManyToOne
-    private UserEntity user;
+    @ManyToOne private UserEntity user;
 
-    @ManyToOne
-    private SubjectEntity subject;
+    @ManyToOne private SubjectEntity subject;
 
-    @ManyToOne
-    private UserSemesterEntity userSemester;
-    
-    @Column
-    @Builder.Default
-    private Boolean completed = false;
+    @ManyToOne private UserSemesterEntity userSemester;
+
+    @Column @Builder.Default private Boolean completed = false;
 }
