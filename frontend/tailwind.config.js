@@ -39,6 +39,9 @@ export default {
 
         "bp_sucess": "#6AE156",
         "bp_yellow": "#FFCC00"
+      },
+      fontSize: {
+        xxs: '0.5rem',
       }
       },
     },

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import InputSearch from '@/components/InputSearch.vue'
 import CardSubjects from '@/components/CardSubjects.vue'
 import NavBar from '@/components/NavBar.vue'

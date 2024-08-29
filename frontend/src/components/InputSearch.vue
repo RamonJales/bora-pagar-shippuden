@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import InputBase from './InputBase.vue'
 </script>
 <template>
