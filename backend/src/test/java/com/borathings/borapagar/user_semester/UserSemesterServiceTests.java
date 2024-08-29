@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.AccessDeniedException;
 
 @SpringBootTest
@@ -36,6 +38,19 @@ public class UserSemesterServiceTests {
         assertEquals(userSemesterEntity.getUser(), user);
         assertEquals(userSemesterEntity.getYear(), userSemesterDTO.getYear());
         assertEquals(userSemesterEntity.getPeriod(), userSemesterDTO.getPeriod());
+    }
+
+    @Test
+    public void createShouldNotAllowDuplicates() {
+        UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
+        when(userSemesterRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
+
+        assertThrows(
+                DuplicateKeyException.class,
+                () ->
+                        userSemesterService.create(
+                                "123", UserSemesterDTO.builder().year(2024).period(1).build()));
     }
 
     @Test
@@ -106,6 +121,21 @@ public class UserSemesterServiceTests {
         assertThrows(
                 AccessDeniedException.class,
                 () -> userSemesterService.update(1L, "456", newSemesterData));
+    }
+
+    @Test
+    public void updateShouldNotAllowDuplicates() {
+        UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
+        UserSemesterEntity userSemester =
+                UserSemesterEntity.builder().id(1L).year(2024).period(1).user(user).build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
+        when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(userSemester));
+        when(userSemesterRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
+        assertThrows(
+                DuplicateKeyException.class,
+                () ->
+                        userSemesterService.update(
+                                1L, "123", UserSemesterDTO.builder().year(2024).period(1).build()));
     }
 
     @Test
