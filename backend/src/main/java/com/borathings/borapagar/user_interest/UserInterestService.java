@@ -11,6 +11,7 @@ import com.borathings.borapagar.user_interest.dto.UpdateUserInterestDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -58,6 +59,11 @@ public class UserInterestService {
                         () ->
                                 new EntityNotFoundException(
                                         "Você ainda não demonstrou interesse nesta disciplina"));
+    }
+
+    public List<UserInterestEntity> findAllByUserGoogleId(String userGoogleId) {
+        UserEntity user = userService.findByGoogleIdOrError(userGoogleId);
+        return userSubjectInterestRepository.findByUserId(user.getId());
     }
 
     public UserInterestEntity partialUpdate(
