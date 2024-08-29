@@ -84,7 +84,7 @@ public class UserSemesterService {
      * @return Semestre atualizado
      */
     public UserSemesterEntity update(Long id, String userGoogleId, UserSemesterDTO userSemesterDTO)
-            throws Exception {
+            throws DuplicateKeyException {
         UserSemesterEntity userSemesterEntity = findByIdAndValidatePermissions(userGoogleId, id);
         userSemesterEntity.setYear(userSemesterDTO.getYear());
         userSemesterEntity.setPeriod(userSemesterDTO.getPeriod());
