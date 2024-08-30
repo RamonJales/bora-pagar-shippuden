@@ -5,8 +5,7 @@ CREATE TABLE "user_planning" (
   "subject_id" BIGINT NOT NULL,
   "completed" BOOLEAN DEFAULT false,
   "created_at" TIMESTAMPTZ,
-  "updated_at" TIMESTAMPTZ,
-  "deleted_at" TIMESTAMPTZ
+  "updated_at" TIMESTAMPTZ
 );
 
 CREATE UNIQUE INDEX "subject_unique_for_user" ON "user_planning" ("user_id", "subject_id");
