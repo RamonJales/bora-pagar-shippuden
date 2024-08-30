@@ -12,10 +12,11 @@ public interface UserInterestController {
 
     /**
      * Retorna informações sobre um interesse específico do usuário
+     *
      * @param subjectId - Long - Id da disciplina que o usuário manifestou interesse
-     * @return ResponseEntity<UserInterestEntity> - Entidade com informações sobre o interesse do usuário nesta disciplina
+     * @return ResponseEntity<UserInterestEntity> - Entidade com informações sobre o interesse do
+     *     usuário nesta disciplina
      */
     @GetMapping("/subject/{subjectId}")
     public ResponseEntity<UserInterestEntity> getSpecificInterest(@PathVariable Long subjectId);
-    
 }
