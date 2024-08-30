@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-@RequestMapping("/user/interest/subject")
+@RequestMapping("/user/interest")
 public interface UserInterestController {
 
     /**
@@ -20,7 +20,7 @@ public interface UserInterestController {
      * @param subjectId - Long - ID da disciplina
      * @return ResponseEntity<UserInterestEntity> - Entidade do interesse criado
      */
-    @PostMapping("/{subjectId}")
+    @PostMapping("/subject/{subjectId}")
     public ResponseEntity<UserInterestEntity> createInterest(
             @RequestBody @Valid CreateUserInterestDTO interestDto, @PathVariable Long subjectId);
 }
