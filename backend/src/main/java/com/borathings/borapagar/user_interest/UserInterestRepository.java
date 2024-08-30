@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface UserInterestRepository extends SoftDeletableRepository<UserInterestEntity> {
     public Optional<UserInterestEntity> findByUserIdAndSubjectId(Long userId, Long subjectId);
 
-    public List<UserInterestEntity> findByUserId(Long userId);
+    public List<UserInterestEntity> findByUserIdAndDeletedAtIsNull(Long userId);
 }
