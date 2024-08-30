@@ -13,8 +13,8 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_interest.dto.CreateUserInterestDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
-import java.util.Optional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,13 +54,19 @@ public class UserInterestServiceTests {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
         SubjectEntity subject = SubjectEntity.builder().id(1L).build();
         UserSemesterEntity userSemester1 = UserSemesterEntity.builder().id(1L).user(user).build();
-        UserInterestEntity userInterest = UserInterestEntity.builder().id(1L)
-            .user(user).subject(subject).userSemester(userSemester1)
-            .deletedAt(LocalDateTime.now()).build();
+        UserInterestEntity userInterest =
+                UserInterestEntity.builder()
+                        .id(1L)
+                        .user(user)
+                        .subject(subject)
+                        .userSemester(userSemester1)
+                        .deletedAt(LocalDateTime.now())
+                        .build();
         UserSemesterEntity userSemester2 = UserSemesterEntity.builder().id(2L).user(user).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(subjectService.findByIdOrError(1L)).thenReturn(subject);
-        when(userInterestRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.of(userInterest));
+        when(userInterestRepository.findByUserIdAndSubjectId(1L, 1L))
+                .thenReturn(Optional.of(userInterest));
         when(userSemesterService.findByIdAndValidatePermissions("123", 2L))
                 .thenReturn(userSemester2);
         when(userInterestRepository.save(any()))
@@ -79,16 +85,24 @@ public class UserInterestServiceTests {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
         SubjectEntity subject = SubjectEntity.builder().id(1L).build();
         UserSemesterEntity userSemester = UserSemesterEntity.builder().id(1L).user(user).build();
-        UserInterestEntity userInterest = UserInterestEntity.builder().id(1L)
-            .user(user).subject(subject).userSemester(userSemester).build();
+        UserInterestEntity userInterest =
+                UserInterestEntity.builder()
+                        .id(1L)
+                        .user(user)
+                        .subject(subject)
+                        .userSemester(userSemester)
+                        .build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(subjectService.findByIdOrError(1L)).thenReturn(subject);
-        when(userInterestRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.of(userInterest));
+        when(userInterestRepository.findByUserIdAndSubjectId(1L, 1L))
+                .thenReturn(Optional.of(userInterest));
         when(userSemesterService.findByIdAndValidatePermissions("123", 1L))
                 .thenReturn(userSemester);
-        
-        assertThrows(DuplicateKeyException.class, () -> 
-                userInterestService.create(
-                        "123", 1L, CreateUserInterestDTO.builder().semesterId(1L).build()));
+
+        assertThrows(
+                DuplicateKeyException.class,
+                () ->
+                        userInterestService.create(
+                                "123", 1L, CreateUserInterestDTO.builder().semesterId(1L).build()));
     }
 }
