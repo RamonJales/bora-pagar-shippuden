@@ -1,6 +1,6 @@
-package com.borathings.borapagar.user_interest;
+package com.borathings.borapagar.user_planning;
 
-import com.borathings.borapagar.core.SoftDeletableModel;
+import com.borathings.borapagar.core.AbstractModel;
 import com.borathings.borapagar.subject.SubjectEntity;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Entity(name = "user_interest")
+@Entity(name = "user_planning")
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
-public class UserInterestEntity extends SoftDeletableModel {
+public class UserPlanningEntity extends AbstractModel {
     @ManyToOne private UserEntity user;
 
     @ManyToOne private SubjectEntity subject;
