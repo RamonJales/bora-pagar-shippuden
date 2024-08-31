@@ -1,4 +1,4 @@
-package com.borathings.borapagar.user_interest.dto;
+package com.borathings.borapagar.user_planning.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,6 +12,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CreateUserInterestDTO {
+public class CreateUserPlanningDTO {
     @NotNull private Long semesterId;
 }
