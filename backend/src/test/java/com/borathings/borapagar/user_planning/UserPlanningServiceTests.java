@@ -12,7 +12,6 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
-
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;

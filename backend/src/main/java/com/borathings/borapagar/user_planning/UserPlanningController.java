@@ -2,7 +2,6 @@ package com.borathings.borapagar.user_planning;
 
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import jakarta.validation.Valid;
-
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

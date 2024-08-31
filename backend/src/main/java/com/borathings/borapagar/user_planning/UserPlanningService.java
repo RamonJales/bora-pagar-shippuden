@@ -7,9 +7,8 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
-import java.util.Optional;
-
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
