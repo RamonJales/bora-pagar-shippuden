@@ -14,14 +14,14 @@
         class="flex items-center justify-center gap-2 p-2 text-sm bg-[#97E8AE] bg-opacity-15 rounded-md text-[#97E8AE]"
       >
         <v-icon name="md-checkbox-outlined" scale="0.8" />
-        Concluída
+        <span class="h-full">Concluída</span>
       </button>
       <button
         type="button"
         class="flex items-center gap-2 p-2 text-sm bg-bp_danger-light bg-opacity-15 rounded-md text-bp_danger-light"
       >
-        <v-icon name="md-disabledbydefault-outlined" scale="0.8" />
-        Remover
+        <v-icon name="md-disabledbydefault-outlined" scale="0.8"  />
+        <span class="h-full">Remover</span>
       </button>
     </div>
   </div>
