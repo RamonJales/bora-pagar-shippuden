@@ -77,9 +77,7 @@ public class UserPlanningServiceTests {
 
     @Test
     public void shouldListPlanningFromUser() {
-        UserEntity user = UserEntity.builder().id(1L).build();
-        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userPlanningRepository.findByUserId(user.getId()))
+        when(userPlanningRepository.findByUser_GoogleId("123"))
                 .thenReturn(List.of(UserPlanningEntity.builder().id(1L).build()));
 
         List<UserPlanningEntity> plannings = userPlanningService.findPlanningByUser("123");
