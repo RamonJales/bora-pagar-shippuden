@@ -3,62 +3,72 @@ import NavBar from '@/components/NavBar.vue'
 import ListItemFriend from '@/components/ListItemFriend.vue'
 import { ref, onMounted } from 'vue'
 import BpButton from '@/components/BpButton.vue'
+import BpPagination from '@/components/BpPagination.vue'
 
-const friends = ref([])
-
+const allFriends = ref([
+  {
+    name: 'Danillo',
+    period: '5',
+    degree: 'História'
+  },
+  {
+    name: 'Alisson',
+    period: '7',
+    degree: 'TI'
+  },
+  {
+    name: 'CR7 Jales',
+    period: '4',
+    degree: 'TI'
+  },
+  {
+    name: 'Iñaki Marlon Lourenço',
+    period: '7',
+    degree: 'Geografia'
+  },
+  {
+    name: 'Ían Gabriel',
+    period: '5',
+    degree: 'TI'
+  },
+  {
+    name: 'Parabéns',
+    period: '5',
+    degree: 'TI'
+  },
+  {
+    name: 'Mary Peace',
+    period: '4',
+    degree: 'TI'
+  },
+  {
+    name: 'Tiago',
+    period: '6',
+    degree: 'TI'
+  },
+  {
+    name: 'Natálya',
+    period: '4',
+    degree: 'TI'
+  },
+  {
+    name: 'Dudu',
+    period: '2',
+    degree: 'Ciência da Computação'
+  },
+  {
+    name: 'NãoExiste',
+    period: '-1',
+    degree: 'Biblioteconomia'
+  }
+])
+const currentPagination = ref(0)
+function updateCurrentPagination(newValue) {
+  currentPagination.value = newValue
+  console.log(newValue * 10)
+}
 onMounted(() => {
-  friends.value = [
-    {
-      name: 'Danillo',
-      period: '5',
-      degree: 'História'
-    },
-    {
-      name: 'Alisson',
-      period: '7',
-      degree: 'TI'
-    },
-    {
-      name: 'CR7 Jales',
-      period: '4',
-      degree: 'TI'
-    },
-    {
-      name: 'Iñaki Marlon Lourenço',
-      period: '7',
-      degree: 'Geografia'
-    },
-    {
-      name: 'Ían Gabriel',
-      period: '5',
-      degree: 'TI'
-    },
-    {
-      name: 'Parabéns',
-      period: '5',
-      degree: 'TI'
-    },
-    {
-      name: 'Mary Peace',
-      period: '4',
-      degree: 'TI'
-    },
-    {
-      name: 'Tiago',
-      period: '6',
-      degree: 'TI'
-    },
-    {
-      name: 'Natálya',
-      period: '4',
-      degree: 'TI'
-    },
-    {
-      name: 'Dudu',
-      period: '2',
-      degree: 'Ciência da Computação'
-    }
-  ]
+  console.log(currentPagination)
 })
 </script>
 
@@ -100,13 +110,20 @@ onMounted(() => {
 
         <div class="grid grid-cols-1 gap-4 mt-10 lg:grid-cols-2">
           <ListItemFriend
-            v-for="(friend, index) in friends"
+            v-for="(friend, index) in allFriends"
             v-bind:key="index"
             :nome="friend.name"
             :curso="friend.degree"
             :periodo="friend.period"
           />
         </div>
+      </div>
+      <div class="flex justify-center mt-12 pb-7">
+        <BpPagination
+          :current="currentPagination"
+          @changeCurrentValue="updateCurrentPagination"
+          :count="10"
+        />
       </div>
     </main>
   </div>
