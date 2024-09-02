@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface UserPlanningRepository extends AbstractRepository<UserPlanningEntity> {
     public Optional<UserPlanningEntity> findByUserIdAndSubjectId(Long userId, Long subjectId);
 
-    public List<UserPlanningEntity> findByUserId(Long userId);
+    public List<UserPlanningEntity> findByUser_GoogleId(String googleId);
 }

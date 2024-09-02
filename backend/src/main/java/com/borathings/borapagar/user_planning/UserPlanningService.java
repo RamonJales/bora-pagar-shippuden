@@ -58,7 +58,6 @@ public class UserPlanningService {
      * @return List<UserPlanningEntity> - Lista de elementos do planejamento do usuário
      */
     public List<UserPlanningEntity> findPlanningByUser(String userGoogleId) {
-        UserEntity user = userService.findByGoogleIdOrError(userGoogleId);
-        return userPlanningRepository.findByUserId(user.getId());
+        return userPlanningRepository.findByUser_GoogleId(userGoogleId);
     }
 }
