@@ -4,12 +4,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,14 @@ public class UserPlanningControllerTests {
                                 .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.semesterId.length()").value(1L));
+    }
+
+    @Test
+    public void shouldListPlanningFromUser() throws Exception {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        when(userPlanningService.findPlanningByUser("123")).thenReturn(List.of(planning));
+        mockMvc.perform(get("/api/user/planning").with(jwt().jwt(jwt -> jwt.subject("123"))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(planning.getId()));
     }
 }

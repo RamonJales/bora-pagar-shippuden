@@ -12,6 +12,7 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,14 @@ public class UserPlanningServiceTests {
                 () ->
                         userPlanningService.create(
                                 "123", 1L, CreateUserPlanningDTO.builder().semesterId(1L).build()));
+    }
+
+    @Test
+    public void shouldListPlanningFromUser() {
+        when(userPlanningRepository.findByUser_GoogleId("123"))
+                .thenReturn(List.of(UserPlanningEntity.builder().id(1L).build()));
+
+        List<UserPlanningEntity> plannings = userPlanningService.findPlanningByUser("123");
+        assertEquals(plannings.get(0).getId(), 1L);
     }
 }

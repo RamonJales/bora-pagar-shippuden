@@ -5,6 +5,7 @@ import com.borathings.borapagar.user_planning.UserPlanningEntity;
 import com.borathings.borapagar.user_planning.UserPlanningService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,14 @@ public class UserPlanningControllerImpl implements UserPlanningController {
         UserPlanningEntity interest =
                 userPlanningService.create(authenticatedUserGoogleId, subjectId, interestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(interest);
+    }
+
+    @Override
+    public ResponseEntity<List<UserPlanningEntity>> findPlanningFromAuthenticatedUser() {
+        String authenticatedGoogleId =
+                SecurityContextHolder.getContext().getAuthentication().getName();
+        List<UserPlanningEntity> interests =
+                userPlanningService.findPlanningByUser(authenticatedGoogleId);
+        return ResponseEntity.ok(interests);
     }
 }
