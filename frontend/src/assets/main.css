@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 @layer components {
   .menu-item {
     @apply flex items-center gap-4 hover:border-b border-bp_neutral-600;
