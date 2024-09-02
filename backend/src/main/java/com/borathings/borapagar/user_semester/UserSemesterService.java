@@ -21,20 +21,20 @@ public class UserSemesterService {
      * Lança uma exceção quando o semestre não existe ou o usuário não tem permissão.
      *
      * @param userGoogleId - String - Google ID do usuário
-     * @param id - Long - Id do semestre
+     * @param semesterId - Long - Id do semestre
      * @return UserSemesterEntity - Entidade do semestre
      * @throws EntityNotFoundException - Quando o semestre não existe
      * @throws AccessDeniedException - Quando o usuário não tem permissão para acessar o semestre
      */
-    public UserSemesterEntity findByIdAndValidatePermissions(String userGoogleId, Long id) {
+    public UserSemesterEntity findByIdAndValidatePermissions(String userGoogleId, Long semesterId) {
         UserSemesterEntity userSemesterEntity =
                 userSemesterRepository
-                        .findById(id)
+                        .findById(semesterId)
                         .orElseThrow(
                                 () ->
                                         new EntityNotFoundException(
                                                 "Semestre de usuário com id "
-                                                        + id
+                                                        + semesterId
                                                         + " não encontrada"));
 
         UserEntity authenticatedUser = userService.findByGoogleIdOrError(userGoogleId);
@@ -86,7 +86,7 @@ public class UserSemesterService {
     /**
      * Atualiza os dados de um semestre do usuário autenticado
      *
-     * @param id - Id do semestre
+     * @param semesterId - Id do semestre
      * @param userGoogleId - Google ID do usuário
      * @param userSemesterDTO - Novos dados autenticados do semestre do usuário
      * @throws EntityNotFoundException se o semestre não existir
@@ -94,9 +94,11 @@ public class UserSemesterService {
      *     período já existente
      * @return Semestre atualizado
      */
-    public UserSemesterEntity update(Long id, String userGoogleId, UserSemesterDTO userSemesterDTO)
+    public UserSemesterEntity update(
+            Long semesterId, String userGoogleId, UserSemesterDTO userSemesterDTO)
             throws DuplicateKeyException {
-        UserSemesterEntity userSemesterEntity = findByIdAndValidatePermissions(userGoogleId, id);
+        UserSemesterEntity userSemesterEntity =
+                findByIdAndValidatePermissions(userGoogleId, semesterId);
         userSemesterEntity.setYear(userSemesterDTO.getYear());
         userSemesterEntity.setPeriod(userSemesterDTO.getPeriod());
 
@@ -115,11 +117,11 @@ public class UserSemesterService {
     /**
      * Deleta um semestre do usuário pelo id.
      *
-     * @param id - Id do semestre
+     * @param semesterId - Id do semestre
      * @param userGoogleId - Google ID do usuário autenticado
      */
-    public void delete(Long id, String userGoogleId) {
-        findByIdAndValidatePermissions(userGoogleId, id);
-        userSemesterRepository.softDeleteById(id);
+    public void delete(Long semesterId, String userGoogleId) {
+        findByIdAndValidatePermissions(userGoogleId, semesterId);
+        userSemesterRepository.softDeleteById(semesterId);
     }
 }
