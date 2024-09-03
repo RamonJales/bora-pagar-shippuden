@@ -1,12 +1,14 @@
 package com.borathings.borapagar.user_planning;
 
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,4 +46,16 @@ public interface UserPlanningController {
      */
     @GetMapping("/subject/{subjectId}")
     public ResponseEntity<UserPlanningEntity> findSpecificElement(@PathVariable Long subjectId);
+
+    /**
+     * Atualiza o semestre que o usuário autenticado planeja pagar uma disciplina
+     *
+     * @param planningDto - UpdateUserPlanningDTO - DTO contendo o id do novo semestre
+     * @param subjectId - Long - Id da disciplina a ser atualizada
+     * @return ResponseEntity<UserPlanningEntity> - Elemento do planejamento com o semestre
+     *     atualizado
+     */
+    @PutMapping("/subject/{subjectId}")
+    public ResponseEntity<UserPlanningEntity> updatePlanningSemester(
+            @RequestBody @Valid UpdateUserPlanningDTO planningDto, @PathVariable Long subjectId);
 }

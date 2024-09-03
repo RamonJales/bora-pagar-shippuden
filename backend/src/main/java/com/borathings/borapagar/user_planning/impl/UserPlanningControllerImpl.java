@@ -4,6 +4,7 @@ import com.borathings.borapagar.user_planning.UserPlanningController;
 import com.borathings.borapagar.user_planning.UserPlanningEntity;
 import com.borathings.borapagar.user_planning.UserPlanningService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,15 @@ public class UserPlanningControllerImpl implements UserPlanningController {
         UserPlanningEntity planning =
                 userPlanningService.getPlanningElement(authUserGoogleId, subjectId);
         return ResponseEntity.ok(planning);
+    }
+
+    @Override
+    public ResponseEntity<UserPlanningEntity> updatePlanningSemester(
+            @Valid UpdateUserPlanningDTO planningDto, Long subjectId) {
+        String authUserGoogleId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserPlanningEntity updatedPlanning =
+                userPlanningService.updatePlanningSemester(
+                        authUserGoogleId, subjectId, planningDto);
+        return ResponseEntity.ok(updatedPlanning);
     }
 }
