@@ -12,6 +12,7 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -81,5 +82,26 @@ public class UserPlanningServiceTests {
 
         List<UserPlanningEntity> plannings = userPlanningService.findPlanningByUser("123");
         assertEquals(plannings.get(0).getId(), 1L);
+    }
+
+    @Test
+    public void getSpecificPlanningShouldThrowIfNotFound() {
+        UserEntity user = UserEntity.builder().id(1L).build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
+        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.empty());
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> userPlanningService.getPlanningElement("123", 1L));
+    }
+
+    @Test
+    public void shouldGetSpecificPlanning() {
+        UserEntity user = UserEntity.builder().id(1L).build();
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
+        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L))
+                .thenReturn(Optional.of(planning));
+        UserPlanningEntity result = userPlanningService.getPlanningElement("123", 1L);
+        assertEquals(result.getId(), planning.getId());
     }
 }

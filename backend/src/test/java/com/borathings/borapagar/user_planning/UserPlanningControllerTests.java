@@ -65,4 +65,15 @@ public class UserPlanningControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(planning.getId()));
     }
+
+    @Test
+    public void shouldGetSpecificElement() throws Exception {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        when(userPlanningService.getPlanningElement("123", 1L)).thenReturn(planning);
+        mockMvc.perform(
+                        get("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123"))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L));
+    }
 }

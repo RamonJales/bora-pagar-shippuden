@@ -34,4 +34,12 @@ public class UserPlanningControllerImpl implements UserPlanningController {
                 userPlanningService.findPlanningByUser(authenticatedGoogleId);
         return ResponseEntity.ok(interests);
     }
+
+    @Override
+    public ResponseEntity<UserPlanningEntity> findSpecificElement(Long subjectId) {
+        String authUserGoogleId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserPlanningEntity planning =
+                userPlanningService.getPlanningElement(authUserGoogleId, subjectId);
+        return ResponseEntity.ok(planning);
+    }
 }

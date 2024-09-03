@@ -34,4 +34,14 @@ public interface UserPlanningController {
      */
     @GetMapping
     public ResponseEntity<List<UserPlanningEntity>> findPlanningFromAuthenticatedUser();
+
+    /**
+     * Retorna informações sobre um interesse específico do usuário
+     *
+     * @param subjectId - Long - Id da disciplina que o usuário manifestou interesse
+     * @return ResponseEntity<UserPlanningEntity> - Entidade com informações sobre o interesse do
+     *     usuário nesta disciplina
+     */
+    @GetMapping("/subject/{subjectId}")
+    public ResponseEntity<UserPlanningEntity> findSpecificElement(@PathVariable Long subjectId);
 }

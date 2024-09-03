@@ -7,6 +7,7 @@ import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,24 @@ public class UserPlanningService {
      */
     public List<UserPlanningEntity> findPlanningByUser(String userGoogleId) {
         return userPlanningRepository.findByUser_GoogleId(userGoogleId);
+    }
+
+    /**
+     * Retorna informações sobre um elemento do planejamento do usuário. Identificado pelo google id
+     * do usuário e id da disciplina. Retorna erro caso o elemento não seja encontrado.
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     * @return UserPlanningEntity - Entidade com informações sobre o elemento do planejamento
+     * @throws EntityNotFoundException - Elemento não foi encontrado
+     */
+    public UserPlanningEntity getPlanningElement(String userGoogleId, Long subjectId) {
+        UserEntity user = userService.findByGoogleIdOrError(userGoogleId);
+        return userPlanningRepository
+                .findByUserIdAndSubjectId(user.getId(), subjectId)
+                .orElseThrow(
+                        () ->
+                                new EntityNotFoundException(
+                                        "Elemento do planejamento não encontrado"));
     }
 }
