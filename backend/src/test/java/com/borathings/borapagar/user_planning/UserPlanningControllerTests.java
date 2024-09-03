@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -92,12 +93,17 @@ public class UserPlanningControllerTests {
     @Test
     public void shouldUpdatePlanningElementSemester() throws Exception {
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
-        when(userPlanningService.updatePlanningSemester("123", 1L, any())).thenReturn(planning);
+        when(userPlanningService.updatePlanningSemester(eq("123"), eq(1L), any()))
+                .thenReturn(planning);
         mockMvc.perform(
                         put("/api/user/planning/subject/1")
                                 .with(jwt().jwt(jwt -> jwt.subject("123")))
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content("{}"))
+                                .content(
+                                        objectMapper.writeValueAsString(
+                                                UpdateUserPlanningDTO.builder()
+                                                        .semesterId(1L)
+                                                        .build())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }

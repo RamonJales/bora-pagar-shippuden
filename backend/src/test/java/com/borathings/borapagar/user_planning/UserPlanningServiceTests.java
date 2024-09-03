@@ -87,9 +87,8 @@ public class UserPlanningServiceTests {
 
     @Test
     public void getSpecificPlanningShouldThrowIfNotFound() {
-        UserEntity user = UserEntity.builder().id(1L).build();
-        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.empty());
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.empty());
         assertThrows(
                 EntityNotFoundException.class,
                 () -> userPlanningService.findPlanningElementOrError("123", 1L));
@@ -97,10 +96,8 @@ public class UserPlanningServiceTests {
 
     @Test
     public void shouldGetSpecificPlanning() {
-        UserEntity user = UserEntity.builder().id(1L).build();
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
-        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L))
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
                 .thenReturn(Optional.of(planning));
         UserPlanningEntity result = userPlanningService.findPlanningElementOrError("123", 1L);
         assertEquals(result.getId(), planning.getId());
