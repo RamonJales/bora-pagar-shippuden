@@ -2,6 +2,7 @@ package com.borathings.borapagar.user_planning;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,11 +70,21 @@ public class UserPlanningControllerTests {
     @Test
     public void shouldGetSpecificElement() throws Exception {
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
-        when(userPlanningService.getPlanningElement("123", 1L)).thenReturn(planning);
+        when(userPlanningService.findPlanningElementOrError("123", 1L)).thenReturn(planning);
         mockMvc.perform(
                         get("/api/user/planning/subject/1")
                                 .with(jwt().jwt(jwt -> jwt.subject("123"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
+    }
+
+    @Test
+    public void shouldDeletePlanningElement() throws Exception {
+        doNothing().when(userPlanningService).deletePlanningElement("123", 1L);
+        mockMvc.perform(
+                        get("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
