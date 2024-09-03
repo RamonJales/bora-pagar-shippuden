@@ -8,10 +8,12 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -87,5 +89,34 @@ public class UserPlanningControllerTests {
                                 .with(jwt().jwt(jwt -> jwt.subject("123")))
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldUpdatePlanningElementSemester() throws Exception {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        when(userPlanningService.updatePlanningSemester(eq("123"), eq(1L), any()))
+                .thenReturn(planning);
+        mockMvc.perform(
+                        put("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        objectMapper.writeValueAsString(
+                                                UpdateUserPlanningDTO.builder()
+                                                        .semesterId(1L)
+                                                        .build())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L));
+    }
+
+    @Test
+    public void updatePlanningElementShouldValidateFields() throws Exception {
+        mockMvc.perform(
+                        put("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.semesterId.length()").value(1L));
     }
 }

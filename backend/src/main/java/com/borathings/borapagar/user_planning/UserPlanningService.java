@@ -5,6 +5,7 @@ import com.borathings.borapagar.subject.SubjectService;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
 import jakarta.persistence.EntityNotFoundException;
@@ -78,6 +79,24 @@ public class UserPlanningService {
                         () ->
                                 new EntityNotFoundException(
                                         "Elemento do planejamento não encontrado"));
+    }
+
+    /**
+     * Atualiza o semestre que o usuário planeja pagar uma disciplina
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     * @param planningDTO - UpdateUserPlanningDTO - DTO contendo o id do novo semestre
+     * @return UserPlanningEntity - Elemento do planejamento com o semestre atualizado
+     */
+    public UserPlanningEntity updatePlanningSemester(
+            String userGoogleId, Long subjectId, UpdateUserPlanningDTO planningDTO) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        UserSemesterEntity userSemester =
+                userSemesterService.findByIdAndValidatePermissions(
+                        userGoogleId, planningDTO.getSemesterId());
+        planning.setUserSemester(userSemester);
+        return userPlanningRepository.save(planning);
     }
 
     /**
