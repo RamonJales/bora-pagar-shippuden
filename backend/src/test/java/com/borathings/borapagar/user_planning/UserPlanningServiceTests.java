@@ -119,9 +119,9 @@ public class UserPlanningServiceTests {
                 userPlanningService.updatePlanningSemester(
                         "123", 1L, UpdateUserPlanningDTO.builder().semesterId(2L).build());
         assertEquals(updatedPlanning.getUserSemester().getId(), 2L);
-		}
+    }
 
-		@Test
+    @Test
     public void shouldDeletePlanningElement() {
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
         doNothing().when(userPlanningRepository).deleteById(1L);
