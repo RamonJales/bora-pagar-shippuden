@@ -1,8 +1,10 @@
 package com.borathings.borapagar.user_planning;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import com.borathings.borapagar.subject.SubjectEntity;
@@ -117,5 +119,23 @@ public class UserPlanningServiceTests {
                 userPlanningService.updatePlanningSemester(
                         "123", 1L, UpdateUserPlanningDTO.builder().semesterId(2L).build());
         assertEquals(updatedPlanning.getUserSemester().getId(), 2L);
+		}
+
+		@Test
+    public void shouldDeletePlanningElement() {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        doNothing().when(userPlanningRepository).deleteById(1L);
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.of(planning));
+        assertDoesNotThrow(() -> userPlanningService.deletePlanningElement("123", 1L));
+    }
+
+    @Test
+    public void deletePlanningElementShouldThrowIfNotFound() {
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.empty());
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> userPlanningService.deletePlanningElement("123", 1L));
     }
 }
