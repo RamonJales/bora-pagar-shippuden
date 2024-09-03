@@ -35,7 +35,7 @@ function chatToggler() {
 
 function updateMessagesList(message, user) {
   const d = new Date().toLocaleTimeString()
-  const [ hours, minutes, ] = d.split(':')
+  const [hours, minutes] = d.split(':')
 
   const newMessage = {
     id: messageId++,

@@ -20,7 +20,7 @@
         type="button"
         class="flex items-center gap-2 p-2 text-sm bg-bp_danger-light bg-opacity-15 rounded-md text-bp_danger-light"
       >
-        <v-icon name="md-disabledbydefault-outlined" scale="0.8"  />
+        <v-icon name="md-disabledbydefault-outlined" scale="0.8" />
         <span class="h-full">Remover</span>
       </button>
     </div>
