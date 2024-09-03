@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import PeriodCard from '@/components/PeriodCard.vue'
 import RadialProgress from '@/components/RadialProgress.vue'
 import SubjectCard from '@/components/SubjectCard.vue'
