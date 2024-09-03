@@ -71,13 +71,23 @@ public class UserPlanningService {
      * @return UserPlanningEntity - Entidade com informações sobre o elemento do planejamento
      * @throws EntityNotFoundException - Elemento não foi encontrado
      */
-    public UserPlanningEntity getPlanningElement(String userGoogleId, Long subjectId) {
-        UserEntity user = userService.findByGoogleIdOrError(userGoogleId);
+    public UserPlanningEntity findPlanningElementOrError(String userGoogleId, Long subjectId) {
         return userPlanningRepository
-                .findByUserIdAndSubjectId(user.getId(), subjectId)
+                .findByUser_GoogleIdAndSubjectId(userGoogleId, subjectId)
                 .orElseThrow(
                         () ->
                                 new EntityNotFoundException(
                                         "Elemento do planejamento não encontrado"));
+    }
+
+    /**
+     * Remove um elemento do planejamento do usuário
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     */
+    public void deletePlanningElement(String userGoogleId, Long subjectId) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        userPlanningRepository.deleteById(planning.getId());
     }
 }

@@ -1,8 +1,10 @@
 package com.borathings.borapagar.user_planning;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import com.borathings.borapagar.subject.SubjectEntity;
@@ -86,22 +88,37 @@ public class UserPlanningServiceTests {
 
     @Test
     public void getSpecificPlanningShouldThrowIfNotFound() {
-        UserEntity user = UserEntity.builder().id(1L).build();
-        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.empty());
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.empty());
         assertThrows(
                 EntityNotFoundException.class,
-                () -> userPlanningService.getPlanningElement("123", 1L));
+                () -> userPlanningService.findPlanningElementOrError("123", 1L));
     }
 
     @Test
     public void shouldGetSpecificPlanning() {
-        UserEntity user = UserEntity.builder().id(1L).build();
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
-        when(userService.findByGoogleIdOrError("123")).thenReturn(user);
-        when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L))
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
                 .thenReturn(Optional.of(planning));
-        UserPlanningEntity result = userPlanningService.getPlanningElement("123", 1L);
+        UserPlanningEntity result = userPlanningService.findPlanningElementOrError("123", 1L);
         assertEquals(result.getId(), planning.getId());
+    }
+
+    @Test
+    public void shouldDeletePlanningElement() {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        doNothing().when(userPlanningRepository).deleteById(1L);
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.of(planning));
+        assertDoesNotThrow(() -> userPlanningService.deletePlanningElement("123", 1L));
+    }
+
+    @Test
+    public void deletePlanningElementShouldThrowIfNotFound() {
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.empty());
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> userPlanningService.deletePlanningElement("123", 1L));
     }
 }

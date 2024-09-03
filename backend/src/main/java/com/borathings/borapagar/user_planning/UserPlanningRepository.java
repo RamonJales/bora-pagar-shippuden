@@ -10,4 +10,7 @@ public interface UserPlanningRepository extends AbstractRepository<UserPlanningE
     public Optional<UserPlanningEntity> findByUserIdAndSubjectId(Long userId, Long subjectId);
 
     public List<UserPlanningEntity> findByUser_GoogleId(String googleId);
+
+    public Optional<UserPlanningEntity> findByUser_GoogleIdAndSubjectId(
+            String googleId, Long subjectId);
 }
