@@ -4,6 +4,7 @@ import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,4 +45,13 @@ public interface UserPlanningController {
      */
     @GetMapping("/subject/{subjectId}")
     public ResponseEntity<UserPlanningEntity> findSpecificElement(@PathVariable Long subjectId);
+
+    /**
+     * Remove uma disciplina do planejamento do usuário
+     *
+     * @param subjectId - Id da disciplina a ser removida
+     * @return ResponseEntity<Void> - Resposta vazia
+     */
+    @DeleteMapping("/subject/{subjectId}")
+    public ResponseEntity<Void> deletePlanningElement(@PathVariable Long subjectId);
 }

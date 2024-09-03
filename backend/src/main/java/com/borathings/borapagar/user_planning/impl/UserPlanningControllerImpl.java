@@ -39,7 +39,14 @@ public class UserPlanningControllerImpl implements UserPlanningController {
     public ResponseEntity<UserPlanningEntity> findSpecificElement(Long subjectId) {
         String authUserGoogleId = SecurityContextHolder.getContext().getAuthentication().getName();
         UserPlanningEntity planning =
-                userPlanningService.getPlanningElement(authUserGoogleId, subjectId);
+                userPlanningService.findPlanningElementOrError(authUserGoogleId, subjectId);
         return ResponseEntity.ok(planning);
+    }
+
+    @Override
+    public ResponseEntity<Void> deletePlanningElement(Long subjectId) {
+        String authUserGoogleId = SecurityContextHolder.getContext().getAuthentication().getName();
+        userPlanningService.deletePlanningElement(authUserGoogleId, subjectId);
+        return ResponseEntity.ok().build();
     }
 }
