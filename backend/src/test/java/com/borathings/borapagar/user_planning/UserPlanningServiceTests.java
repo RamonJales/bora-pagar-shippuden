@@ -10,6 +10,7 @@ import com.borathings.borapagar.subject.SubjectService;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
 import jakarta.persistence.EntityNotFoundException;
@@ -91,7 +92,7 @@ public class UserPlanningServiceTests {
         when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L)).thenReturn(Optional.empty());
         assertThrows(
                 EntityNotFoundException.class,
-                () -> userPlanningService.getPlanningElement("123", 1L));
+                () -> userPlanningService.findPlanningElementOrError("123", 1L));
     }
 
     @Test
@@ -101,7 +102,23 @@ public class UserPlanningServiceTests {
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userPlanningRepository.findByUserIdAndSubjectId(1L, 1L))
                 .thenReturn(Optional.of(planning));
-        UserPlanningEntity result = userPlanningService.getPlanningElement("123", 1L);
+        UserPlanningEntity result = userPlanningService.findPlanningElementOrError("123", 1L);
         assertEquals(result.getId(), planning.getId());
+    }
+
+    @Test
+    public void shouldUpdateSemesterFromPlanning() {
+        UserPlanningEntity userPlanning = UserPlanningEntity.builder().id(1L).build();
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.of(userPlanning));
+        when(userSemesterService.findByIdAndValidatePermissions("123", 2L))
+                .thenReturn(UserSemesterEntity.builder().id(2L).build());
+        when(userPlanningRepository.save(any()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        UserPlanningEntity updatedPlanning =
+                userPlanningService.updatePlanningSemester(
+                        "123", 1L, UpdateUserPlanningDTO.builder().semesterId(2L).build());
+        assertEquals(updatedPlanning.getUserSemester().getId(), 2L);
     }
 }
