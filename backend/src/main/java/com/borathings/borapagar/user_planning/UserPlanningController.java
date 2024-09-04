@@ -68,4 +68,14 @@ public interface UserPlanningController {
      */
     @DeleteMapping("/subject/{subjectId}")
     public ResponseEntity<Void> deletePlanningElement(@PathVariable Long subjectId);
+
+    /**
+     * Alterna o status de uma disciplina no planejamento do usuário autenticado entre concluída e
+     * não concluída.
+     *
+     * @param subjectId - Long - Id da disciplina
+     * @return ResponseEntity<String> - Mensagem indicando o novo status da disciplina
+     */
+    @PostMapping("/subject/{subjectId}/toggle-completed")
+    public ResponseEntity<String> toggleCompleted(@PathVariable Long subjectId);
 }

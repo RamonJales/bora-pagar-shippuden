@@ -60,4 +60,15 @@ public class UserPlanningControllerImpl implements UserPlanningController {
         userPlanningService.deletePlanningElement(authUserGoogleId, subjectId);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<String> toggleCompleted(Long subjectId) {
+        String authUserGoogleId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Boolean result = userPlanningService.toggleCompleted(authUserGoogleId, subjectId);
+        String message =
+                result
+                        ? "Disciplina marcada como concluída"
+                        : "Disciplina marcada como não concluída";
+        return ResponseEntity.ok(message);
+    }
 }
