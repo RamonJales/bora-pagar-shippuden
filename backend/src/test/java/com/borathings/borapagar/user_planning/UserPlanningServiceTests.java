@@ -138,4 +138,18 @@ public class UserPlanningServiceTests {
                 EntityNotFoundException.class,
                 () -> userPlanningService.deletePlanningElement("123", 1L));
     }
+
+    @Test
+    public void shouldToggleCompleted() {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).completed(false).build();
+        when(userPlanningRepository.findByUser_GoogleIdAndSubjectId("123", 1L))
+                .thenReturn(Optional.of(planning));
+        when(userPlanningRepository.save(any()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        boolean result = userPlanningService.toggleCompleted("123", 1L);
+        assertEquals(result, true);
+        result = userPlanningService.toggleCompleted("123", 1L);
+        assertEquals(result, false);
+    }
 }

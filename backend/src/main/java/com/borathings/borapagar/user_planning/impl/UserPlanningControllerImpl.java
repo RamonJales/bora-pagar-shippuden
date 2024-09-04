@@ -1,5 +1,6 @@
 package com.borathings.borapagar.user_planning.impl;
 
+import com.borathings.borapagar.core.ApplicationConstants;
 import com.borathings.borapagar.user_planning.UserPlanningController;
 import com.borathings.borapagar.user_planning.UserPlanningEntity;
 import com.borathings.borapagar.user_planning.UserPlanningService;
@@ -67,8 +68,8 @@ public class UserPlanningControllerImpl implements UserPlanningController {
         Boolean result = userPlanningService.toggleCompleted(authUserGoogleId, subjectId);
         String message =
                 result
-                        ? "Disciplina marcada como concluída"
-                        : "Disciplina marcada como não concluída";
+                        ? ApplicationConstants.TOGGLE_COMPLETED_TRUE_MESSAGE
+                        : ApplicationConstants.TOGGLE_COMPLETED_FALSE_MESSAGE;
         return ResponseEntity.ok(message);
     }
 }
