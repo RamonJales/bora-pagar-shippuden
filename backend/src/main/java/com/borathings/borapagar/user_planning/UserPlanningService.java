@@ -109,4 +109,18 @@ public class UserPlanningService {
         UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
         userPlanningRepository.deleteById(planning.getId());
     }
+
+    /**
+     * Alterna o status de uma disciplina no planejamento do usuário entre concluída e não concluída
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     * @return Boolean - Novo status da disciplina (true se concluída, false se não concluída)
+     */
+    public Boolean toggleCompleted(String userGoogleId, Long subjectId) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        planning.setCompleted(!planning.getCompleted());
+        userPlanningRepository.save(planning);
+        return planning.getCompleted();
+    }
 }

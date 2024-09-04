@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.borathings.borapagar.core.ApplicationConstants;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
 import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -118,5 +119,24 @@ public class UserPlanningControllerTests {
                                 .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.fieldErrors.semesterId.length()").value(1L));
+    }
+
+    @Test
+    public void shouldToggleCompleted() throws Exception {
+        when(userPlanningService.toggleCompleted("123", 1L)).thenReturn(true);
+        mockMvc.perform(
+                        post("/api/user/planning/subject/1/toggle-completed")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(ApplicationConstants.TOGGLE_COMPLETED_TRUE_MESSAGE));
+        when(userPlanningService.toggleCompleted("123", 1L)).thenReturn(false);
+        mockMvc.perform(
+                        post("/api/user/planning/subject/1/toggle-completed")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$").value(ApplicationConstants.TOGGLE_COMPLETED_FALSE_MESSAGE));
     }
 }
