@@ -2,14 +2,19 @@ package com.borathings.borapagar.user_planning;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.borathings.borapagar.core.ApplicationConstants;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -69,11 +74,69 @@ public class UserPlanningControllerTests {
     @Test
     public void shouldGetSpecificElement() throws Exception {
         UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
-        when(userPlanningService.getPlanningElement("123", 1L)).thenReturn(planning);
+        when(userPlanningService.findPlanningElementOrError("123", 1L)).thenReturn(planning);
         mockMvc.perform(
                         get("/api/user/planning/subject/1")
                                 .with(jwt().jwt(jwt -> jwt.subject("123"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
+    }
+
+    @Test
+    public void shouldDeletePlanningElement() throws Exception {
+        doNothing().when(userPlanningService).deletePlanningElement("123", 1L);
+        mockMvc.perform(
+                        delete("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldUpdatePlanningElementSemester() throws Exception {
+        UserPlanningEntity planning = UserPlanningEntity.builder().id(1L).build();
+        when(userPlanningService.updatePlanningSemester(eq("123"), eq(1L), any()))
+                .thenReturn(planning);
+        mockMvc.perform(
+                        put("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        objectMapper.writeValueAsString(
+                                                UpdateUserPlanningDTO.builder()
+                                                        .semesterId(1L)
+                                                        .build())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L));
+    }
+
+    @Test
+    public void updatePlanningElementShouldValidateFields() throws Exception {
+        mockMvc.perform(
+                        put("/api/user/planning/subject/1")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.semesterId.length()").value(1L));
+    }
+
+    @Test
+    public void shouldToggleCompleted() throws Exception {
+        when(userPlanningService.toggleCompleted("123", 1L)).thenReturn(true);
+        mockMvc.perform(
+                        post("/api/user/planning/subject/1/toggle-completed")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(ApplicationConstants.TOGGLE_COMPLETED_TRUE_MESSAGE));
+        when(userPlanningService.toggleCompleted("123", 1L)).thenReturn(false);
+        mockMvc.perform(
+                        post("/api/user/planning/subject/1/toggle-completed")
+                                .with(jwt().jwt(jwt -> jwt.subject("123")))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$").value(ApplicationConstants.TOGGLE_COMPLETED_FALSE_MESSAGE));
     }
 }

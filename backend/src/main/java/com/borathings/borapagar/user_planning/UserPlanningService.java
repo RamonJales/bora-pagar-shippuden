@@ -5,6 +5,7 @@ import com.borathings.borapagar.subject.SubjectService;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
 import com.borathings.borapagar.user_planning.dto.CreateUserPlanningDTO;
+import com.borathings.borapagar.user_planning.dto.UpdateUserPlanningDTO;
 import com.borathings.borapagar.user_semester.UserSemesterEntity;
 import com.borathings.borapagar.user_semester.UserSemesterService;
 import jakarta.persistence.EntityNotFoundException;
@@ -71,13 +72,55 @@ public class UserPlanningService {
      * @return UserPlanningEntity - Entidade com informações sobre o elemento do planejamento
      * @throws EntityNotFoundException - Elemento não foi encontrado
      */
-    public UserPlanningEntity getPlanningElement(String userGoogleId, Long subjectId) {
-        UserEntity user = userService.findByGoogleIdOrError(userGoogleId);
+    public UserPlanningEntity findPlanningElementOrError(String userGoogleId, Long subjectId) {
         return userPlanningRepository
-                .findByUserIdAndSubjectId(user.getId(), subjectId)
+                .findByUser_GoogleIdAndSubjectId(userGoogleId, subjectId)
                 .orElseThrow(
                         () ->
                                 new EntityNotFoundException(
                                         "Elemento do planejamento não encontrado"));
+    }
+
+    /**
+     * Atualiza o semestre que o usuário planeja pagar uma disciplina
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     * @param planningDTO - UpdateUserPlanningDTO - DTO contendo o id do novo semestre
+     * @return UserPlanningEntity - Elemento do planejamento com o semestre atualizado
+     */
+    public UserPlanningEntity updatePlanningSemester(
+            String userGoogleId, Long subjectId, UpdateUserPlanningDTO planningDTO) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        UserSemesterEntity userSemester =
+                userSemesterService.findByIdAndValidatePermissions(
+                        userGoogleId, planningDTO.getSemesterId());
+        planning.setUserSemester(userSemester);
+        return userPlanningRepository.save(planning);
+    }
+
+    /**
+     * Remove um elemento do planejamento do usuário
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     */
+    public void deletePlanningElement(String userGoogleId, Long subjectId) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        userPlanningRepository.deleteById(planning.getId());
+    }
+
+    /**
+     * Alterna o status de uma disciplina no planejamento do usuário entre concluída e não concluída
+     *
+     * @param userGoogleId - String - Google id do usuário
+     * @param subjectId - Long - Id da disciplina
+     * @return Boolean - Novo status da disciplina (true se concluída, false se não concluída)
+     */
+    public Boolean toggleCompleted(String userGoogleId, Long subjectId) {
+        UserPlanningEntity planning = findPlanningElementOrError(userGoogleId, subjectId);
+        planning.setCompleted(!planning.getCompleted());
+        userPlanningRepository.save(planning);
+        return planning.getCompleted();
     }
 }

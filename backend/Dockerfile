@@ -5,6 +5,10 @@ WORKDIR /app
 COPY .mvn .mvn
 COPY mvnw .
 COPY pom.xml .
+
+# Executa o Maven para baixar as dependências (Isso ajuda a aproveitar o cache do Docker)
+RUN ./mvnw dependency:go-offline
+
 COPY src src
 
 RUN ./mvnw clean install -DskipTests -P prod
