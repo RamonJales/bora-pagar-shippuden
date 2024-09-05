@@ -1,6 +1,7 @@
 package com.borathings.borapagar.subject;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
+import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
+import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class SubjectService {
      * @param subjectDTO - Dados da disciplina
      * @return Disciplina salva
      */
-    public SubjectEntity create(SubjectDTO subjectDTO) {
+    public SubjectEntity create(CreateSubjectDTO subjectDTO) {
         return subjectRepository.save(subjectDTO.toEntity());
     }
 
@@ -55,7 +56,7 @@ public class SubjectService {
      * @throws EntityNotFoundException se a disciplina não existir
      * @return Disciplina atualizada
      */
-    public SubjectEntity update(Long id, SubjectDTO subjectDTO) {
+    public SubjectEntity update(Long id, UpdateSubjectDTO subjectDTO) {
         findByIdOrError(id);
         SubjectEntity subjectEntity = subjectDTO.toEntity();
         subjectEntity.setId(id);

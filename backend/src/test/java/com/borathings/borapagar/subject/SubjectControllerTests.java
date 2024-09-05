@@ -13,7 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
+import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
+import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
 import com.borathings.borapagar.utils.AuthenticatedMockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -107,7 +108,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(
+                                                new CreateSubjectDTO(
                                                         "Matemática elementar",
                                                         "IMD0001",
                                                         "math and stuff",
@@ -144,7 +145,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60, null))))
+                                                new CreateSubjectDTO(null, null, null, -60, null))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 
@@ -157,7 +158,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(
+                                                new UpdateSubjectDTO(
                                                         "ME", "IMD0001", "syllabus", 100, 1L))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -177,7 +178,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(
+                                                new UpdateSubjectDTO(
                                                         "ME", "IMD0001", "program", 100, 1L))))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
@@ -205,7 +206,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60, 1L))))
+                                                new UpdateSubjectDTO(null, null, null, -60, 1L))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 

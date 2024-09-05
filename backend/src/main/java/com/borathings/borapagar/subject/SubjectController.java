@@ -1,6 +1,8 @@
 package com.borathings.borapagar.subject;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
+import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
+import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
+import com.borathings.borapagar.subject.dto.response.DefaultSubjectDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,8 @@ public interface SubjectController {
      * @return Disciplina criada
      */
     @PostMapping
-    public ResponseEntity<SubjectEntity> createSubject(@RequestBody @Valid SubjectDTO subjectDto);
+    public ResponseEntity<DefaultSubjectDTO> createSubject(
+            @RequestBody @Valid CreateSubjectDTO subjectDto);
 
     /**
      * Retorna todas as disciplinas cadastradas
@@ -32,7 +35,7 @@ public interface SubjectController {
      * @return Lista de disciplinas
      */
     @GetMapping
-    public ResponseEntity<List<SubjectEntity>> getAllSubjects();
+    public ResponseEntity<List<DefaultSubjectDTO>> getAllSubjects();
 
     /**
      * Retorna uma disciplina pelo id
@@ -41,7 +44,7 @@ public interface SubjectController {
      * @return Disciplina recuperada
      */
     @GetMapping("/{id}")
-    public ResponseEntity<SubjectEntity> getSubjectById(@PathVariable Long id);
+    public ResponseEntity<DefaultSubjectDTO> getSubjectById(@PathVariable Long id);
 
     /**
      * Atualiza os dados de uma disciplina
@@ -51,8 +54,8 @@ public interface SubjectController {
      * @return Disciplina atualizada
      */
     @PutMapping("/{id}")
-    public ResponseEntity<SubjectEntity> updateSubject(
-            @PathVariable Long id, @RequestBody @Valid SubjectDTO subjectDto);
+    public ResponseEntity<DefaultSubjectDTO> updateSubject(
+            @PathVariable Long id, @RequestBody @Valid UpdateSubjectDTO subjectDto);
 
     /**
      * Deleta uma disciplina pelo id. Se a disciplina não existe, não faz nada.
