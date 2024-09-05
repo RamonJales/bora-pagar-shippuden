@@ -75,7 +75,7 @@ function handleMenuClick() {
           <span>Disciplinas</span>
         </RouterLink>
         <RouterLink
-          class="flex items-center gap-4 mt-4 text-bp_danger hover:border-b border-bp_danger"
+          class="flex items-center gap-4 mt-4 text-bp_danger menu-item after:bg-bp_danger"
           to="/"
         >
           <v-icon name="md-logout" />

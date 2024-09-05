@@ -8,7 +8,7 @@
 
 @layer components {
   .menu-item {
-    @apply flex items-center gap-4 hover:border-b border-bp_neutral-600;
+    @apply flex items-center gap-4 relative;
   }
 
   .card-options {
@@ -20,7 +20,7 @@
   }
 
   .menu-item::after {
-    content: " ";
+    content: "";
     width: 0%;
     height: 2px;
     background-color: #F7F7F7;
