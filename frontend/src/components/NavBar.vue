@@ -31,7 +31,7 @@ function handleMenuClick() {
       </div>
     </div>
     <nav
-      class="w-11/12 md:w-auto p-5 py-8 bg-neutral-950 absolute top-0 h-screen transition-all ease-in-out duration-300"
+      class="w-11/12 md:w-auto p-5 py-8 bg-neutral-950 z-[99] border-r-2 border-bp_neutral-700 fixed top-0 h-full transition-all ease-in-out duration-300"
       :class="{
         '-left-full': !isMenuOpen,
         'left-0': isMenuOpen
@@ -58,21 +58,21 @@ function handleMenuClick() {
       <hr class="my-6" />
 
       <ul class="flex flex-col gap-4">
-        <RouterLink class="menu-item" to="/">
-          <v-icon name="md-home" />
+        <RouterLink class="menu-item" to="/dashboard">
+          <v-icon name="md-home-outlined" />
           <span>Home</span>
         </RouterLink>
-        <RouterLink class="menu-item" to="/">
-          <v-icon name="md-menubook" />
-          <span>Disciplinas</span>
+        <RouterLink class="menu-item" to="/perfil">
+          <v-icon name="md-person-outlined" />
+          <span>Perfil</span>
         </RouterLink>
-        <RouterLink class="menu-item" to="/">
-          <v-icon name="md-group" />
+        <RouterLink class="menu-item" to="/amgios">
+          <v-icon name="md-group-outlined" />
           <span>Amigos</span>
         </RouterLink>
-        <RouterLink class="menu-item" to="/">
-          <v-icon name="md-person" />
-          <span>Perfil</span>
+        <RouterLink class="menu-item" to="/disciplinas">
+          <v-icon name="md-menubook-outlined" />
+          <span>Disciplinas</span>
         </RouterLink>
         <RouterLink
           class="flex items-center gap-4 mt-4 text-bp_danger hover:border-b border-bp_danger"
