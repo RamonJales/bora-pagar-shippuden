@@ -9,16 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SubjectService {
+    @Autowired private SubjectMapper subjectMapper;
     @Autowired private SubjectRepository subjectRepository;
 
     /**
      * Salva uma nova disciplina no banco de dados
      *
-     * @param subjectDTO - Dados da disciplina
+     * @param createSubjectDTO - Dados da disciplina
      * @return Disciplina salva
      */
-    public SubjectEntity create(CreateSubjectDTO subjectDTO) {
-        return subjectRepository.save(subjectDTO.toEntity());
+    public SubjectEntity create(CreateSubjectDTO createSubjectDTO) {
+        SubjectEntity subjectEntity = subjectMapper.toEntity(createSubjectDTO);
+        return subjectRepository.save(subjectEntity);
     }
 
     /**
@@ -52,13 +54,13 @@ public class SubjectService {
      * Atualiza os dados de uma disciplina
      *
      * @param id - Id da disciplina
-     * @param subjectDTO - Novos dados da disciplina
+     * @param updateSubjectDTO - Novos dados da disciplina
      * @throws EntityNotFoundException se a disciplina não existir
      * @return Disciplina atualizada
      */
-    public SubjectEntity update(Long id, UpdateSubjectDTO subjectDTO) {
+    public SubjectEntity update(Long id, UpdateSubjectDTO updateSubjectDTO) {
         findByIdOrError(id);
-        SubjectEntity subjectEntity = subjectDTO.toEntity();
+        SubjectEntity subjectEntity = subjectMapper.toEntity(updateSubjectDTO);
         subjectEntity.setId(id);
         return subjectRepository.save(subjectEntity);
     }

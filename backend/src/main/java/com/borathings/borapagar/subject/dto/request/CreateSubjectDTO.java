@@ -1,7 +1,5 @@
 package com.borathings.borapagar.subject.dto.request;
 
-import com.borathings.borapagar.department.DepartmentEntity;
-import com.borathings.borapagar.subject.SubjectEntity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,15 +26,4 @@ public class CreateSubjectDTO {
     private Integer hours;
 
     @NotNull private Long departmentId;
-
-    public SubjectEntity toEntity() {
-        DepartmentEntity department = DepartmentEntity.builder().id(departmentId).build();
-        return SubjectEntity.builder()
-                .name(name)
-                .code(code)
-                .syllabus(syllabus)
-                .hours(hours)
-                .department(department)
-                .build();
-    }
 }
