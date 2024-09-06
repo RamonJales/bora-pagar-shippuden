@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors'
 export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./node_modules/vue-tailwind-datepicker/**/*.js",
   ],
+  darkMode:'class',
   theme: {
     extend: {
       colors: {
@@ -19,17 +22,17 @@ export default {
           800: "#285EC8",
           900: "#1F3286"
         },
-        "bp_neutral": {
-          900: "#1A1A1A", // Main color
+        "bp_neutral": { 
+          900: "#030303", // Main color
           50: "#F7F7F7",
-          100: "#EEEEEE",
-          200: "#E2E2E2",
-          300: "#D0D0D0",
-          400: "#ABABAB",
-          500: "#8A8A8A",
-          600: "#636363",
-          700: "#505050",
-          800: "#323232"
+          100: "#E6E6E6",
+          200: "#D9D9D9",
+          300: "#BFBFBF",
+          400: "#999999",
+          500: "#737373",
+          600: "#505050",
+          700: "#323232",
+          800: "#1A1A1A"
         },
 
         "bp_danger": {
@@ -38,7 +41,20 @@ export default {
         },
 
         "bp_sucess": "#6AE156",
-        "bp_yellow": "#FFCC00"
+        "bp_yellow": "#FFCC00",
+        "vtd-primary": colors.sky, // Light mode Datepicker color
+        "vtd-secondary": {
+          800: "#030303", // Main color
+          50: "#F7F7F7",
+          100: "#E6E6E6",
+          200: "#D9D9D9",
+          300: "#BFBFBF",
+          400: "#999999",
+          500: "#737373",
+          600: "#505050",
+          700: "#323232",
+          900: "#1A1A1A"
+        }, // Dark mode Datepicker color
       },
       fontSize: {
         xxs: '0.5rem',
