@@ -1,4 +1,4 @@
-package com.borathings.borapagar.user_semester.dto;
+package com.borathings.borapagar.user_semester.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class UserSemesterDTO {
+public class CreateUserSemesterDTO {
     @NotNull
     @Min(0)
     private Integer year;

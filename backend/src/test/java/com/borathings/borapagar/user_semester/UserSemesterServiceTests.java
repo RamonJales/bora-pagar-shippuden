@@ -9,7 +9,8 @@ import static org.mockito.Mockito.when;
 
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
-import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.CreateUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.UpdateUserSemesterDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,8 @@ public class UserSemesterServiceTests {
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.save(any()))
                 .thenAnswer((invocation) -> invocation.getArgument(0));
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(2024).period(1).build();
+        CreateUserSemesterDTO userSemesterDTO =
+                CreateUserSemesterDTO.builder().year(2024).period(1).build();
         UserSemesterEntity userSemesterEntity = userSemesterService.create("123", userSemesterDTO);
         assertEquals(userSemesterEntity.getUser(), user);
         assertEquals(userSemesterEntity.getYear(), userSemesterDTO.getYear());
@@ -50,7 +52,8 @@ public class UserSemesterServiceTests {
                 DuplicateKeyException.class,
                 () ->
                         userSemesterService.create(
-                                "123", UserSemesterDTO.builder().year(2024).period(1).build()));
+                                "123",
+                                CreateUserSemesterDTO.builder().year(2024).period(1).build()));
     }
 
     @Test
@@ -98,7 +101,8 @@ public class UserSemesterServiceTests {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
         UserSemesterEntity databaseSemesterEntity =
                 UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
-        UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
+        UpdateUserSemesterDTO newSemesterData =
+                UpdateUserSemesterDTO.builder().year(2025).period(1).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));
         when(userSemesterRepository.save(any()))
@@ -114,7 +118,8 @@ public class UserSemesterServiceTests {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
         UserSemesterEntity databaseSemesterEntity =
                 UserSemesterEntity.builder().id(1L).user(user).year(2024).period(1).build();
-        UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
+        UpdateUserSemesterDTO newSemesterData =
+                UpdateUserSemesterDTO.builder().year(2025).period(1).build();
         UserEntity differentUser = UserEntity.builder().id(2L).googleId("456").build();
         when(userService.findByGoogleIdOrError("456")).thenReturn(differentUser);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.of(databaseSemesterEntity));
@@ -135,13 +140,16 @@ public class UserSemesterServiceTests {
                 DuplicateKeyException.class,
                 () ->
                         userSemesterService.update(
-                                1L, "123", UserSemesterDTO.builder().year(2024).period(1).build()));
+                                1L,
+                                "123",
+                                UpdateUserSemesterDTO.builder().year(2024).period(1).build()));
     }
 
     @Test
     public void updateShouldThrowIfEntityDoesNotExist() {
         UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
-        UserSemesterDTO newSemesterData = UserSemesterDTO.builder().year(2025).period(1).build();
+        UpdateUserSemesterDTO newSemesterData =
+                UpdateUserSemesterDTO.builder().year(2025).period(1).build();
         when(userService.findByGoogleIdOrError("123")).thenReturn(user);
         when(userSemesterRepository.findById(1L)).thenReturn(Optional.empty());
         assertThrows(

@@ -2,7 +2,6 @@ package com.borathings.borapagar.user_semester;
 
 import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.user.UserEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -32,7 +31,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class UserSemesterEntity extends SoftDeletableModel {
 
-    @JsonIgnore @ManyToOne @NotNull private UserEntity user;
+    @ManyToOne @NotNull private UserEntity user;
 
     @Column(name = "semester_year")
     @NotNull

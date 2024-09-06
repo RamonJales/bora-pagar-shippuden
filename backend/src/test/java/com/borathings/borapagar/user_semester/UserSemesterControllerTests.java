@@ -14,7 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.borathings.borapagar.user.UserEntity;
-import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.CreateUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.UpdateUserSemesterDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -23,7 +24,9 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
@@ -37,12 +40,20 @@ public class UserSemesterControllerTests {
     @Autowired private ObjectMapper objectMapper;
     @MockBean UserSemesterService userSemesterService;
 
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        UserSemesterMapper userSemesterMapper() {
+            return new UserSemesterMapperImpl();
+        }
+    }
+
     @Test
     public void shouldCreateSemester() throws Exception {
         when(userSemesterService.create(eq("123"), any()))
                 .thenAnswer(
                         (invocation) -> {
-                            UserSemesterDTO userSemesterDTO = invocation.getArgument(1);
+                            CreateUserSemesterDTO userSemesterDTO = invocation.getArgument(1);
                             UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
                             return UserSemesterEntity.builder()
                                     .year(userSemesterDTO.getYear())
@@ -51,7 +62,8 @@ public class UserSemesterControllerTests {
                                     .build();
                         });
 
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(2024).period(1).build();
+        CreateUserSemesterDTO userSemesterDTO =
+                CreateUserSemesterDTO.builder().year(2024).period(1).build();
 
         mockMvc.perform(
                         post("/api/user/semester")
@@ -66,7 +78,8 @@ public class UserSemesterControllerTests {
     @Test
     public void createShouldValidateFields() throws Exception {
 
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(-1).period(-1).build();
+        CreateUserSemesterDTO userSemesterDTO =
+                CreateUserSemesterDTO.builder().year(-1).period(-1).build();
 
         mockMvc.perform(
                         post("/api/user/semester")
@@ -76,7 +89,7 @@ public class UserSemesterControllerTests {
                 .andExpect(jsonPath("$.fieldErrors.year").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.period").isNotEmpty());
 
-        userSemesterDTO = UserSemesterDTO.builder().build();
+        userSemesterDTO = CreateUserSemesterDTO.builder().build();
 
         mockMvc.perform(
                         post("/api/user/semester")
@@ -91,7 +104,8 @@ public class UserSemesterControllerTests {
     public void createShouldNotAllowDuplicates() throws Exception {
         when(userSemesterService.create(eq("123"), any()))
                 .thenThrow(new DuplicateKeyException("Semestre já cadastrado"));
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(2024).period(1).build();
+        CreateUserSemesterDTO userSemesterDTO =
+                CreateUserSemesterDTO.builder().year(2024).period(1).build();
         mockMvc.perform(
                         post("/api/user/semester")
                                 .with(jwt().jwt(jwt -> jwt.subject("123")))
@@ -144,7 +158,7 @@ public class UserSemesterControllerTests {
         when(userSemesterService.update(eq(1L), eq("123"), any()))
                 .thenAnswer(
                         (invocation) -> {
-                            UserSemesterDTO userSemesterDTO = invocation.getArgument(2);
+                            UpdateUserSemesterDTO userSemesterDTO = invocation.getArgument(2);
                             UserEntity user = UserEntity.builder().id(1L).googleId("123").build();
                             return UserSemesterEntity.builder()
                                     .year(userSemesterDTO.getYear())
@@ -153,7 +167,8 @@ public class UserSemesterControllerTests {
                                     .build();
                         });
 
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().period(1).year(2024).build();
+        UpdateUserSemesterDTO userSemesterDTO =
+                UpdateUserSemesterDTO.builder().period(1).year(2024).build();
 
         mockMvc.perform(
                         put("/api/user/semester/1")
@@ -172,7 +187,8 @@ public class UserSemesterControllerTests {
         when(userSemesterService.update(eq(2L), eq("123"), any()))
                 .thenThrow(new EntityNotFoundException("Semestre não encontrado"));
 
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().period(1).year(2024).build();
+        UpdateUserSemesterDTO userSemesterDTO =
+                UpdateUserSemesterDTO.builder().period(1).year(2024).build();
         mockMvc.perform(
                         put("/api/user/semester/1")
                                 .with(jwt().jwt(jwt -> jwt.subject("123")))
@@ -190,7 +206,8 @@ public class UserSemesterControllerTests {
 
     @Test
     public void updateShouldValidateFields() throws Exception {
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(-1).period(-1).build();
+        UpdateUserSemesterDTO userSemesterDTO =
+                UpdateUserSemesterDTO.builder().year(-1).period(-1).build();
 
         mockMvc.perform(
                         put("/api/user/semester/1")
@@ -200,7 +217,7 @@ public class UserSemesterControllerTests {
                 .andExpect(jsonPath("$.fieldErrors.year").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.period").isNotEmpty());
 
-        userSemesterDTO = UserSemesterDTO.builder().build();
+        userSemesterDTO = UpdateUserSemesterDTO.builder().build();
 
         mockMvc.perform(
                         put("/api/user/semester/1")
@@ -215,7 +232,8 @@ public class UserSemesterControllerTests {
     public void updateShouldNotAllowDuplicates() throws Exception {
         when(userSemesterService.update(eq(1L), eq("123"), any()))
                 .thenThrow(new DuplicateKeyException("Semestre já cadastrado"));
-        UserSemesterDTO userSemesterDTO = UserSemesterDTO.builder().year(2024).period(1).build();
+        UpdateUserSemesterDTO userSemesterDTO =
+                UpdateUserSemesterDTO.builder().year(2024).period(1).build();
         mockMvc.perform(
                         put("/api/user/semester/1")
                                 .with(jwt().jwt(jwt -> jwt.subject("123")))

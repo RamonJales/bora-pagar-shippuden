@@ -2,7 +2,8 @@ package com.borathings.borapagar.user_semester;
 
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserService;
-import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.CreateUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.UpdateUserSemesterDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class UserSemesterService {
      * @param userSemesterDTO - UserSemesterDTO - Dados do semestre do usuário
      * @return Semestre salvo
      */
-    public UserSemesterEntity create(String googleId, UserSemesterDTO userSemesterDTO) {
+    public UserSemesterEntity create(String googleId, CreateUserSemesterDTO userSemesterDTO) {
         UserEntity authenticatedUser = userService.findByGoogleIdOrError(googleId);
         UserSemesterEntity userSemesterEntity =
                 UserSemesterEntity.builder()
@@ -95,7 +96,7 @@ public class UserSemesterService {
      * @return Semestre atualizado
      */
     public UserSemesterEntity update(
-            Long semesterId, String userGoogleId, UserSemesterDTO userSemesterDTO)
+            Long semesterId, String userGoogleId, UpdateUserSemesterDTO userSemesterDTO)
             throws DuplicateKeyException {
         UserSemesterEntity userSemesterEntity =
                 findByIdAndValidatePermissions(userGoogleId, semesterId);

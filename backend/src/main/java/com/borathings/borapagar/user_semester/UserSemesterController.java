@@ -1,6 +1,8 @@
 package com.borathings.borapagar.user_semester;
 
-import com.borathings.borapagar.user_semester.dto.UserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.CreateUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.request.UpdateUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.response.DefaultUserSemesterDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +19,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequestMapping("/user/semester")
 public interface UserSemesterController {
     @PostMapping
-    public ResponseEntity<UserSemesterEntity> create(
-            @RequestBody @Valid UserSemesterDTO userSemesterDto);
+    public ResponseEntity<DefaultUserSemesterDTO> create(
+            @RequestBody @Valid CreateUserSemesterDTO userSemesterDto);
 
     @GetMapping
-    public ResponseEntity<List<UserSemesterEntity>> findByAuthenticatedUser();
+    public ResponseEntity<List<DefaultUserSemesterDTO>> findByAuthenticatedUser();
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserSemesterEntity> findById(@PathVariable Long id);
+    public ResponseEntity<DefaultUserSemesterDTO> findById(@PathVariable Long id);
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserSemesterEntity> update(
-            @PathVariable Long id, @RequestBody @Valid UserSemesterDTO userSemesterDto);
+    public ResponseEntity<DefaultUserSemesterDTO> update(
+            @PathVariable Long id, @RequestBody @Valid UpdateUserSemesterDTO userSemesterDto);
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id);
