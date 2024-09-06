@@ -5,7 +5,7 @@ import com.borathings.borapagar.subject.SubjectMapper;
 import com.borathings.borapagar.subject.SubjectService;
 import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
 import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
-import com.borathings.borapagar.subject.dto.response.DefaultSubjectDTO;
+import com.borathings.borapagar.subject.dto.response.SubjectResponseDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,32 +18,30 @@ public class SubjectControllerImpl implements SubjectController {
     @Autowired private SubjectService subjectService;
 
     @Override
-    public ResponseEntity<DefaultSubjectDTO> createSubject(CreateSubjectDTO subjectDto) {
-        DefaultSubjectDTO data =
-                subjectMapper.subjectToDefaultSubjectDTO(subjectService.create(subjectDto));
+    public ResponseEntity<SubjectResponseDTO> createSubject(CreateSubjectDTO subjectDto) {
+        SubjectResponseDTO data =
+                subjectMapper.toSubjectResponseDTO(subjectService.create(subjectDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(data);
     }
 
     @Override
-    public ResponseEntity<List<DefaultSubjectDTO>> getAllSubjects() {
-        List<DefaultSubjectDTO> data =
-                subjectService.findAll().stream()
-                        .map(subjectMapper::subjectToDefaultSubjectDTO)
-                        .toList();
+    public ResponseEntity<List<SubjectResponseDTO>> getAllSubjects() {
+        List<SubjectResponseDTO> data =
+                subjectService.findAll().stream().map(subjectMapper::toSubjectResponseDTO).toList();
         return ResponseEntity.ok(data);
     }
 
     @Override
-    public ResponseEntity<DefaultSubjectDTO> getSubjectById(Long id) {
-        DefaultSubjectDTO data =
-                subjectMapper.subjectToDefaultSubjectDTO(subjectService.findByIdOrError(id));
+    public ResponseEntity<SubjectResponseDTO> getSubjectById(Long id) {
+        SubjectResponseDTO data =
+                subjectMapper.toSubjectResponseDTO(subjectService.findByIdOrError(id));
         return ResponseEntity.ok(data);
     }
 
     @Override
-    public ResponseEntity<DefaultSubjectDTO> updateSubject(Long id, UpdateSubjectDTO subjectDto) {
-        DefaultSubjectDTO data =
-                subjectMapper.subjectToDefaultSubjectDTO(subjectService.update(id, subjectDto));
+    public ResponseEntity<SubjectResponseDTO> updateSubject(Long id, UpdateSubjectDTO subjectDto) {
+        SubjectResponseDTO data =
+                subjectMapper.toSubjectResponseDTO(subjectService.update(id, subjectDto));
         return ResponseEntity.ok(data);
     }
 

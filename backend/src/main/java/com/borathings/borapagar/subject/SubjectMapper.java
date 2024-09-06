@@ -1,6 +1,6 @@
 package com.borathings.borapagar.subject;
 
-import com.borathings.borapagar.subject.dto.response.DefaultSubjectDTO;
+import com.borathings.borapagar.subject.dto.response.SubjectResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -9,5 +9,5 @@ import org.mapstruct.MappingConstants;
 public interface SubjectMapper {
 
     @Mapping(target = "departmentName", source = "department.name")
-    public DefaultSubjectDTO subjectToDefaultSubjectDTO(SubjectEntity subject);
+    public SubjectResponseDTO toSubjectResponseDTO(SubjectEntity subject);
 }
