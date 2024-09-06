@@ -6,7 +6,7 @@ import com.borathings.borapagar.user_semester.UserSemesterMapper;
 import com.borathings.borapagar.user_semester.UserSemesterService;
 import com.borathings.borapagar.user_semester.dto.request.CreateUserSemesterDTO;
 import com.borathings.borapagar.user_semester.dto.request.UpdateUserSemesterDTO;
-import com.borathings.borapagar.user_semester.dto.response.DefaultUserSemesterDTO;
+import com.borathings.borapagar.user_semester.dto.response.UserSemesterResponseDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,41 +25,39 @@ public class UserSemesterControllerImpl implements UserSemesterController {
     }
 
     @Override
-    public ResponseEntity<DefaultUserSemesterDTO> create(CreateUserSemesterDTO userSemesterDto) {
+    public ResponseEntity<UserSemesterResponseDTO> create(CreateUserSemesterDTO userSemesterDto) {
         UserSemesterEntity userSemesterEntity =
                 userSemesterService.create(getAuthenticatedGoogleId(), userSemesterDto);
-        DefaultUserSemesterDTO userSemesterDtoResponse =
-                userSemesterMapper.userSemesterToDefaultUserSemesterDTO(userSemesterEntity);
+        UserSemesterResponseDTO userSemesterDtoResponse =
+                userSemesterMapper.toUserSemesterResponseDTO(userSemesterEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(userSemesterDtoResponse);
     }
 
     @Override
-    public ResponseEntity<List<DefaultUserSemesterDTO>> findByAuthenticatedUser() {
+    public ResponseEntity<List<UserSemesterResponseDTO>> findByAuthenticatedUser() {
         List<UserSemesterEntity> userSemesters =
                 userSemesterService.findByAuthenticatedUser(getAuthenticatedGoogleId());
-        List<DefaultUserSemesterDTO> userSemestersDto =
-                userSemesters.stream()
-                        .map(userSemesterMapper::userSemesterToDefaultUserSemesterDTO)
-                        .toList();
+        List<UserSemesterResponseDTO> userSemestersDto =
+                userSemesters.stream().map(userSemesterMapper::toUserSemesterResponseDTO).toList();
         return ResponseEntity.ok(userSemestersDto);
     }
 
     @Override
-    public ResponseEntity<DefaultUserSemesterDTO> findById(Long id) {
+    public ResponseEntity<UserSemesterResponseDTO> findById(Long id) {
         UserSemesterEntity userSemester =
                 userSemesterService.findByIdAndValidatePermissions(getAuthenticatedGoogleId(), id);
-        DefaultUserSemesterDTO userSemesterDtoResponse =
-                userSemesterMapper.userSemesterToDefaultUserSemesterDTO(userSemester);
+        UserSemesterResponseDTO userSemesterDtoResponse =
+                userSemesterMapper.toUserSemesterResponseDTO(userSemester);
         return ResponseEntity.ok(userSemesterDtoResponse);
     }
 
     @Override
-    public ResponseEntity<DefaultUserSemesterDTO> update(
+    public ResponseEntity<UserSemesterResponseDTO> update(
             Long id, @Valid UpdateUserSemesterDTO userSemesterDto) {
         UserSemesterEntity userSemesterEntity =
                 userSemesterService.update(id, getAuthenticatedGoogleId(), userSemesterDto);
-        DefaultUserSemesterDTO userSemesterDtoResponse =
-                userSemesterMapper.userSemesterToDefaultUserSemesterDTO(userSemesterEntity);
+        UserSemesterResponseDTO userSemesterDtoResponse =
+                userSemesterMapper.toUserSemesterResponseDTO(userSemesterEntity);
         return ResponseEntity.ok(userSemesterDtoResponse);
     }
 

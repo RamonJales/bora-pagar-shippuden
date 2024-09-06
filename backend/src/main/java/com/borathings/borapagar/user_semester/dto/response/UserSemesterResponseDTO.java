@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DefaultUserSemesterDTO {
+public class UserSemesterResponseDTO {
     private Long id;
     private Integer year;
     private Integer period;
