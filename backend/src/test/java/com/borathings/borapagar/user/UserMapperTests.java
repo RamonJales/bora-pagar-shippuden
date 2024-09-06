@@ -2,12 +2,14 @@ package com.borathings.borapagar.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.borathings.borapagar.user.dto.UserDTO;
+import com.borathings.borapagar.user.dto.response.UserResponseDTO;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class UserMapperTest {
+    @Autowired UserMapper userMapper;
 
     @Test
     void testToDTO() {
@@ -19,7 +21,7 @@ class UserMapperTest {
                         .imageUrl("cr7.jpeg")
                         .build();
 
-        UserDTO userDTO = UserMapper.toDTO(userEntity);
+        UserResponseDTO userDTO = userMapper.toUserResponseDTO(userEntity);
 
         assertEquals(userEntity.getId(), userDTO.id());
         assertEquals(userEntity.getEmail(), userDTO.email());
