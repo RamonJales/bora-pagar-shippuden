@@ -43,6 +43,9 @@ import SimboraChat from '@/components/chat/SimboraChat.vue'
         <div class="w-full flex flex-col md:flex-row items-start justify-between gap-6 mt-8">
           <div class="w-full md:w-3/5 flex flex-col gap-6">
             <PeriodCard />
+            <PeriodCard />
+            <PeriodCard />
+            <PeriodCard />
           </div>
 
           <aside class="w-full md:w-2/5 lg:w-1/3">
