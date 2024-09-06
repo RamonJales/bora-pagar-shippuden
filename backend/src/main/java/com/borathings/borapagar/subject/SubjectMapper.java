@@ -13,7 +13,9 @@ public interface SubjectMapper {
     @Mapping(target = "departmentName", source = "department.name")
     public SubjectResponseDTO toSubjectResponseDTO(SubjectEntity subject);
 
+    @Mapping(target = "department.id", source = "departmentId")
     public SubjectEntity toEntity(CreateSubjectDTO createSubjectDTODTO);
 
+    @Mapping(target = "department.id", source = "departmentId")
     public SubjectEntity toEntity(UpdateSubjectDTO updateSubjectDTO);
 }
