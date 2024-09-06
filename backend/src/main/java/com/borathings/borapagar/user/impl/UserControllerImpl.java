@@ -4,7 +4,7 @@ import com.borathings.borapagar.user.UserController;
 import com.borathings.borapagar.user.UserEntity;
 import com.borathings.borapagar.user.UserMapper;
 import com.borathings.borapagar.user.UserService;
-import com.borathings.borapagar.user.dto.response.DefaultUserDTO;
+import com.borathings.borapagar.user.dto.response.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,9 +18,9 @@ public class UserControllerImpl implements UserController {
     @Autowired UserService userService;
 
     @Override
-    public ResponseEntity<DefaultUserDTO> getCurrentUser(Authentication currentUser) {
+    public ResponseEntity<UserResponseDTO> getCurrentUser(Authentication currentUser) {
         String currentUserGoogleId = currentUser.getName();
         UserEntity loggedUser = userService.findByGoogleIdOrError(currentUserGoogleId);
-        return ResponseEntity.ok(userMapper.userToDefaultUserDTO(loggedUser));
+        return ResponseEntity.ok(userMapper.toUserResponseDTO(loggedUser));
     }
 }
