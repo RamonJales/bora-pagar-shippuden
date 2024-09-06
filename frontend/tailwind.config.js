@@ -22,7 +22,7 @@ export default {
           800: "#285EC8",
           900: "#1F3286"
         },
-        "bp_neutral": { 
+        "bp_neutral": {
           900: "#030303", // Main color
           50: "#F7F7F7",
           100: "#E6E6E6",

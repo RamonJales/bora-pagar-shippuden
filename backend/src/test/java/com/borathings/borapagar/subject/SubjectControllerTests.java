@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.borathings.borapagar.subject.dto.SubjectDTO;
-import com.borathings.borapagar.utils.AuthenticatedMockMvc;
+import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
+import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;
@@ -25,19 +25,27 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(SubjectController.class)
-@Import(AuthenticatedMockMvc.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureWebMvc
 public class SubjectControllerTests {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private SubjectService subjectService;
+
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        SubjectMapper subjectMapper() {
+            return new SubjectMapperImpl();
+        }
+    }
 
     private SubjectEntity subject;
 
@@ -107,11 +115,12 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(
+                                                new CreateSubjectDTO(
                                                         "Matemática elementar",
                                                         "IMD0001",
                                                         "math and stuff",
-                                                        Integer.valueOf(60)))))
+                                                        Integer.valueOf(60),
+                                                        1L))))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -133,7 +142,8 @@ public class SubjectControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.code").isNotEmpty())
-                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
+                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty())
+                .andExpect(jsonPath("$.fieldErrors.departmentId").isNotEmpty());
 
         this.mockMvc
                 .perform(
@@ -142,7 +152,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60))))
+                                                new CreateSubjectDTO(null, null, null, -60, null))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 
@@ -155,7 +165,8 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO("ME", "IMD0001", "syllabus", 100))))
+                                                new UpdateSubjectDTO(
+                                                        "ME", "IMD0001", "syllabus", 100, 1L))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(subject.getId()))
@@ -174,7 +185,8 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO("ME", "IMD0001", "program", 100))))
+                                                new UpdateSubjectDTO(
+                                                        "ME", "IMD0001", "program", 100, 1L))))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
@@ -191,7 +203,8 @@ public class SubjectControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.fieldErrors.name").isNotEmpty())
                 .andExpect(jsonPath("$.fieldErrors.code").isNotEmpty())
-                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
+                .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty())
+                .andExpect(jsonPath("$.fieldErrors.departmentId").isNotEmpty());
 
         this.mockMvc
                 .perform(
@@ -200,7 +213,7 @@ public class SubjectControllerTests {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
-                                                new SubjectDTO(null, null, null, -60))))
+                                                new UpdateSubjectDTO(null, null, null, -60, 1L))))
                 .andExpect(jsonPath("$.fieldErrors.hours").isNotEmpty());
     }
 

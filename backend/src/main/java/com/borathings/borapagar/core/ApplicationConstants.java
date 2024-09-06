@@ -7,4 +7,8 @@ public abstract class ApplicationConstants {
             "Validation error in postgresSQL!";
     public static final String QUERY_EXCEPTION_MESSAGE = "Query execution error!";
     public static final String NOT_FOUND_MESSAGE = "Object not found!";
+
+    public static final String TOGGLE_COMPLETED_TRUE_MESSAGE = "Disciplina marcada como concluída!";
+    public static final String TOGGLE_COMPLETED_FALSE_MESSAGE =
+            "Disciplina marcada como não concluída!";
 }

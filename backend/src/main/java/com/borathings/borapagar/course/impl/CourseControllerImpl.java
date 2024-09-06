@@ -20,7 +20,7 @@ public class CourseControllerImpl implements CourseController {
     public ResponseEntity<CourseEntity> createCourse(
             @Valid @RequestBody CourseDTO courseEntityDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(courseService.create(courseEntityDto.toEntity()));
+                .body(courseService.create(courseEntityDto));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CourseControllerImpl implements CourseController {
 
     @Override
     public ResponseEntity<CourseEntity> updateCourse(CourseDTO courseEntityDto, Long id) {
-        return ResponseEntity.ok(courseService.update(id, courseEntityDto.toEntity()));
+        return ResponseEntity.ok(courseService.update(id, courseEntityDto));
     }
 
     @Override
