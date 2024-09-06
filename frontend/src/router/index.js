@@ -29,7 +29,7 @@ const router = createRouter({
       component: FriendsScreen
     },
     {
-      path: '/perfil',
+      path: '/completar-perfil',
       name: 'completed-profile',
       component: CompletedProfileView
     }
