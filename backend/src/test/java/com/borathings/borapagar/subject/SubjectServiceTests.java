@@ -8,7 +8,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import com.borathings.borapagar.department.DepartmentEntity;
-import com.borathings.borapagar.subject.dto.SubjectDTO;
+import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
+import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,8 @@ public class SubjectServiceTests {
 
     @Test
     public void shouldCreateSubject() {
-        SubjectDTO subjectDto = SubjectDTO.fromEntity(subject);
+        CreateSubjectDTO subjectDto =
+                CreateSubjectDTO.builder().name("MATEMÁTICA ELEMENTAR").build();
         SubjectEntity createdSubject = subjectService.create(subjectDto);
         assertEquals(subject.getName(), createdSubject.getName());
     }
@@ -74,7 +76,8 @@ public class SubjectServiceTests {
     void shouldUpdateSubject() {
         SubjectEntity subjectCopy = subject;
         subjectCopy.setId(null);
-        SubjectDTO subjectDTO = SubjectDTO.fromEntity(subjectCopy);
+        UpdateSubjectDTO subjectDTO =
+                UpdateSubjectDTO.builder().name("MATEMÁTICA ELEMENTAR").build();
         SubjectEntity updatedSubject = subjectService.update(1L, subjectDTO);
 
         assertEquals(1L, updatedSubject.getId());
@@ -90,7 +93,8 @@ public class SubjectServiceTests {
     void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentSubject() {
         SubjectEntity subjectCopy = subject;
         subjectCopy.setId(null);
-        SubjectDTO subjectDTO = SubjectDTO.fromEntity(subjectCopy);
+        UpdateSubjectDTO subjectDTO =
+                UpdateSubjectDTO.builder().name("MATEMÁTICA ELEMENTAR").build();
         assertThrows(EntityNotFoundException.class, () -> subjectService.update(2L, subjectDTO));
     }
 }
