@@ -3,7 +3,7 @@ import { useDark, useToggle } from '@vueuse/core'
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
-console.log(isDark.value);
+console.log(isDark.value)
 </script>
 
 <template>
@@ -17,9 +17,10 @@ console.log(isDark.value);
       >
         <v-icon
           :name="isDark ? 'md-darkmode-outlined' : 'md-lightmode-outlined'"
-          class="mr-2 ml-2" scale="1.1"></v-icon>
+          class="mr-2 ml-2"
+          scale="1.1"
+        ></v-icon>
       </button>
-      
     </div>
   </main>
 </template>
