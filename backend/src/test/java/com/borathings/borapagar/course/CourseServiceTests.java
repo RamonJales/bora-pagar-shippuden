@@ -3,9 +3,11 @@ package com.borathings.borapagar.course;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import com.borathings.borapagar.course.dto.CourseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -33,14 +35,16 @@ public class CourseServiceTests {
         when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
         when(courseRepository.findById(2L))
                 .thenThrow(new EntityNotFoundException("Curso não encontrado"));
-        when(courseRepository.save(course)).thenReturn(course);
+        when(courseRepository.save(any())).thenAnswer((invocation) -> invocation.getArgument(0));
         doNothing().when(courseRepository).softDeleteById(1L);
     }
 
     @Test
     public void shouldCreateCourse() {
-        CourseEntity createdCourse = courseService.create(course);
-        assertEquals(course, createdCourse);
+        CourseDTO courseDto = CourseDTO.fromEntity(course);
+        CourseEntity createdCourse = courseService.create(courseDto);
+        assertEquals(course.getName(), createdCourse.getName());
+        assertEquals(course.getCoordinator(), createdCourse.getCoordinator());
     }
 
     @Test
@@ -65,7 +69,8 @@ public class CourseServiceTests {
     void shouldUpdateCourse() {
         CourseEntity courseCopy = course;
         courseCopy.setId(null);
-        CourseEntity updatedCourse = courseService.update(1L, courseCopy);
+        CourseDTO courseDto = CourseDTO.fromEntity(courseCopy);
+        CourseEntity updatedCourse = courseService.update(1L, courseDto);
 
         assertEquals(1L, updatedCourse.getId());
         assertEquals(courseCopy.getName(), updatedCourse.getName());
@@ -80,6 +85,7 @@ public class CourseServiceTests {
     void shouldThrowEntityNotFoundExceptionWhenUpdatingNonExistentCourse() {
         CourseEntity courseCopy = course;
         courseCopy.setId(null);
-        assertThrows(EntityNotFoundException.class, () -> courseService.update(2L, courseCopy));
+        CourseDTO courseDto = CourseDTO.fromEntity(courseCopy);
+        assertThrows(EntityNotFoundException.class, () -> courseService.update(2L, courseDto));
     }
 }

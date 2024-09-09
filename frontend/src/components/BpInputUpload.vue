@@ -31,31 +31,36 @@ const processStringFileStatus = (fileName) => {
 </script>
 
 <template>
-  <input
-    type="file"
-    ref="fileInput"
-    class="hidden"
-    :id="props.inputName"
-    :name="props.inputName"
-    @change="handleFileChange"
-  />
-  <label
-    :for="props.inputName"
-    class="inline-block py-4 pl-4 rounded-[5px] border border-bp_neutral-700 w-full text-base text-bp_neutral-700 relative cursor-text"
-    :class="{
-      [props.class]: true,
-      'transition-colors text-bp_primary-50': fileStatusText !== props.placeholder
-    }"
-  >
-    {{ fileStatusText }}
-    <v-icon v-if="fileStatusText !== props.placeholder" name="md-check" class="text-green-400" />
-    <button @click="triggerFileInput" class="bg-bp_neutral-800 h-full absolute top-0 right-0 w-12">
-      <v-icon
-        v-if="fileStatusText === props.placeholder"
-        name="md-download-outlined"
-        class="text-bp_primary-50"
-      />
-      <v-icon v-else name="md-close-outlined" class="text-bp_primary-50" />
-    </button>
-  </label>
+  <div>
+    <input
+      type="file"
+      ref="fileInput"
+      class="hidden"
+      :id="props.inputName"
+      :name="props.inputName"
+      @change="handleFileChange"
+    />
+    <label
+      :for="props.inputName"
+      class="inline-block py-4 pl-4 rounded-[5px] border border-bp_neutral-700 w-full text-base text-bp_neutral-700 relative cursor-text"
+      :class="{
+        [props.class]: true,
+        'transition-colors text-bp_primary-50': fileStatusText !== props.placeholder
+      }"
+    >
+      {{ fileStatusText }}
+      <v-icon v-if="fileStatusText !== props.placeholder" name="md-check" class="text-green-400" />
+      <button
+        @click="triggerFileInput"
+        class="bg-bp_neutral-800 h-full absolute top-0 right-0 w-12"
+      >
+        <v-icon
+          v-if="fileStatusText === props.placeholder"
+          name="md-download-outlined"
+          class="text-bp_primary-50"
+        />
+        <v-icon v-else name="md-close-outlined" class="text-bp_primary-50" />
+      </button>
+    </label>
+  </div>
 </template>

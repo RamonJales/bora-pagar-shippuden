@@ -2,6 +2,7 @@ package com.borathings.borapagar.department;
 
 import com.borathings.borapagar.core.SoftDeletableModel;
 import com.borathings.borapagar.subject.SubjectEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -25,5 +26,6 @@ public class DepartmentEntity extends SoftDeletableModel {
     @Column @NotNull private int code;
 
     @OneToMany(mappedBy = "department")
+    @JsonBackReference
     private Set<SubjectEntity> subjects;
 }

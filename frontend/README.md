@@ -12,6 +12,11 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
+create the .env file and put
+```sh 
+VITE_SIMBORA_API_URI="{simbora url}"
+```
+
 ```sh
 npm install
 ```

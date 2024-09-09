@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,6 +57,43 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
         ApiException apiException = new ApiException(HttpStatus.NOT_FOUND, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    /**
+     * Handle genérico para exceções menos comuns mas que ainda é necessário um pouco de
+     * customização na serialização.
+     *
+     * @param ex - ApiException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Object> handleApiException(ApiException ex) {
+        return buildResponseEntityFromException(ex);
+    }
+
+    /**
+     * Trata exceções lançadas pela aplicação quando o usuário não tem permissão para acessar uma
+     * entidade.
+     *
+     * @param ex - AccessDeniedException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
+        ApiException apiException = new ApiException(HttpStatus.FORBIDDEN, ex);
+        return buildResponseEntityFromException(apiException);
+    }
+
+    /**
+     * Trata exceções lançadas pela aplicação quando há dados duplicados que deveriam ser únicos.
+     *
+     * @param ex - DuplicateKeyException - Exceção lançada
+     * @return ResponseEntity<Object> - Exceção serializada
+     */
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<Object> handleDuplicateKeyException(DuplicateKeyException ex) {
+        ApiException apiException = new ApiException(HttpStatus.CONFLICT, ex);
         return buildResponseEntityFromException(apiException);
     }
 
