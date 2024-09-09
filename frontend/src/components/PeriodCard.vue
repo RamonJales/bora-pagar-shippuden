@@ -13,8 +13,8 @@ function toggleExpansion() {
 <template>
   <article class="w-full">
     <div
-      class="rounded-t-md bg-bp_neutral-800 cursor-pointer flex items-center justify-between p-6 border-bp_neutral-600"
-      :class="{ 'border-b': isExpanded }"
+      class="rounded-t-md rounded-b-md bg-bp_neutral-800 cursor-pointer flex items-center justify-between p-6 border-bp_neutral-600"
+      :class="{ 'border-b rounded-b-none': isExpanded }"
       @click="toggleExpansion"
     >
       <h3 class="font-bold text-2xl">1º</h3>
