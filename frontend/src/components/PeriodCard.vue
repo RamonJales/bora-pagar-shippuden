@@ -11,10 +11,10 @@ function toggleExpansion() {
 </script>
 
 <template>
-  <article class="w-full bg-bp_neutral-800 rounded-md">
+  <article class="w-full">
     <div
-      class="cursor-pointer flex items-center justify-between p-6 border-bp_neutral-600"
-      :class="{ 'border-b': isExpanded }"
+      class="rounded-t-md rounded-b-md bg-bp_neutral-800 cursor-pointer flex items-center justify-between p-6 border-bp_neutral-600"
+      :class="{ 'border-b rounded-b-none': isExpanded }"
       @click="toggleExpansion"
     >
       <h3 class="font-bold text-2xl">1º</h3>
@@ -32,12 +32,15 @@ function toggleExpansion() {
       </div>
     </div>
 
-    <div class="flex flex-col gap-4 p-4" v-show="isExpanded">
-      <BpButton type="outlined" size="small" class="max-w-max self-end">
+    <div
+      class="rounded-b-md bg-bp_neutral-800 flex flex-col gap-4 h-min overflow-hidden transition-[max-height] duration-200 ease-in-out"
+      :class="{ 'max-h-0': !isExpanded, 'max-h-[40rem]': isExpanded }"
+    >
+      <BpButton type="outlined" size="small" class="m-4 max-w-max self-end">
         <v-icon name="md-add" scale="1.25" />
         Adicionar matéria
       </BpButton>
-      <ul class="flex flex-col gap-4 mt-2">
+      <ul class="flex flex-col gap-4 mt-2 m-4">
         <li
           class="flex items-center justify-between gap-4 border border-bp_neutral-500 rounded-md px-4 py-2"
         >
