@@ -17,11 +17,11 @@ const props = defineProps({
   <span
     class="text-center font-semibold rounded-3xl text-xs cursor-default"
     :class="{
-      'bg-bp_primary-400 bg-opacity-20 border border-bp_primary-300 text-bp_primary-400':
+      'bg-bp_primary-400 bg-opacity-20 border border-bp_primary-300 text-bp_primary-400 m-[0.6px] hover:m-0 hover:border-2':
         props.type === 'primary',
       'bg-bp_neutral-700 text-white leading-[15px]': props.type === 'secondary',
-      'p-2 hover-border-2': props.size === 'large',
-      'py-[2px] px-[7px] hover-border-1': props.size === 'small'
+      'p-2': props.size === 'large',
+      'py-[2px] px-[7px] hover:border': props.size === 'small'
     }"
   >
     <slot />

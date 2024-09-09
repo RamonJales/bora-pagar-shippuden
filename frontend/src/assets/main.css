@@ -8,7 +8,7 @@
 
 @layer components {
   .menu-item {
-    @apply flex items-center gap-4 hover:border-b border-bp_neutral-600;
+    @apply flex items-center gap-4 relative;
   }
 
   .card-options {
@@ -23,11 +23,18 @@
     @apply text-2xl md:text-3xl font-bold;
   }
 
-  .hover-border-2:hover {
-    @apply border-[2px];
+  .menu-item::after {
+    content: "";
+    width: 0%;
+    height: 2px;
+    background-color: #F7F7F7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: .3s ease-in-out;
   }
-
-  .hover-border-1:hover {
-    @apply border-[1px];
+  
+  .menu-item:hover:after {
+    width: 100%;
   }
 }
