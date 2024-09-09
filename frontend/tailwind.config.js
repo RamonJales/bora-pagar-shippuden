@@ -6,7 +6,7 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
     "./node_modules/vue-tailwind-datepicker/**/*.js",
   ],
-  darkMode:'class',
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
