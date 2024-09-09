@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ConsultSubjectsView from '@/views/ConsultSubjectsView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import CompletedProfileView from '@/views/CompletedProfileView.vue'
 import FriendsView from '@/views/FriendsView.vue'
 
 const router = createRouter({
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/amigos',
       name: 'friends',
       component: FriendsView
+    },
+    {
+      path: '/completar-perfil',
+      name: 'completed-profile',
+      component: CompletedProfileView
     }
   ]
 })
