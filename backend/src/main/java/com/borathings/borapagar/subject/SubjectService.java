@@ -76,7 +76,7 @@ public class SubjectService {
     }
 
     public ResponseEntity<List<SubjectEntity>> findByNameContainingIgnoreCase(String name){
-        return subjectRepository.findByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(subjectRepository.findByNameContainingIgnoreCase(name));
     }
 
 }

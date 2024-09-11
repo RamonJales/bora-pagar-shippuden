@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface SubjectRepository extends SoftDeletableRepository<SubjectEntity> {
-    ResponseEntity<List<SubjectEntity>> findByNameContainingIgnoreCase(String name);
+    List<SubjectEntity> findByNameContainingIgnoreCase(String name);
 }
