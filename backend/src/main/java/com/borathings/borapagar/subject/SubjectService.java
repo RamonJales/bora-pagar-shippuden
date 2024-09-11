@@ -5,6 +5,7 @@ import com.borathings.borapagar.subject.dto.request.UpdateSubjectDTO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -73,4 +74,9 @@ public class SubjectService {
     public void delete(Long id) {
         subjectRepository.softDeleteById(id);
     }
+
+    public ResponseEntity<List<SubjectEntity>> findByNameContainingIgnoreCase(String name){
+        return subjectRepository.findByNameContainingIgnoreCase(name);
+    }
+
 }
