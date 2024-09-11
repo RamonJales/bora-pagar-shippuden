@@ -55,10 +55,10 @@ public class AuthConfig {
         http.authorizeHttpRequests(
                         authorize ->
                                 authorize
+                                        .requestMatchers("/api/v3/api-docs/**")
+                                        .permitAll()
                                         .requestMatchers("/api/**")
                                         .authenticated()
-                                        .requestMatchers("/api/v3/api-docs")
-                                        .permitAll()
                                         .anyRequest()
                                         .permitAll())
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(withDefaults()))
