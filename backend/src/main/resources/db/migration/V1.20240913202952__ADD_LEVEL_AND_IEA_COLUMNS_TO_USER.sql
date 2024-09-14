@@ -1,0 +1,2 @@
+ALTER TABLE users ADD COLUMN iea FLOAT;
+ALTER TABLE users ADD COLUMN current_period INTEGER;
