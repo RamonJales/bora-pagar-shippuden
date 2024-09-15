@@ -30,6 +30,8 @@ public class UserEntity extends SoftDeletableModel {
     @Column @NotNull @NaturalId private String googleId;
     @Column private String imageUrl;
     @Column @NotNull private boolean profileComplete;
+    @Column private Integer current_period;
+    @Column private Float iea;
 
     @ManyToMany
     @JoinTable(
