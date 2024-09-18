@@ -2,6 +2,11 @@
 import BpButton from '@/components/BpButton.vue';
 import CardComponent from '@/components/CardComponent.vue';
 import SimboraImg from '@/components/SimboraImg.vue';
+import { addIcons } from 'oh-vue-icons';
+import { FaInstagram , FaDiscord } from 'oh-vue-icons/icons/fa';
+
+// Adicionando os ícones do Font Awesome localmente
+addIcons(FaInstagram, FaDiscord );
 </script>
 
 
@@ -85,7 +90,18 @@ import SimboraImg from '@/components/SimboraImg.vue';
               <CardComponent function="Front-End Developer" name="Naty"/>
             </div>
       </div>
-    
+      <div>
+        <p class="text-4xl">Back-End & IA.</p>
+        <div class="grid grid-cols-2 lg:grid-cols-6">
+            <CardComponent function="Front-End Developer" name="Naty"/>
+        </div>
+      </div>
+      <div>
+        <p class="text-4xl">BI & Raspagem.</p>
+        <div class="grid grid-cols-2 lg:grid-cols-6">
+            <CardComponent function="Front-End Developer" name="Naty"/>
+        </div>
+      </div>
   </div>
     </main>
 
@@ -94,26 +110,26 @@ import SimboraImg from '@/components/SimboraImg.vue';
         <div class="flex place-items-start justify-between px-4 md:px-16 lg:px-40 py-10">
             <div class="flex place-items-center space-x-4">
                 <SimboraImg/>
-                <p class="font-bold">BoraPagar</p>
+                <p class="font-bold text-2xl">BoraPagar</p>
             </div>
            <div class="flex justify-end space-x-16 w-4/6">
-            <div class="">
-                <p class="font-bold">Contato</p>
+            <div class="space-y-3">
+                <p class="font-bold text-2xl">Contato</p>
                 <p class="text-bp_neutral-400 text-sm">+55 21 9999-9999</p>
                 <p class="text-bp_neutral-400 text-sm">contato@borapagar.com</p>
-                <div class="flex">
-                    <v-icon name="" scale="1.5"/>
-                    <v-icon name="" scale="1.5"/>   
+                <div class="flex space-x-2">
+                    <button><v-icon name="fa-instagram" scale="1.5"/></button>
+                    <button><v-icon name="fa-discord" scale="1.5"/> </button>
                 </div>
                
                </div>
-               <div class="space-y-2">
-                <p class="font-bold">Newsletter</p>
+               <div class="space-y-3">
+                <p class="font-bold text-2xl">Newsletter</p>
                 <p class="text-bp_neutral-400 text-sm">Cadastro seu e-mail para receber nossas novidades.</p>
-                <div class="flex text-bp_neutral-400 border-b-2 border-bp_neutral-400 space-x-2 py-2">
-                    <v-icon name="md-email-outlined" scale="0.9"/>
-                    <input class="bg-bp_neutral-800 placeholder:text-bp_neutral-400 placeholder:text-sm" placeholder="Seu email aqui" type="text">
-                </div>
+                <div class="relative flex items-center">
+                    <v-icon name="md-email-outlined" scale="1.0" class="absolute text-bp_neutral-400" />
+                    <input class="w-full bg-bp_neutral-800 border-b-2 border-bp_neutral-400 py-2 text-bp_neutral-50  placeholder:text-bp_neutral-400 text-sm indent-8" type="text" placeholder="Seu email aqui">
+                  </div>
                 <BpButton class="w-40" type="primary" size="small">Enviar</BpButton>
             </div>
            </div>
