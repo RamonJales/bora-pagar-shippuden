@@ -1,6 +1,7 @@
 package com.borathings.borapagar.subject.impl;
 
 import com.borathings.borapagar.subject.SubjectController;
+import com.borathings.borapagar.subject.SubjectEntity;
 import com.borathings.borapagar.subject.SubjectMapper;
 import com.borathings.borapagar.subject.SubjectService;
 import com.borathings.borapagar.subject.dto.request.CreateSubjectDTO;
@@ -10,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -49,5 +51,12 @@ public class SubjectControllerImpl implements SubjectController {
     public ResponseEntity<String> deleteSubject(Long id) {
         subjectService.delete(id);
         return ResponseEntity.ok("Disciplina excluída com sucesso");
+    }
+
+    @Override
+    public ResponseEntity<List<SubjectEntity>> search(@RequestParam(required = false) String name){
+        ResponseEntity<List<SubjectEntity>> entity =
+                subjectService.findByNameContainingIgnoreCase(name);
+        return entity;
     }
 }
